@@ -1,35 +1,30 @@
-import { createSignal } from 'solid-js'
-import solidLogo from './assets/solid.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createSignal, Show } from "solid-js";
+import Docs from "./components/docs/Docs";
+import Home from "./components/Home";
+import Navigation from "./components/Navigation";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = createSignal(0)
+  const [currentPage, setCurrentPage] = createSignal("home");
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://solidjs.com" target="_blank">
-          <img src={solidLogo} class="logo solid" alt="Solid logo" />
-        </a>
-      </div>
-      <h1>Vite + Solid</h1>
-      <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count()}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p class="read-the-docs">
-        Click on the Vite and Solid logos to learn more
-      </p>
-    </>
-  )
+    <div class="app-container">
+      <header class="header">
+        <Navigation activePage={currentPage()} onNavigate={setCurrentPage} />
+      </header>
+      <main>
+        <Show when={currentPage() === "home"}>
+          <Home />
+        </Show>
+
+        <Show when={currentPage() === "docs"}>
+          <Docs />
+        </Show>
+
+        {/* Add more sections here */}
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
