@@ -1,0 +1,145 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 500px;
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.header {
+  background-color: #242424;
+  padding: 15px;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.openCaseBtn:hover {
+  background-color: #357abd;
+}
+
+.openCaseBtn.opening {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.resultDisplay {
+  margin-top: 20px;
+  height: 300px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.openingAnimation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chevronDown {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 50px solid white;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.openingAnimation p {
+  color: #999;
+  margin-top: 15px;
+}
+
+.obtainedItem {
+  text-align: center;
+}
+
+.itemCard {
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.itemCard img {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.obtainedItem h2 {
+  margin: 10px 0 5px;
+  font-size: 20px;
+}
+
+.obtainedItem p {
+  color: #999;
+}
+
+/* Border Colors */
+.borderBlue {
+  border-color: #4b69ff;
+}
+.borderPurple {
+  border-color: #8847ff;
+}
+.borderRed {
+  border-color: #eb4b4b;
+}
+.borderYellow {
+  border-color: #ffd700;
+}
+.borderOrange {
+  border-color: #ff4500;
+}
+
+.initialState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.giftIcon {
+  width: 64px;
+  height: 64px;
+  background-color: #555;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 12v10H4V12'/%3E%3Crect x='2' y='7' width='20' height='5'/%3E%3Cline x1='12' y1='22' x2='12' y2='7'/%3E%3Cpath d='M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z'/%3E%3Cpath d='M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z'/%3E%3C/svg%3E");
+  mask-size: cover;
+  margin-bottom: 15px;
+}
+
+.initialState p {
+  color: #777;
+}

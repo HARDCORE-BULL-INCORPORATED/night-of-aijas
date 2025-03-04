@@ -31,7 +31,17 @@ const Navigation: Component<NavigationProps> = (props) => {
             <h2>Docs</h2>
           </a>
         </li>
-        {/* Add more navigation items here */}
+        <li class={props.activePage === "tactics" ? "active" : ""}>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              props.onNavigate("tactics");
+            }}
+          >
+            <h2>Tactics</h2>
+          </a>
+        </li>
       </ul>
       <hr class="cs-hr"> </hr>
     </nav>

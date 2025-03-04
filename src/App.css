@@ -12,14 +12,12 @@
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100vh;
+  margin-top: 2rem;
+  text-align: center;
 }
 
 .nav-container {
-  margin-bottom: 2rem;
+  margin-bottom: 0rem;
 }
 
 .nav-container ul {
@@ -39,6 +37,7 @@
 }
 
 .home-container {
+  margin-top: 1rem;
   text-align: center;
 }
 
@@ -54,7 +53,8 @@
 .header {
   position: sticky;
   top: 0;
-  padding: 1rem 0;
+  padding: 0rem 0;
   z-index: 100;
   width: 100%;
+  background-color: #4a5942;
 }

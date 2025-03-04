@@ -1,4 +1,4 @@
-import { Component, createSignal } from "solid-js";
+import { Component, createEffect } from "solid-js";
 
 interface VideoExampleProps {
   title: string;
@@ -9,10 +9,56 @@ interface VideoExampleProps {
   }[];
   poster?: string;
   maxDuration?: number;
+  startTime?: number;
+  endTime?: number;
 }
 
 const VideoExample: Component<VideoExampleProps> = (props) => {
-  const [isPlaying, setIsPlaying] = createSignal(false);
+  let videoRef: HTMLVideoElement | undefined;
+
+  // Effect to handle start and end times
+  createEffect(() => {
+    if (!videoRef) return;
+
+    const handleTimeUpdate = () => {
+      if (!videoRef) return;
+
+      // Check start time
+      if (
+        props.startTime !== undefined &&
+        videoRef.currentTime < props.startTime
+      ) {
+        videoRef.currentTime = props.startTime;
+      }
+
+      // Check end time
+      if (
+        props.endTime !== undefined &&
+        videoRef.currentTime >= props.endTime
+      ) {
+        videoRef.pause();
+        videoRef.currentTime = props.startTime || 0;
+      }
+    };
+
+    // Add event listener
+    videoRef.addEventListener("timeupdate", handleTimeUpdate);
+
+    // Cleanup
+    return () => {
+      videoRef?.removeEventListener("timeupdate", handleTimeUpdate);
+    };
+  });
+
+  // Set initial time when video is ready
+  const handleLoadedMetadata = () => {
+    if (!videoRef) return;
+
+    // Set to start time if provided
+    if (props.startTime !== undefined) {
+      videoRef.currentTime = props.startTime;
+    }
+  };
 
   return (
     <div>
@@ -23,11 +69,11 @@ const VideoExample: Component<VideoExampleProps> = (props) => {
         </div>
       )}
       <video
+        ref={videoRef}
         controls
         preload="metadata"
         poster={props.poster}
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
+        onLoadedMetadata={handleLoadedMetadata}
         width={"854"}
         height={"480"}
       >
