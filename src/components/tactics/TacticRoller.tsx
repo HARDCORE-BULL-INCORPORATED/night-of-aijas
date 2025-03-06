@@ -19,11 +19,37 @@ const TacticRoller: Component = () => {
   let rouletteContainerRef: HTMLDivElement | undefined;
   let tacticsRef: HTMLDivElement | undefined;
 
+  const initializeRoulette = () => {
+    if (!rouletteContainerRef || !tacticsRef) return;
+
+    try {
+      // Create a dummy roulette just to get a filled roulette
+      const initialRoulette = new TacticRoulette({
+        winner: tacticPool[0], // Just use the first item as a placeholder
+        tactics: tacticPool,
+        rouletteContainerRef: rouletteContainerRef,
+        tacticsRef: tacticsRef,
+        tacticsCount: 100,
+        transitionDuration: 5,
+        itemWidth: 200,
+      });
+
+      initialRoulette.set_tactics();
+      setRouletteTactics(initialRoulette.tactics);
+    } catch (error) {
+      console.error("Error initializing roulette:", error);
+    }
+  };
+
   onMount(() => {
     const savedInventory = localStorage.getItem("tacticInventory");
     if (savedInventory) {
       setInventory(JSON.parse(savedInventory));
     }
+
+    // Initialize the roulette with items after a short delay
+    // to ensure the refs are properly set
+    setTimeout(initializeRoulette, 100);
   });
 
   const saveInventory = () => {
@@ -70,7 +96,6 @@ const TacticRoller: Component = () => {
       setIsOpening(false);
     }
   };
-
   const getWeightedRandomTactic = (items: TacticItem[]): TacticItem => {
     // Calculate total weight
     const totalWeight = items.reduce(
