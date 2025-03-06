@@ -1,9 +1,9 @@
-import { Component, createSignal, For, onMount } from "solid-js";
-import styles from "./TacticRoulette.module.css";
-import { TacticItem, tacticPool, getItemBorderClass } from "./tacticsTypes";
+import { Component, createSignal, onMount } from "solid-js";
+import { TacticItem, tacticPool } from "./tacticsTypes";
 import { TacticRoulette } from "./roulette.classes";
-import RouletteItem from "./RouletteItem";
 import tacticStyles from "./TacticRoller.module.css";
+import RollerSection from "./RollerSection";
+import DetailsSection from "./DetailsSection";
 
 const TacticRoller: Component = () => {
   const [isOpening, setIsOpening] = createSignal(false);
@@ -132,121 +132,23 @@ const TacticRoller: Component = () => {
         </div>
 
         <div class={tacticStyles.mainContent}>
-          {/* Left section with roulette */}
-          <div class={tacticStyles.rollerSection}>
-            {/* Roulette UI */}
-            <div class={styles.rouletteWrapper}>
-              <button
-                onClick={openCase}
-                disabled={isOpening()}
-                class="cs-btn"
-                style={{
-                  width: "auto",
-                  "align-self": "center",
-                  "margin-top": "10px",
-                }}
-              >
-                {isOpening() ? "Rolling Tactic..." : "Roll Tactic"}
-              </button>
+          <RollerSection
+            isOpening={isOpening()}
+            onOpenCase={openCase}
+            obtainedItem={selectedTactic()}
+            inventory={inventory()}
+            selectedTactic={selectedTactic()}
+            onClearInventory={clearInventory}
+            onSelectTactic={selectTactic}
+            rouletteContainerRef={(el) => (rouletteContainerRef = el)}
+            tacticsRef={(el) => (tacticsRef = el)}
+            handleTransitionEnd={handleTransitionEnd}
+            rouletteTactics={rouletteTactics()}
+            prizeTacticId={prizeTacticId()}
+            isSpinEnded={isSpinEnded()}
+          />
 
-              <div
-                ref={rouletteContainerRef}
-                style={{ overflow: "hidden", width: "100%" }}
-              >
-                <div class={styles.roulette}>
-                  <div class={styles.target}></div>
-                  <div
-                    ref={tacticsRef}
-                    class={styles.tactics}
-                    onTransitionEnd={handleTransitionEnd}
-                  >
-                    <For each={rouletteTactics()}>
-                      {(tactic, i) => (
-                        <RouletteItem
-                          tactic={tactic}
-                          isLoser={
-                            i() !== prizeTacticId() &&
-                            !isOpening() &&
-                            isSpinEnded()
-                          }
-                        />
-                      )}
-                    </For>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Inventory section */}
-            <div class={tacticStyles.inventory}>
-              <div class={tacticStyles.inventoryHeader}>
-                <h2>Previous Tactics</h2>
-                {inventory().length > 0 && (
-                  <button
-                    onClick={clearInventory}
-                    class="cs-btn cs-btn-danger cs-btn-sm"
-                  >
-                    Clear All
-                  </button>
-                )}
-              </div>
-
-              {inventory().length === 0 ? (
-                <p class={tacticStyles.emptyInventory}>
-                  Your inventory is empty. Roll some tactics!
-                </p>
-              ) : (
-                <div class={tacticStyles.inventoryGrid}>
-                  <For each={inventory()}>
-                    {(item) => (
-                      <div
-                        class={`${tacticStyles.inventoryItem} ${
-                          selectedTactic() === item ? tacticStyles.selected : ""
-                        }`}
-                        onClick={() => selectTactic(item)}
-                      >
-                        <div
-                          class={`${
-                            tacticStyles.inventoryCard
-                          } ${getItemBorderClass(item.color)}`}
-                        >
-                          <img src={item.image} alt={item.name} />
-                        </div>
-                        <p class={tacticStyles.inventoryItemName}>
-                          {item.name}
-                        </p>
-                      </div>
-                    )}
-                  </For>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Right section with details */}
-          <div class={tacticStyles.detailsSection}>
-            {selectedTactic() ? (
-              <div class={tacticStyles.detailsContent}>
-                <img
-                  src={selectedTactic()!.image}
-                  alt={selectedTactic()!.name}
-                  class={tacticStyles.detailsImage}
-                  width="150px"
-                  height="150px"
-                />
-                <div class={tacticStyles.detailsInfo}>
-                  <h2>{selectedTactic()!.name}</h2>
-                  <p>
-                    <strong>Rarity:</strong> {selectedTactic()!.rarity}
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div class={tacticStyles.noSelection}>
-                <p>Select a tactic to view details</p>
-              </div>
-            )}
-          </div>
+          <DetailsSection selectedTactic={selectedTactic()} />
         </div>
       </div>
     </div>

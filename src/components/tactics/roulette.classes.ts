@@ -108,13 +108,20 @@ export class TacticRoulette {
       return -1;
     }
 
+    // First reset position to start
+    tacticWrapper.style.transition = "none";
+    tacticWrapper.style.left = "0px";
+
+    // Force a reflow to ensure the reset is applied immediately
+    void tacticWrapper.offsetWidth;
+
     // Calculate the center of the roulette container
     const rouletteContainer = this.rouletteWrapperRef as unknown as HTMLElement;
     const rouletteWidth =
       rouletteContainer?.getBoundingClientRect().width || 800;
     const centerPosition = rouletteWidth / 2;
 
-    // Calculate where the prize item currently sits in the list
+    // Calculate where the prize item should end up
     const prizeItemPosition = this.tacticPrizeId * this.itemWidth;
 
     // Calculate the distance we need to scroll to center the prize item
@@ -133,7 +140,7 @@ export class TacticRoulette {
     // Slight delayed start
     setTimeout(() => {
       tacticWrapper.style.left = `-${finalScrollPosition}px`;
-    }, 100);
+    }, 50);
 
     return this.tacticPrizeId;
   };

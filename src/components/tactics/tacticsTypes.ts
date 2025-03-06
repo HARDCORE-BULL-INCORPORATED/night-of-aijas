@@ -15,35 +15,35 @@ export const tacticPool: TacticItem[] = [
     rarity: "Mil-Spec",
     color: "blue",
     image: "/tactics/trollface.png",
-    chance: 40, // Common item - highest chance
+    chance: 40,
   },
   {
     name: "PEPE",
     rarity: "Restricted",
     color: "purple",
     image: "/tactics/bruhpepe.jpg",
-    chance: 20, // Rare item
+    chance: 20,
   },
   {
     name: "BIG BIG CHUNGUS",
     rarity: "Classified",
     color: "pink",
     image: "/tactics/bigchungus.png",
-    chance: 10, // Very rare item
+    chance: 90,
   },
   {
     name: "YKÄSONNI",
     rarity: "Covert",
     color: "red",
     image: "/ykäsonni.jpg",
-    chance: 5, // Uncommon item
+    chance: 5,
   },
   {
     name: "PAASO",
     rarity: "Extraordinary",
     color: "yellow",
     image: "/tactics/vanha-käppänä.png",
-    chance: 1, // Extremely rare item
+    chance: 1,
   },
 ];
 
