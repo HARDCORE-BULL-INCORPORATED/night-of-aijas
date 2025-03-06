@@ -9,7 +9,6 @@
   margin: 0 auto;
   width: 100%; /* Changed from fixed 1000px to 100% */
   max-width: 800px; /* Add a max-width to prevent it from getting too large */
-  font-family: sans-serif;
   height: 200px;
   overflow: hidden;
   position: relative;

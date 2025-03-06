@@ -21,6 +21,11 @@ const DetailsSection: Component<{
             <p>
               <strong>Rarity:</strong> {props.selectedTactic.rarity}
             </p>
+            {props.selectedTactic.description && (
+              <h5 style={{ "font-size": "0.9em" }}>
+                {props.selectedTactic.description}
+              </h5>
+            )}
           </div>
         </div>
       ) : (

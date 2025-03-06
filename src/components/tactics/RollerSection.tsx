@@ -31,6 +31,7 @@ const RollerSection: Component<{
             width: "auto",
             "align-self": "center",
             "margin-top": "10px",
+            "margin-bottom": "10px",
           }}
         >
           {props.isOpening ? "Rolling Tactic..." : "Roll Tactic"}

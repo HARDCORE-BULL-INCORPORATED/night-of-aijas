@@ -7,6 +7,7 @@ export interface TacticItem {
   color: "blue" | "purple" | "red" | "yellow" | "pink";
   image: string;
   chance?: number; // Higher number = higher probability
+  description?: string;
 }
 
 export const tacticPool: TacticItem[] = [
@@ -16,6 +17,8 @@ export const tacticPool: TacticItem[] = [
     color: "blue",
     image: "/tactics/trollface.png",
     chance: 40,
+    description:
+      "The classic troll strategy. Confuse your enemies with unpredictable moves.",
   },
   {
     name: "PEPE",
@@ -23,13 +26,16 @@ export const tacticPool: TacticItem[] = [
     color: "purple",
     image: "/tactics/bruhpepe.jpg",
     chance: 20,
+    description: "Bruh... just sit and wait. Patience is key.",
   },
   {
     name: "BIG BIG CHUNGUS",
     rarity: "Classified",
     color: "pink",
     image: "/tactics/bigchungus.png",
-    chance: 90,
+    chance: 10,
+    description:
+      "Become the absolute unit. Take up space and intimidate opponents.",
   },
   {
     name: "YKÄSONNI",
@@ -37,6 +43,8 @@ export const tacticPool: TacticItem[] = [
     color: "red",
     image: "/ykäsonni.jpg",
     chance: 5,
+    description:
+      "The legendary bull tactic. Charge straight at your enemies with no fear.",
   },
   {
     name: "PAASO",
@@ -44,6 +52,8 @@ export const tacticPool: TacticItem[] = [
     color: "yellow",
     image: "/tactics/vanha-käppänä.png",
     chance: 1,
+    description:
+      "Ancient wisdom. Move slowly but strike with precision and experience.",
   },
 ];
 
