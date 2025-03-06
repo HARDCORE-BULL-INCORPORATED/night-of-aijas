@@ -74,8 +74,9 @@ const VideoExample: Component<VideoExampleProps> = (props) => {
         preload="metadata"
         poster={props.poster}
         onLoadedMetadata={handleLoadedMetadata}
-        width={"854"}
-        height={"480"}
+        width="100%"
+        height="auto"
+        style="max-width: 854px; max-height: 480px;"
       >
         {props.sources.map((source) => (
           <source src={source.src} type={source.type} />
