@@ -3,8 +3,28 @@ import { supabase } from "../../utils/supabase";
 import styles from "./BotStats.module.css";
 
 async function getSongs() {
-  const { data } = await supabase.from("songs").select();
-  return data?.sort((a, b) => b.amount - a.amount) || [];
+  //@ts-ignore
+
+  let allData = [];
+  let page = 0;
+  const pageSize = 1000;
+
+  while (true) {
+    const { data, error } = await supabase
+      .from("songs")
+      .select()
+      .range(page * pageSize, (page + 1) * pageSize - 1);
+
+    if (error) throw error;
+    if (!data || data.length === 0) break;
+
+    //@ts-ignore
+    allData = [...allData, ...data];
+    if (data.length < pageSize) break;
+    page++;
+  }
+  //@ts-ignore
+  return allData.sort((a, b) => b.amount - a.amount);
 }
 
 function BotStats() {
