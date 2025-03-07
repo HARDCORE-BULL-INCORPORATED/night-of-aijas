@@ -1,4 +1,4 @@
-import type { Component, JSX } from "solid-js";
+import { Show, type Component, type JSX } from "solid-js";
 import styles from "./Modal.module.css";
 
 interface ModalProps {
@@ -18,7 +18,11 @@ const Modal: Component<ModalProps> = (props) => {
     <Show when={props.isOpen}>
       <div class={styles.modalBackdrop} onClick={handleBackdropClick}>
         <div class={styles.modalContent}>
-          <button class={styles.closeButton} onClick={props.onClose}>
+          <button
+            type="button"
+            class={styles.closeButton}
+            onClick={props.onClose}
+          >
             ×
           </button>
           {props.children}
