@@ -11,6 +11,7 @@ function BotStats() {
   const [songs] = createResource(getSongs);
   const [currentPage, setCurrentPage] = createSignal(1);
   const [itemsPerPage, setItemsPerPage] = createSignal(10);
+  const [goToPageInput, setGoToPageInput] = createSignal("");
 
   // Calculate pagination values
   const totalPages = () => Math.ceil((songs() || []).length / itemsPerPage());
@@ -37,6 +38,17 @@ function BotStats() {
 
   const goToPage = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const handleGoToPage = (e: Event) => {
+    e.preventDefault();
+    const pageNum = Number.parseInt(goToPageInput());
+    if (!Number.isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages()) {
+      setCurrentPage(pageNum);
+      setGoToPageInput(""); // Clear input after successful navigation
+    } else {
+      alert(`Please enter a valid page number between 1 and ${totalPages()}`);
+    }
   };
 
   // Generate page numbers
@@ -134,6 +146,21 @@ function BotStats() {
             >
               Next
             </button>
+
+            <form class={styles.goToPageForm} onSubmit={handleGoToPage}>
+              <input
+                type="number"
+                value={goToPageInput()}
+                onInput={(e) => setGoToPageInput(e.target.value)}
+                placeholder="Go to page..."
+                min="1"
+                max={totalPages()}
+                class={styles.goToPageInput}
+              />
+              <button type="submit" class={styles.pageButton}>
+                Go
+              </button>
+            </form>
           </div>
 
           <div class={styles.pageInfo}>
