@@ -214,3 +214,14 @@
         height: 100px;
     }
 }
+
+.modalContent {
+    text-align: center;
+    min-width: 300px;
+}
+
+.modalContent h2 {
+    margin-top: 0;
+    color: #ffd700;
+    font-size: 1.5em;
+}

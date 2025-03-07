@@ -4,16 +4,18 @@ import { TacticRoulette } from "./roulette.classes";
 import tacticStyles from "./TacticRoller.module.css";
 import RollerSection from "./RollerSection";
 import DetailsSection from "./DetailsSection";
+import Modal from "../Modal";
 
 const TacticRoller: Component = () => {
   const [isOpening, setIsOpening] = createSignal(false);
   const [inventory, setInventory] = createSignal<TacticItem[]>([]);
   const [selectedTactic, setSelectedTactic] = createSignal<TacticItem | null>(
-    null
+    null,
   );
   const [rouletteTactics, setRouletteTactics] = createSignal<TacticItem[]>([]);
   const [prizeTacticId, setPrizeTacticId] = createSignal<number>(-1);
   const [isSpinEnded, setIsSpinEnded] = createSignal(false);
+  const [showModal, setShowModal] = createSignal(false);
 
   // In SolidJS, refs are just variables that get assigned during render
   let rouletteContainerRef: HTMLDivElement | undefined;
@@ -100,7 +102,7 @@ const TacticRoller: Component = () => {
     // Calculate total weight
     const totalWeight = items.reduce(
       (acc, item) => acc + (item.chance || 1),
-      0
+      0,
     );
 
     // Get a random value between 0 and total weight
@@ -133,6 +135,7 @@ const TacticRoller: Component = () => {
     setIsOpening(false);
     setIsSpinEnded(true);
     setSelectedTactic(winningTactic);
+    setShowModal(true);
 
     // Add to inventory
     setInventory((prev) => [winningTactic, ...prev]);
@@ -147,6 +150,11 @@ const TacticRoller: Component = () => {
 
   const selectTactic = (tactic: TacticItem) => {
     setSelectedTactic(tactic);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedTactic(null);
   };
 
   return (
@@ -172,10 +180,15 @@ const TacticRoller: Component = () => {
             prizeTacticId={prizeTacticId()}
             isSpinEnded={isSpinEnded()}
           />
-
-          <DetailsSection selectedTactic={selectedTactic()} />
         </div>
       </div>
+
+      <Modal isOpen={showModal()} onClose={closeModal}>
+        <div class={tacticStyles.modalContent}>
+          <h2>You got:</h2>
+          <DetailsSection selectedTactic={selectedTactic()} />
+        </div>
+      </Modal>
     </div>
   );
 };
