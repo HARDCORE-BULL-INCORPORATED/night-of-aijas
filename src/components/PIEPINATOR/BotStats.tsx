@@ -21,8 +21,10 @@ function BotStats() {
           <For each={songs()}>
             {(song) => (
               <li class={styles.statsItem}>
-                <span class={styles.songName}>{song.name}</span>
-                <span class={styles.songAmount}>{song.amount}</span>
+                <a href={song.url}>
+                  <span class={styles.songName}>{song.name}</span>
+                  <span class={styles.songAmount}>{song.amount}</span>
+                </a>
               </li>
             )}
           </For>
