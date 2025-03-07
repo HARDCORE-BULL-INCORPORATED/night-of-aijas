@@ -207,6 +207,15 @@ const TacticRoller: Component = () => {
         </div>
       </div>
 
+      {/* Result Modal */}
+      <Modal isOpen={showModal()} onClose={closeModal}>
+        <div class={tacticStyles.modalContent}>
+          <h2>You got:</h2>
+          <DetailsSection selectedTactic={selectedTactic()} />
+        </div>
+      </Modal>
+
+      {/* Inventory Modal */}
       <Modal isOpen={showInventoryModal()} onClose={closeInventoryModal}>
         <div class={tacticStyles.modalContent}>
           <div class={tacticStyles.modalNavigation}>
