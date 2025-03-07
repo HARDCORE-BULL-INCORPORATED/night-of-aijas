@@ -8,10 +8,8 @@ interface ModalProps {
 }
 
 const Modal: Component<ModalProps> = (props) => {
-  const handleBackdropClick = (e: MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      props.onClose();
-    }
+  const handleBackdropClick = (_e: MouseEvent) => {
+    props.onClose();
   };
 
   // Prevent background scrolling when modal is open
