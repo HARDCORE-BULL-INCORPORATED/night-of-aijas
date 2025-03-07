@@ -16,10 +16,26 @@ const TacticRoller: Component = () => {
   const [prizeTacticId, setPrizeTacticId] = createSignal<number>(-1);
   const [isSpinEnded, setIsSpinEnded] = createSignal(false);
   const [showModal, setShowModal] = createSignal(false);
+  const [showInventoryModal, setShowInventoryModal] = createSignal(false);
+  const [currentInventoryIndex, setCurrentInventoryIndex] = createSignal(0);
 
   // In SolidJS, refs are just variables that get assigned during render
   let rouletteContainerRef: HTMLDivElement | undefined;
   let tacticsRef: HTMLDivElement | undefined;
+
+  const navigateInventory = (direction: "prev" | "next") => {
+    const currentIndex = currentInventoryIndex();
+    const inventorySize = inventory().length;
+
+    if (direction === "prev") {
+      setCurrentInventoryIndex(
+        (currentIndex - 1 + inventorySize) % inventorySize,
+      );
+    } else {
+      setCurrentInventoryIndex((currentIndex + 1) % inventorySize);
+    }
+    setSelectedTactic(inventory()[currentInventoryIndex()]);
+  };
 
   const initializeRoulette = () => {
     if (!rouletteContainerRef || !tacticsRef) return;
@@ -149,11 +165,19 @@ const TacticRoller: Component = () => {
   };
 
   const selectTactic = (tactic: TacticItem) => {
+    const index = inventory().findIndex((item) => item.name === tactic.name);
+    setCurrentInventoryIndex(index);
     setSelectedTactic(tactic);
+    setShowInventoryModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
+    setSelectedTactic(null);
+  };
+
+  const closeInventoryModal = () => {
+    setShowInventoryModal(false);
     setSelectedTactic(null);
   };
 
@@ -183,10 +207,25 @@ const TacticRoller: Component = () => {
         </div>
       </div>
 
-      <Modal isOpen={showModal()} onClose={closeModal}>
+      <Modal isOpen={showInventoryModal()} onClose={closeInventoryModal}>
         <div class={tacticStyles.modalContent}>
-          <h2>You got:</h2>
-          <DetailsSection selectedTactic={selectedTactic()} />
+          <div class={tacticStyles.modalNavigation}>
+            <button
+              type="button"
+              class={tacticStyles.navButton}
+              onClick={() => navigateInventory("prev")}
+            >
+              ←
+            </button>
+            <DetailsSection selectedTactic={selectedTactic()} />
+            <button
+              type="button"
+              class={tacticStyles.navButton}
+              onClick={() => navigateInventory("next")}
+            >
+              →
+            </button>
+          </div>
         </div>
       </Modal>
     </div>

@@ -68,11 +68,24 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+    padding: 0 15px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .inventoryHeader h2 {
     margin: 0;
     font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .inventoryHeader {
+        padding: 0 10px;
+    }
+
+    .inventoryHeader h2 {
+        font-size: 18px;
+    }
 }
 
 .emptyInventory {
@@ -83,12 +96,11 @@
 
 .inventoryGrid {
     display: grid;
-    grid-template-columns: repeat(
-        auto-fill,
-        minmax(80px, 1fr)
-    ); /* Smaller items on mobile */
-    gap: 10px;
-    padding: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .inventoryItem {
@@ -98,6 +110,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .inventoryItem:hover {
@@ -121,8 +134,9 @@
 }
 
 .inventoryCard {
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
     border-width: 2px;
     border-style: solid;
     border-radius: 5px;
@@ -130,12 +144,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .inventoryCard img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .inventoryItemName {
@@ -231,4 +246,138 @@
     margin-top: 0;
     color: #ffd700;
     font-size: 1.5em;
+}
+
+@media (max-width: 768px) {
+    .inventoryGrid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .inventoryItemName {
+        font-size: 10px;
+        margin: 3px 0 0;
+    }
+
+    .inventoryCard {
+        border-width: 1px;
+    }
+}
+
+@media (max-width: 320px) {
+    .inventoryGrid {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: 8px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainContent {
+        padding: 0 10px; /* Add padding */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Update inventory grid for mobile */
+    .inventoryGrid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 8px;
+        padding: 8px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Update inventory container */
+    .inventory {
+        margin-top: 20px;
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+
+    /* Update inventory items */
+    .inventoryCard {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    .inventoryItem {
+        width: 100%;
+    }
+
+    /* Update container */
+    .container {
+        padding: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .wrapper {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    /* Adjust roulette wrapper */
+    .rouletteWrapper {
+        padding: 0 5px;
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 320px) {
+    .inventoryGrid {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: 5px;
+        padding: 5px;
+    }
+}
+
+.modalNavigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
+}
+
+.navButton {
+    background: #4a5942;
+    border: none;
+    color: white;
+    padding: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    min-width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navButton:hover {
+    background: #5a6952;
+}
+
+.navButton:disabled {
+    background: #2a3922;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .modalNavigation {
+        gap: 0.5rem;
+    }
+
+    .navButton {
+        padding: 0.5rem;
+        min-width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
 }
