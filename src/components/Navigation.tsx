@@ -47,7 +47,7 @@ const Navigation: Component<NavigationProps> = (props) => {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              props.onNavigate("PIEPINATOR");
+              props.onNavigate("PIEP-I-NATOR");
             }}
           >
             <h2>PIEP-I-NATOR</h2>

@@ -1,75 +1,95 @@
 #root {
-    width: 100%;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 1rem;
-    box-sizing: border-box;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .app-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .container {
-    margin-top: 2rem;
-    text-align: center;
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
+  margin-top: 2rem;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .nav-container {
-    margin-bottom: 0rem;
+  margin-bottom: 0rem;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+  scrollbar-width: thin; /* Better looking scrollbars on Firefox */
 }
 
 .nav-container ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    gap: 2rem;
+  display: flex;
+  list-style: none;
+  padding: 0;
+  gap: 2rem;
+  white-space: nowrap; /* Prevent wrapping of items */
+  padding: 0.5rem 1rem; /* Add some padding for touch devices */
+  min-width: max-content; /* Ensure the content doesn't shrink */
 }
 
 .nav-container li {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
+  flex-shrink: 0; /* Prevent items from shrinking */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.nav-container::-webkit-scrollbar {
+  height: 3px;
 }
 
 .nav-container li.active a {
-    color: #ff6b6b;
-    text-decoration: underline;
+  color: #ff6b6b;
+  text-decoration: underline;
 }
 
 .home-container {
-    margin-top: 1rem;
-    text-align: center;
+  margin-top: 1rem;
+  text-align: center;
 }
 
 .hero-section {
-    margin: 2rem 0;
+  margin: 2rem 0;
 }
 
 .main-content {
-    margin-top: 1.5rem;
-    width: 100%;
+  margin-top: 1.5rem;
+  width: 100%;
 }
 
+/* Handle on hover */
+.nav-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+/* Adjust header styling for better mobile experience */
 .header {
-    position: sticky;
-    top: 0;
-    padding: 0rem 0;
-    z-index: 100;
-    width: 100%;
-    background-color: #4a5942;
+  position: sticky;
+  top: 0;
+  padding: 0;
+  z-index: 100;
+  width: 100%;
+  background-color: #4a5942;
+  overflow: hidden; /* Keep the header from expanding beyond its bounds */
 }
 
 @media (max-width: 768px) {
-    #root {
-        padding: 0.5rem;
-    }
+  #root {
+    padding: 0.5rem;
+  }
 
-    .container {
-        margin-top: 1rem;
-    }
+  .container {
+    margin-top: 1rem;
+  }
 }

@@ -36,9 +36,9 @@ function App() {
         <Show when={currentPage() === "tactics"}>
           <Tactics />
         </Show>
-        <Show when={currentPage() === "PIEPINATOR"}>
+        <Show when={currentPage() === "PIEP-I-NATOR"}>
           <PIEPINATOR />
-        </Show>{" "}
+        </Show>
       </main>
     </div>
   );
