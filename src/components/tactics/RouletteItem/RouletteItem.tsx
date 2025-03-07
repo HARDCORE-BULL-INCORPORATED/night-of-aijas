@@ -1,7 +1,6 @@
 import { Component } from "solid-js";
-import styles from "./TacticRoulette.module.css";
-import { TacticItem } from "./tacticsTypes";
-import { getItemBorderClass } from "./tacticsTypes";
+import styles from "./RouletteItem.module.css";
+import { TacticItem, getItemBackgroundClass } from "../tacticsTypes";
 
 interface RouletteItemProps {
   tactic: TacticItem;
@@ -16,7 +15,7 @@ const RouletteItem: Component<RouletteItemProps> = (props) => {
     >
       <div class={styles.tacticInner}>
         <div
-          class={`${styles.tacticRarity} ${getItemBorderClass(
+          class={`${styles.tacticRarity} ${getItemBackgroundClass(
             props.tactic.color
           )}`}
         ></div>

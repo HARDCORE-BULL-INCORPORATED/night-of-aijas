@@ -1,8 +1,7 @@
 import { Component, For } from "solid-js";
-import styles from "./TacticRoulette.module.css";
-import { TacticItem, getItemBorderClass } from "./tacticsTypes";
-import RouletteItem from "./RouletteItem";
-import tacticStyles from "./TacticRoller.module.css";
+import { TacticItem, getItemBorderClass } from "../tacticsTypes";
+import RouletteItem from "../RouletteItem/RouletteItem";
+import styles from "./RollerSection.module.css";
 
 const RollerSection: Component<{
   isOpening: boolean;
@@ -20,7 +19,7 @@ const RollerSection: Component<{
   isSpinEnded: boolean;
 }> = (props) => {
   return (
-    <div class={tacticStyles.rollerSection}>
+    <div class={styles.rollerSection}>
       {/* Roulette UI */}
       <div class={styles.rouletteWrapper}>
         <button
@@ -67,8 +66,8 @@ const RollerSection: Component<{
       </div>
 
       {/* Inventory section */}
-      <div class={tacticStyles.inventory}>
-        <div class={tacticStyles.inventoryHeader}>
+      <div class={styles.inventory}>
+        <div class={styles.inventoryHeader}>
           <h2>Previous Tactics</h2>
           {props.inventory.length > 0 && (
             <button
@@ -81,27 +80,27 @@ const RollerSection: Component<{
         </div>
 
         {props.inventory.length === 0 ? (
-          <p class={tacticStyles.emptyInventory}>
+          <p class={styles.emptyInventory}>
             Your inventory is empty. Roll some tactics!
           </p>
         ) : (
-          <div class={tacticStyles.inventoryGrid}>
+          <div class={styles.inventoryGrid}>
             <For each={props.inventory}>
               {(item) => (
                 <div
-                  class={`${tacticStyles.inventoryItem} ${
-                    props.selectedTactic === item ? tacticStyles.selected : ""
+                  class={`${styles.inventoryItem} ${
+                    props.selectedTactic === item ? styles.selected : ""
                   }`}
                   onClick={() => props.onSelectTactic(item)}
                 >
                   <div
-                    class={`${tacticStyles.inventoryCard} ${getItemBorderClass(
-                      item.color,
+                    class={`${styles.inventoryCard} ${getItemBorderClass(
+                      item.color
                     )}`}
                   >
                     <img src={item.image} alt={item.name} />
                   </div>
-                  <p class={tacticStyles.inventoryItemName}>{item.name}</p>
+                  <p class={styles.inventoryItemName}>{item.name}</p>
                 </div>
               )}
             </For>

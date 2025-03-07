@@ -1,22 +1,22 @@
 import { Component } from "solid-js";
-import { TacticItem } from "./tacticsTypes";
-import tacticStyles from "./TacticRoller.module.css";
+import { TacticItem } from "../tacticsTypes";
+import styles from "./DetailsSection.module.css";
 
 const DetailsSection: Component<{
   selectedTactic: TacticItem | null;
 }> = (props) => {
   return (
-    <div class={tacticStyles.detailsSection}>
+    <div class={styles.detailsSection}>
       {props.selectedTactic ? (
-        <div class={tacticStyles.detailsContent}>
+        <div class={styles.detailsContent}>
           <img
             src={props.selectedTactic.image}
             alt={props.selectedTactic.name}
-            class={tacticStyles.detailsImage}
+            class={styles.detailsImage}
             width="150px"
             height="150px"
           />
-          <div class={tacticStyles.detailsInfo}>
+          <div class={styles.detailsInfo}>
             <h2>{props.selectedTactic.name}</h2>
             <p>
               <strong>Rarity:</strong> {props.selectedTactic.rarity}
@@ -29,7 +29,7 @@ const DetailsSection: Component<{
           </div>
         </div>
       ) : (
-        <div class={tacticStyles.noSelection}>
+        <div class={styles.noSelection}>
           <p>Select a tactic to view details</p>
         </div>
       )}

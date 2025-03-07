@@ -1,4 +1,5 @@
-import styles from "./TacticRoller.module.css";
+import rollerStyles from "./RollerSection/RollerSection.module.css";
+import rouletteItemStyles from "./RouletteItem/RouletteItem.module.css";
 
 export interface TacticItem {
   id?: number;
@@ -57,14 +58,25 @@ export const tacticPool: TacticItem[] = [
   },
 ];
 
-// Utility function for styling
+// Utility functions for styling
 export const getItemBorderClass = (color: TacticItem["color"]) => {
   const borderClasses = {
-    blue: styles.borderBlue,
-    purple: styles.borderPurple,
-    red: styles.borderRed,
-    yellow: styles.borderYellow,
-    pink: styles.borderPink,
+    blue: rollerStyles.borderBlue,
+    purple: rollerStyles.borderPurple,
+    red: rollerStyles.borderRed,
+    yellow: rollerStyles.borderYellow,
+    pink: rollerStyles.borderPink,
   };
   return borderClasses[color];
+};
+
+export const getItemBackgroundClass = (color: TacticItem["color"]) => {
+  const backgroundClasses = {
+    blue: rouletteItemStyles.bgBlue,
+    purple: rouletteItemStyles.bgPurple,
+    red: rouletteItemStyles.bgRed,
+    yellow: rouletteItemStyles.bgYellow,
+    pink: rouletteItemStyles.bgPink,
+  };
+  return backgroundClasses[color];
 };

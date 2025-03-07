@@ -2,15 +2,15 @@ import { Component, createSignal, onCleanup, onMount } from "solid-js";
 import { TacticItem, tacticPool } from "./tacticsTypes";
 import { TacticRoulette } from "./roulette.classes";
 import tacticStyles from "./TacticRoller.module.css";
-import RollerSection from "./RollerSection";
-import DetailsSection from "./DetailsSection";
+import RollerSection from "./RollerSection/RollerSection";
+import DetailsSection from "./DetailsSection/DetailsSection";
 import Modal from "../Modal";
 
 const TacticRoller: Component = () => {
   const [isOpening, setIsOpening] = createSignal(false);
   const [inventory, setInventory] = createSignal<TacticItem[]>([]);
   const [selectedTactic, setSelectedTactic] = createSignal<TacticItem | null>(
-    null,
+    null
   );
   const [rouletteTactics, setRouletteTactics] = createSignal<TacticItem[]>([]);
   const [prizeTacticId, setPrizeTacticId] = createSignal<number>(-1);
@@ -41,7 +41,7 @@ const TacticRoller: Component = () => {
 
     if (direction === "prev") {
       setCurrentInventoryIndex(
-        (currentIndex - 1 + inventorySize) % inventorySize,
+        (currentIndex - 1 + inventorySize) % inventorySize
       );
     } else {
       setCurrentInventoryIndex((currentIndex + 1) % inventorySize);
@@ -136,7 +136,7 @@ const TacticRoller: Component = () => {
     // Calculate total weight
     const totalWeight = items.reduce(
       (acc, item) => acc + (item.chance || 1),
-      0,
+      0
     );
 
     // Get a random value between 0 and total weight
