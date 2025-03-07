@@ -44,7 +44,7 @@ export class TacticRoulette {
     // prize id
     this.tacticPrizeId = this.randomRange(
       this.tacticsCount / 2,
-      this.tacticsCount - 5
+      this.tacticsCount - 5,
     );
 
     this.transitionDuration = attrs.transitionDuration || 10;
@@ -93,7 +93,7 @@ export class TacticRoulette {
 
     /** set tactics from prize ID to end */
     tactics = tactics.concat(
-      set_tactic_actors(this.tacticPrizeId + 1, this.tacticsCount - 1)
+      set_tactic_actors(this.tacticPrizeId + 1, this.tacticsCount - 1),
     );
     this.tactics = tactics;
   };
@@ -102,42 +102,53 @@ export class TacticRoulette {
    -----------------------------------------------------------------------------*/
   spin = () => {
     const tacticWrapper = this.tacticWrapperRef as unknown as HTMLElement;
+    const rouletteContainer = this.rouletteWrapperRef as unknown as HTMLElement;
 
-    if (!tacticWrapper) {
-      console.error("Tactics wrapper element not found!");
+    if (!tacticWrapper || !rouletteContainer) {
+      console.error("Required elements not found!");
       return -1;
     }
 
-    // First reset position to start
+    // Reset position
     tacticWrapper.style.transition = "none";
     tacticWrapper.style.left = "0px";
-
-    // Force a reflow to ensure the reset is applied immediately
     void tacticWrapper.offsetWidth;
 
-    // Calculate the center of the roulette container
-    const rouletteContainer = this.rouletteWrapperRef as unknown as HTMLElement;
-    const rouletteWidth =
-      rouletteContainer?.getBoundingClientRect().width || 800;
+    // Get the actual width of the container
+    const rouletteWidth = rouletteContainer.getBoundingClientRect().width;
+
+    // Adjust item width for mobile
+    const currentItemWidth = window.innerWidth <= 768 ? 150 : this.itemWidth;
+
+    // Calculate center position
     const centerPosition = rouletteWidth / 2;
 
-    // Calculate where the prize item should end up
-    const prizeItemPosition = this.tacticPrizeId * this.itemWidth;
+    // Calculate prize position using adjusted item width
+    const prizeItemPosition = this.tacticPrizeId * currentItemWidth;
 
-    // Calculate the distance we need to scroll to center the prize item
+    // Calculate scroll distance
     const scrollDistance =
-      prizeItemPosition - centerPosition + this.itemWidth / 2;
+      prizeItemPosition - centerPosition + currentItemWidth / 2;
 
-    // Add a small random offset to make it look more natural
-    const randomOffset = this.randomRange(-10, 10);
+    // Add smaller random offset for mobile
+    const randomOffset =
+      window.innerWidth <= 768
+        ? this.randomRange(-5, 5)
+        : this.randomRange(-10, 10);
 
     // Final scroll position
     const finalScrollPosition = scrollDistance + randomOffset;
 
-    // Set the animation
-    tacticWrapper.style.transition = `left ${this.transitionDuration}s ease-out`;
+    // Adjust transition duration for mobile
+    const transitionDuration =
+      window.innerWidth <= 768
+        ? this.transitionDuration * 0.8
+        : this.transitionDuration;
 
-    // Slight delayed start
+    // Set the animation
+    tacticWrapper.style.transition = `left ${transitionDuration}s cubic-bezier(0.1, 0.7, 0.1, 1)`;
+
+    // Apply the transformation
     setTimeout(() => {
       tacticWrapper.style.left = `-${finalScrollPosition}px`;
     }, 50);
