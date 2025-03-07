@@ -42,8 +42,19 @@ const Navigation: Component<NavigationProps> = (props) => {
             <h2>Tactics</h2>
           </a>
         </li>
+        <li class={props.activePage === "PIEP-I-NATOR" ? "active" : ""}>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              props.onNavigate("PIEPINATOR");
+            }}
+          >
+            <h2>PIEP-I-NATOR</h2>
+          </a>
+        </li>
       </ul>
-      <hr class="cs-hr"> </hr>
+      <hr class="cs-hr" />
     </nav>
   );
 };

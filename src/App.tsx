@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Navigation from "./components/Navigation";
 import Tactics from "./components/tactics/Tactics";
 import "./App.css";
+import PIEPINATOR from "./components/PIEPINATOR/PIEPINATOR";
 
 function App() {
   const [currentPage, setCurrentPage] = createSignal("home");
@@ -29,15 +30,15 @@ function App() {
         <Show when={currentPage() === "home"}>
           <Home />
         </Show>
-
         <Show when={currentPage() === "docs"}>
           <Docs />
         </Show>
-
         <Show when={currentPage() === "tactics"}>
           <Tactics />
         </Show>
-        {/* Add more sections here */}
+        <Show when={currentPage() === "PIEPINATOR"}>
+          <PIEPINATOR />
+        </Show>{" "}
       </main>
     </div>
   );
