@@ -1,4 +1,4 @@
-import { Show, type Component, type JSX } from "solid-js";
+import { Show, type Component, type JSX, onMount, onCleanup } from "solid-js";
 import styles from "./Modal.module.css";
 
 interface ModalProps {
@@ -14,9 +14,23 @@ const Modal: Component<ModalProps> = (props) => {
     }
   };
 
+  // Prevent background scrolling when modal is open
+  onMount(() => {
+    if (props.isOpen) {
+      document.body.style.overflow = "hidden";
+    }
+  });
+
+  onCleanup(() => {
+    document.body.style.overflow = "unset";
+  });
+
   return (
     <Show when={props.isOpen}>
-      <div class={styles.modalBackdrop} onClick={handleBackdropClick}>
+      <div
+        class={`${styles.modalBackdrop} ${props.isOpen ? styles.active : ""}`}
+        onClick={handleBackdropClick}
+      >
         <div class={styles.modalContent}>
           <button
             type="button"

@@ -24,6 +24,7 @@ const RollerSection: Component<{
       {/* Roulette UI */}
       <div class={styles.rouletteWrapper}>
         <button
+          type="button"
           onClick={props.onOpenCase}
           disabled={props.isOpening}
           class="cs-btn"
@@ -42,7 +43,7 @@ const RollerSection: Component<{
           style={{ overflow: "hidden", width: "100%" }}
         >
           <div class={styles.roulette}>
-            <div class={styles.target}></div>
+            <div class={styles.target} />
             <div
               ref={props.tacticsRef}
               class={styles.tactics}
@@ -95,7 +96,7 @@ const RollerSection: Component<{
                 >
                   <div
                     class={`${tacticStyles.inventoryCard} ${getItemBorderClass(
-                      item.color
+                      item.color,
                     )}`}
                   >
                     <img src={item.image} alt={item.name} />

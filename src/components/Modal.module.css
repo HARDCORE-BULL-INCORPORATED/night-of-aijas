@@ -16,9 +16,11 @@
     padding: 2rem;
     border-radius: 8px;
     position: relative;
-    max-width: 90%;
+    width: 90%;
+    max-width: 600px;
     max-height: 90vh;
     overflow-y: auto;
+    margin: 1rem;
     animation: modalFadeIn 0.3s ease-out;
 }
 
@@ -48,4 +50,36 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@media (max-width: 768px) {
+    .modalContent {
+        padding: 1.5rem;
+        width: 95%;
+        margin: 0.5rem;
+        max-height: 80vh;
+    }
+
+    /* Adjust padding when keyboard is visible on mobile */
+    @media (max-height: 500px) {
+        .modalContent {
+            max-height: 95vh;
+            padding: 1rem;
+        }
+    }
+
+    .closeButton {
+        padding: 8px 12px; /* Larger touch target for mobile */
+    }
+}
+
+/* Ensure content scrolling works on iOS */
+.modalContent {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent background scrolling when modal is open */
+.modalBackdrop.active {
+    overflow: hidden;
+    position: fixed;
 }

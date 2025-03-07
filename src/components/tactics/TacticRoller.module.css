@@ -121,8 +121,15 @@
 }
 
 .inventoryCard {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .inventoryCard img {
