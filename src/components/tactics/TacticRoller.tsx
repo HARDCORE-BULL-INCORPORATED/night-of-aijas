@@ -1,4 +1,4 @@
-import { Component, createSignal, onMount } from "solid-js";
+import { Component, createSignal, onCleanup, onMount } from "solid-js";
 import { TacticItem, tacticPool } from "./tacticsTypes";
 import { TacticRoulette } from "./roulette.classes";
 import tacticStyles from "./TacticRoller.module.css";
@@ -22,6 +22,18 @@ const TacticRoller: Component = () => {
   // In SolidJS, refs are just variables that get assigned during render
   let rouletteContainerRef: HTMLDivElement | undefined;
   let tacticsRef: HTMLDivElement | undefined;
+
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (!showInventoryModal()) return;
+
+    if (e.key === "ArrowLeft") {
+      navigateInventory("prev");
+    } else if (e.key === "ArrowRight") {
+      navigateInventory("next");
+    } else if (e.key === "Escape") {
+      closeInventoryModal();
+    }
+  };
 
   const navigateInventory = (direction: "prev" | "next") => {
     const currentIndex = currentInventoryIndex();
@@ -65,9 +77,15 @@ const TacticRoller: Component = () => {
       setInventory(JSON.parse(savedInventory));
     }
 
-    // Initialize the roulette with items after a short delay
-    // to ensure the refs are properly set
     setTimeout(initializeRoulette, 100);
+
+    // Add keyboard event listener
+    window.addEventListener("keydown", handleKeyPress);
+  });
+
+  onCleanup(() => {
+    // Remove keyboard event listener
+    window.removeEventListener("keydown", handleKeyPress);
   });
 
   const saveInventory = () => {
