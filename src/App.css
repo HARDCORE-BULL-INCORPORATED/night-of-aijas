@@ -1,60 +1,75 @@
 #root {
-  width: 1280px;
-  margin: 0 auto;
-  padding: 1rem;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
 .app-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
 }
 
 .container {
-  margin-top: 2rem;
-  text-align: center;
+    margin-top: 2rem;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .nav-container {
-  margin-bottom: 0rem;
+    margin-bottom: 0rem;
 }
 
 .nav-container ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  gap: 2rem;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 2rem;
 }
 
 .nav-container li {
-  font-size: 1.2rem;
+    font-size: 1.2rem;
 }
 
 .nav-container li.active a {
-  color: #ff6b6b;
-  text-decoration: underline;
+    color: #ff6b6b;
+    text-decoration: underline;
 }
 
 .home-container {
-  margin-top: 1rem;
-  text-align: center;
+    margin-top: 1rem;
+    text-align: center;
 }
 
 .hero-section {
-  margin: 2rem 0;
+    margin: 2rem 0;
 }
 
 .main-content {
-  margin-top: 1.5rem;
-  width: 100%;
+    margin-top: 1.5rem;
+    width: 100%;
 }
 
 .header {
-  position: sticky;
-  top: 0;
-  padding: 0rem 0;
-  z-index: 100;
-  width: 100%;
-  background-color: #4a5942;
+    position: sticky;
+    top: 0;
+    padding: 0rem 0;
+    z-index: 100;
+    width: 100%;
+    background-color: #4a5942;
+}
+
+@media (max-width: 768px) {
+    #root {
+        padding: 0.5rem;
+    }
+
+    .container {
+        margin-top: 1rem;
+    }
 }

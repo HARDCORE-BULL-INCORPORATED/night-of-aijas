@@ -4,7 +4,6 @@ import styles from "./BotStats.module.css";
 
 async function getSongs() {
   //@ts-ignore
-
   let allData = [];
   let page = 0;
   const pageSize = 1000;
