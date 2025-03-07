@@ -3,7 +3,7 @@ import { Component } from "solid-js";
 const Home: Component = () => {
   return (
     <div class="container">
-      <h1>ÄIJIEN ILTA!!!</h1>
+      <h1 style={{ "margin-top": "5px" }}>ÄIJIEN ILTA!!!</h1>
       <div class="hero-section">
         <img src="/ykäsonni.jpg" alt="Ykäsonni" width="300" />
         <p>Welcome to the official Night of Äijäs site!</p>
