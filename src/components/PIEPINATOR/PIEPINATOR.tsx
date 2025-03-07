@@ -1,25 +1,13 @@
-import { createResource, For } from "solid-js";
-import { supabase } from "../../utils/supabase";
+import type { Component } from "solid-js";
+import BotStats from "./BotStats";
 
-async function getSongs() {
-  const { data } = await supabase.from("songs").select();
-  return data;
-}
-
-function PIEPINATOR() {
-  const [songs] = createResource(getSongs);
-
+const Tactics: Component = () => {
   return (
-    <ul>
-      <For each={songs()}>
-        {(instrument) => (
-          <li>
-            {instrument.name} - {instrument.amount}
-          </li>
-        )}
-      </For>
-    </ul>
+    <div class="container">
+      <h1>BOT STATS PASALUSTA :D</h1>
+      <BotStats />
+    </div>
   );
-}
+};
 
-export default PIEPINATOR;
+export default Tactics;

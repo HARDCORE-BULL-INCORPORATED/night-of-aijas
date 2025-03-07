@@ -1,0 +1,43 @@
+.statsContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 20px;
+}
+
+.error {
+    color: #ff4444;
+}
+
+.statsList {
+    list-style: none;
+    padding: 0;
+}
+
+.statsItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    margin: 5px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.statsItem:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.songName {
+    font-weight: bold;
+}
+
+.songAmount {
+    color: #4caf50;
+    font-weight: bold;
+}
