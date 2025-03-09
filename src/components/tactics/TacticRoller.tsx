@@ -1,10 +1,11 @@
-import { Component, createSignal, onCleanup, onMount } from "solid-js";
-import { TacticItem, tacticPool } from "./tacticsTypes";
+import { type Component, createSignal, onCleanup, onMount } from "solid-js";
+import { type TacticItem, tacticPool } from "./tacticsTypes";
 import { TacticRoulette } from "./roulette.classes";
 import tacticStyles from "./TacticRoller.module.css";
-import RollerSection from "./RollerSection/RollerSection";
-import DetailsSection from "./DetailsSection/DetailsSection";
-import Modal from "../Modal";
+import RollerSection from "./RollerSection";
+import DetailsSection from "./DetailsSection";
+import Modal from "./Modal";
+import InventoryModal from "./InventoryModal";
 
 const TacticRoller: Component = () => {
   const [isOpening, setIsOpening] = createSignal(false);
@@ -233,8 +234,10 @@ const TacticRoller: Component = () => {
         </div>
       </Modal>
 
-      {/* Inventory Modal */}
-      <Modal isOpen={showInventoryModal()} onClose={closeInventoryModal}>
+      <InventoryModal
+        isOpen={showInventoryModal()}
+        onClose={closeInventoryModal}
+      >
         <div class={tacticStyles.modalContent}>
           <div class={tacticStyles.modalNavigation}>
             <button
@@ -254,7 +257,7 @@ const TacticRoller: Component = () => {
             </button>
           </div>
         </div>
-      </Modal>
+      </InventoryModal>
     </div>
   );
 };
