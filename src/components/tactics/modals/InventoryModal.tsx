@@ -7,9 +7,18 @@ interface ModalProps {
   children: JSX.Element;
 }
 
-const Modal: Component<ModalProps> = (props) => {
-  const handleBackdropClick = (_e: MouseEvent) => {
-    // props.onClose();
+const InventoryModal: Component<ModalProps> = (props) => {
+  const handleBackdropClick = (e: MouseEvent) => {
+    // Only close if clicking the backdrop itself
+    if (e.currentTarget === e.target) {
+      props.onClose();
+    }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      props.onClose();
+    }
   };
 
   // Prevent background scrolling when modal is open
@@ -28,8 +37,13 @@ const Modal: Component<ModalProps> = (props) => {
       <div
         class={`${styles.modalBackdrop} ${props.isOpen ? styles.active : ""}`}
         onClick={handleBackdropClick}
+        onKeyDown={handleKeyDown}
       >
-        <div class={styles.modalContent}>
+        <div
+          class={styles.modalContent}
+          onClick={(e) => e.stopPropagation()}
+          onKeyDown={(e) => e.stopPropagation()}
+        >
           <button
             type="button"
             class={styles.closeButton}
@@ -44,4 +58,4 @@ const Modal: Component<ModalProps> = (props) => {
   );
 };
 
-export default Modal;
+export default InventoryModal;

@@ -2,10 +2,10 @@ import { type Component, createSignal, onCleanup, onMount } from "solid-js";
 import { type TacticItem, tacticPool } from "./tacticsTypes";
 import { TacticRoulette } from "./roulette.classes";
 import tacticStyles from "./TacticRoller.module.css";
-import Modal from "./Modal";
-import InventoryModal from "./InventoryModal";
 import RollerSection from "./RollerSection/RollerSection";
 import DetailsSection from "./DetailsSection/DetailsSection";
+import Modal from "./modals/Modal";
+import InventoryModal from "./modals/InventoryModal";
 
 const TacticRoller: Component = () => {
   const [isOpening, setIsOpening] = createSignal(false);

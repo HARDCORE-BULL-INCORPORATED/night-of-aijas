@@ -12,6 +12,12 @@ const Modal: Component<ModalProps> = (props) => {
     props.onClose();
   };
 
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      props.onClose();
+    }
+  };
+
   // Prevent background scrolling when modal is open
   onMount(() => {
     if (props.isOpen) {
@@ -28,6 +34,7 @@ const Modal: Component<ModalProps> = (props) => {
       <div
         class={`${styles.modalBackdrop} ${props.isOpen ? styles.active : ""}`}
         onClick={handleBackdropClick}
+        onKeyDown={handleKeyDown}
       >
         <div class={styles.modalContent}>
           <button
