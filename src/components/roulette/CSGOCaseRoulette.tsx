@@ -1,5 +1,5 @@
 import type { Component } from "solid-js";
-import { createSignal, onMount, createEffect, batch, For } from "solid-js";
+import { createSignal, onMount, createEffect, batch, For, onCleanup } from "solid-js"; // Added onCleanup
 import { type CSGOItem, type CSGOCaseRouletteProps, selectWeightedRandomItem } from "./types";
 import RouletteItem from "./RouletteItem";
 import ResultModal from "./ResultModal";
@@ -7,11 +7,12 @@ import styles from "./CSGOCaseRoulette.module.css";
 
 const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
   // Default props
-  const itemWidth = props.itemWidth || 140; // CSS width of the item content area
-  const itemMarginHorizontal = 4; // From RouletteItem.module.css (4px each side)
-  const actualItemSpace = itemWidth + (itemMarginHorizontal * 2); // Total horizontal space per item
+  const [itemWidth, setItemWidth] = createSignal(props.itemWidth || 140);
+  const [itemsInView, setItemsInView] = createSignal(props.itemsInView || 5);
 
-  const itemsInView = () => props.itemsInView || 5;
+  const itemMarginHorizontal = 4; // From RouletteItem.module.css (4px each side)
+  const actualItemSpace = () => itemWidth() + (itemMarginHorizontal * 2); // Total horizontal space per item
+
   const spinDuration = props.spinDuration || 8;
 
   // State
@@ -24,16 +25,42 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
   // Refs
   let trackRef: HTMLDivElement | undefined;
 
+  // Function to update dimensions based on window size
+  const updateDimensions = () => {
+    if (window.innerWidth <= 480) {
+      setItemWidth(100);
+      setItemsInView(3);
+    } else if (window.innerWidth <= 768) {
+      setItemWidth(120);
+      setItemsInView(4);
+    } else {
+      setItemWidth(props.itemWidth || 140);
+      setItemsInView(props.itemsInView || 5);
+    }
+  };
+
+  // Initialize and add resize listener
+  onMount(() => {
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    setRouletteItems(generateRouletteItems());
+  });
+
+  // Cleanup resize listener
+  onCleanup(() => {
+    window.removeEventListener('resize', updateDimensions);
+  });
+
   // Generate a set of items for the roulette
   const generateRouletteItems = () => {
     if (!props.items.length) return [];
 
     // We need enough items to fill the roulette multiple times
-    const totalItems = Math.max(100, itemsInView() * 5);
+    const totalItemsToGenerate = Math.max(100, itemsInView() * 5); // Use itemsInView()
     const generatedItems: CSGOItem[] = [];
 
     // Add random items until we reach the desired count
-    for (let i = 0; i < totalItems; i++) {
+    for (let i = 0; i < totalItemsToGenerate; i++) { // Use totalItemsToGenerate
       // Clone a random item from the props
       const randomIndex = Math.floor(Math.random() * props.items.length);
       const item = { ...props.items[randomIndex], id: `item-${i}` };
@@ -53,9 +80,9 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
     if (!trackRef) return;
     trackRef.style.setProperty('--spin-duration', `${spinDuration}s`);
     // Set item width and margin as CSS variables for potential use in CSS if needed for alignment
-    trackRef.style.setProperty('--item-width', `${itemWidth}px`);
+    trackRef.style.setProperty('--item-width', `${itemWidth()}px`);
     trackRef.style.setProperty('--item-margin-horizontal', `${itemMarginHorizontal}px`);
-    trackRef.style.setProperty('--actual-item-space', `${actualItemSpace}px`);
+    trackRef.style.setProperty('--actual-item-space', `${actualItemSpace()}px`);
   });
 
   // Handle the spin
@@ -77,12 +104,12 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
 
     // 3. Calculate where to stop the animation to center the winner
     // Viewport visual width (the part of the track that is visible)
-    const viewportVisualWidth = itemsInView() * actualItemSpace;
+    const viewportVisualWidth = itemsInView() * actualItemSpace(); // Use itemsInView() and actualItemSpace()
     // The indicator is assumed to be at the center of this visual viewport
     const indicatorPositionInViewport = viewportVisualWidth / 2;
 
     // Center of the item at winnerIndex, in track coordinates
-    const winnerItemCenterInTrack = (winnerIndex * actualItemSpace) + (actualItemSpace / 2);
+    const winnerItemCenterInTrack = (winnerIndex * actualItemSpace()) + (actualItemSpace() / 2); // Use actualItemSpace()
 
     // We want: winnerItemCenterInTrack - finalOffset = indicatorPositionInViewport
     // So: finalOffset = winnerItemCenterInTrack - indicatorPositionInViewport
@@ -90,7 +117,7 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
 
     // Add a random jitter to make the stop position less predictable
     // Jitter is up to +/- 15% of an item's total space
-    const randomJitter = (Math.random() - 0.5) * (actualItemSpace * 0.3);
+    const randomJitter = (Math.random() - 0.5) * (actualItemSpace() * 0.3); // Use actualItemSpace()
     const finalOffset = targetOffset + randomJitter;
 
     // 4. Start the spin
@@ -152,7 +179,7 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
             {(item) => (
               <RouletteItem
                 item={item}
-                width={itemWidth}
+                width={itemWidth()} // Use itemWidth()
                 isWinner={Boolean(winningItem() && item.id === winningItem()?.id)}
               />
             )}
