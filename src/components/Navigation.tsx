@@ -61,7 +61,7 @@ const Navigation: Component<NavigationProps> = (props) => {
                             props.onNavigate("roulette");
                         }}
                     >
-                        <h2>MAPIT</h2>
+                        <h2>MAPS</h2>
                     </button>
                 </li>
             </ul>

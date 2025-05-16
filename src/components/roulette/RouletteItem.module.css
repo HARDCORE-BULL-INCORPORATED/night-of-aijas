@@ -80,11 +80,11 @@
     min-width: 120px;
     height: 150px;
   }
-  
+
   .itemName {
     font-size: 11px;
   }
-  
+
   .itemRarity {
     font-size: 9px;
   }
@@ -96,7 +96,7 @@
     height: 120px;
     padding: 4px;
   }
-  
+
   .itemImageContainer {
     padding: 3px;
   }
