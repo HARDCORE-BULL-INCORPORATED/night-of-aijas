@@ -53,6 +53,17 @@ const Navigation: Component<NavigationProps> = (props) => {
                         <h2>PIEP-I-NATOR</h2>
                     </button>
                 </li>
+                <li class={props.activePage === "roulette" ? "active" : ""}>
+                    <button
+                        type="button"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            props.onNavigate("roulette");
+                        }}
+                    >
+                        <h2>MAPIT</h2>
+                    </button>
+                </li>
             </ul>
             <hr class="cs-hr" />
         </nav>

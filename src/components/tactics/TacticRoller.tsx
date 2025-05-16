@@ -230,7 +230,6 @@ const TacticRoller: Component = () => {
                         onSelectTactic={selectTactic}
                         rouletteContainerRef={(el) =>
                             // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
-
                             (rouletteContainerRef = el)
                         }
                         // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>

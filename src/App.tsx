@@ -5,6 +5,7 @@ import Navigation from "./components/Navigation";
 import Tactics from "./components/tactics/Tactics";
 import "./App.css";
 import PIEPINATOR from "./components/PIEPINATOR/PIEPINATOR";
+import CaseOpeningDemo from "./components/roulette/CaseOpeningDemo";
 
 function App() {
   const [currentPage, setCurrentPage] = createSignal("home");
@@ -38,6 +39,9 @@ function App() {
         </Show>
         <Show when={currentPage() === "PIEP-I-NATOR"}>
           <PIEPINATOR />
+        </Show>
+        <Show when={currentPage() === "roulette"}>
+          <CaseOpeningDemo />
         </Show>
       </main>
     </div>
