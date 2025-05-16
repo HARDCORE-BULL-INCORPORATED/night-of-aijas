@@ -11,15 +11,37 @@ function App() {
   const [currentPage, setCurrentPage] = createSignal("home");
 
   const handlePageChange = (page: string) => {
-    localStorage.setItem("currentPage", page);
     setCurrentPage(page);
+    const url = new URL(window.location.toString());
+    url.searchParams.set("page", page);
+    window.history.pushState({}, "", url.toString());
   };
 
   onMount(() => {
-    const savedPage = localStorage.getItem("currentPage");
-    if (savedPage) {
-      setCurrentPage(savedPage);
+    const urlParams = new URLSearchParams(window.location.search);
+    const pageFromUrl = urlParams.get("page");
+    if (pageFromUrl) {
+      setCurrentPage(pageFromUrl);
+    } else {
+      // If no page in URL, set default and update URL
+      const defaultPage = "home";
+      setCurrentPage(defaultPage);
+      const url = new URL(window.location.toString());
+      url.searchParams.set("page", defaultPage);
+      window.history.replaceState({}, "", url.toString()); // Use replaceState to avoid polluting history
     }
+
+    // Listen for browser back/forward navigation
+    window.addEventListener("popstate", () => {
+      const params = new URLSearchParams(window.location.search);
+      const newPage = params.get("page");
+      if (newPage) {
+        setCurrentPage(newPage);
+      } else {
+        // Fallback if page param is somehow removed
+        setCurrentPage("home");
+      }
+    });
   });
 
   return (

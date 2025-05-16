@@ -6,63 +6,67 @@ interface NavigationProps {
 }
 
 const Navigation: Component<NavigationProps> = (props) => {
+    const handleNavigation = (page: string) => {
+        props.onNavigate(page);
+    };
+
     return (
         <nav class="nav-container">
             <ul>
                 <li class={props.activePage === "home" ? "active" : ""}>
-                    <button
-                        type="button"
+                    <a
+                        href="/?page=home"
                         onClick={(e) => {
                             e.preventDefault();
-                            props.onNavigate("home");
+                            handleNavigation("home");
                         }}
                     >
                         <h2>Home</h2>
-                    </button>
+                    </a>
                 </li>
                 <li class={props.activePage === "docs" ? "active" : ""}>
-                    <button
-                        type="button"
+                    <a
+                        href="/?page=docs"
                         onClick={(e) => {
                             e.preventDefault();
-                            props.onNavigate("docs");
+                            handleNavigation("docs");
                         }}
                     >
                         <h2>Docs</h2>
-                    </button>
+                    </a>
                 </li>
                 <li class={props.activePage === "tactics" ? "active" : ""}>
-                    <button
-                        type="button"
+                    <a
+                        href="/?page=tactics"
                         onClick={(e) => {
                             e.preventDefault();
-                            props.onNavigate("tactics");
+                            handleNavigation("tactics");
                         }}
                     >
                         <h2>Tactics</h2>
-                    </button>
+                    </a>
                 </li>
                 <li class={props.activePage === "PIEP-I-NATOR" ? "active" : ""}>
-                    <button
-                        type="button"
+                    <a
+                        href="/?page=PIEP-I-NATOR"
                         onClick={(e) => {
                             e.preventDefault();
-                            props.onNavigate("PIEP-I-NATOR");
+                            handleNavigation("PIEP-I-NATOR");
                         }}
                     >
                         <h2>PIEP-I-NATOR</h2>
-                    </button>
+                    </a>
                 </li>
                 <li class={props.activePage === "roulette" ? "active" : ""}>
-                    <button
-                        type="button"
+                    <a
+                        href="/?page=roulette"
                         onClick={(e) => {
                             e.preventDefault();
-                            props.onNavigate("roulette");
+                            handleNavigation("roulette");
                         }}
                     >
                         <h2>MAPS</h2>
-                    </button>
+                    </a>
                 </li>
             </ul>
             <hr class="cs-hr" />
