@@ -40,6 +40,15 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
         }
     };
 
+    const handleSelectAll = () => {
+        const allMapIds = props.allMaps.map(map => map.id);
+        setSelectedIds(allMapIds);
+    };
+
+    const handleDeselectAll = () => {
+        setSelectedIds([]);
+    };
+
     const firstRowMaps = () => props.allMaps.slice(0, 7);
     const secondRowMaps = () => props.allMaps.slice(7, 14);
 
@@ -103,10 +112,16 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
                     </div>
 
                     <div class={styles.modalActions}>
-                        <button type="button" class={styles.cancelButton} onClick={props.onClose}>
+                        <button type="button" class={`${styles.actionButton} ${styles.secondaryButton}`} onClick={handleDeselectAll}>
+                            Deselect All
+                        </button>
+                        <button type="button" class={`${styles.actionButton} ${styles.secondaryButton}`} onClick={handleSelectAll}>
+                            Select All
+                        </button>
+                        <button type="button" class={`${styles.actionButton} ${styles.cancelButton}`} onClick={props.onClose}>
                             Cancel
                         </button>
-                        <button type="button" class={styles.saveButton} onClick={handleSave}>
+                        <button type="button" class={`${styles.actionButton} ${styles.saveButton}`} onClick={handleSave}>
                             Save Changes
                         </button>
                     </div>

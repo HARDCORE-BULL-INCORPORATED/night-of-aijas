@@ -160,18 +160,28 @@
     padding-top: 20px;
     border-top: 1px solid #3a4f62;
     /* Separator line */
+    flex-wrap: wrap;
+    /* Allow buttons to wrap on smaller screens */
+}
+
+/* General style for all action buttons in the modal footer */
+.actionButton {
+    padding: 10px 15px;
+    /* Adjusted padding slightly */
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    /* Slightly smaller font for more buttons */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .saveButton {
     background: linear-gradient(to bottom, #f0c14b, #c7a140);
     color: #111;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 14px;
-    cursor: pointer;
+    /* Inherits from .actionButton: padding, border, border-radius, font-weight, text-transform, font-size, cursor */
 }
 
 .saveButton:hover {
@@ -181,15 +191,24 @@
 .cancelButton {
     background-color: #4a5568;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 14px;
-    cursor: pointer;
+    /* Inherits from .actionButton */
 }
 
 .cancelButton:hover {
     background-color: #2d3748;
+}
+
+/* Style for secondary action buttons like Select All / Deselect All */
+.secondaryButton {
+    background-color: #3a4f62;
+    /* A neutral, secondary color from your theme */
+    color: #e2e8f0;
+    /* Light text color */
+    /* Inherits from .actionButton */
+}
+
+.secondaryButton:hover {
+    background-color: #4A5568;
+    /* Slightly lighter on hover */
+    color: white;
 }
