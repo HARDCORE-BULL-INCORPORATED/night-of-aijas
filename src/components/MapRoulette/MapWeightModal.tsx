@@ -1,5 +1,6 @@
 import type { Component } from "solid-js";
-import { createSignal, For, Show, createEffect } from "solid-js";
+import { For, Show, createEffect } from "solid-js";
+import { createStore } from "solid-js/store";
 import type { CSGOItem } from "../roulette/types";
 import styles from "./MapWeightModal.module.css";
 
@@ -11,31 +12,39 @@ interface MapWeightModalProps {
 }
 
 const MapWeightModal: Component<MapWeightModalProps> = (props) => {
-    const [editableMapConfigs, setEditableMapConfigs] = createSignal<CSGOItem[]>([]);
+    const [editableMapConfigs, setEditableMapConfigs] = createStore<CSGOItem[]>([]);
 
     createEffect(() => {
         if (props.isOpen) {
-            // Deep clone to prevent direct mutation of props
             setEditableMapConfigs(props.currentMapConfigs.map(map => ({ ...map })));
         }
     });
 
     const handleWeightChange = (mapId: string | number, newWeight: string) => {
-        const weight = parseFloat(newWeight);
-        if (isNaN(weight) || weight < 0) return; // Basic validation
+        if (newWeight === "") {
+            setEditableMapConfigs(
+                (map) => map.id === mapId,
+                "weight",
+                0
+            );
+            return;
+        }
 
-        setEditableMapConfigs(prevConfigs =>
-            prevConfigs.map(map =>
-                map.id === mapId ? { ...map, weight: weight } : map
-            )
+        const weightValue = parseFloat(newWeight);
+
+        if (isNaN(weightValue) || weightValue < 0) {
+            return;
+        }
+
+        setEditableMapConfigs(
+            (map) => map.id === mapId,
+            "weight",
+            weightValue
         );
     };
 
     const handleSave = () => {
-        // Ensure all maps have a valid weight; default to 1 if somehow undefined or NaN
-        // This step is more of a safeguard now that CSGOItem requires weight,
-        // but good for robustness if data sources were less reliable.
-        const configsWithEnsuredWeights = editableMapConfigs().map(map => ({
+        const configsWithEnsuredWeights = editableMapConfigs.map(map => ({
             ...map,
             weight: (typeof map.weight !== 'number' || isNaN(map.weight) || map.weight < 0) ? 1 : map.weight,
         }));
@@ -65,18 +74,17 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
                     </p>
 
                     <ul class={styles.mapWeightList}>
-                        <For each={editableMapConfigs()}>
+                        <For each={editableMapConfigs}>
                             {(map) => (
                                 <li class={styles.mapWeightItem}>
                                     <img src={map.image} alt={map.name} class={styles.mapImage} />
                                     <span class={styles.mapName}>{map.name}</span>
                                     <input
                                         type="number"
-                                        value={(map.weight).toString()} // Removed ?? 1 as weight is now mandatory
+                                        value={(map.weight).toString()}
                                         onInput={(e) => handleWeightChange(map.id, e.currentTarget.value)}
                                         class={styles.weightInput}
                                         min="0"
-                                        step="0.1"
                                     />
                                 </li>
                             )}
