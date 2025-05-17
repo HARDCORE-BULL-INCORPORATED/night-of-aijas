@@ -54,12 +54,16 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
     onMount(() => {
         updateDimensions();
         window.addEventListener("resize", updateDimensions);
-        setRouletteItems(generateRouletteItems());
     });
 
     // Cleanup resize listener
     onCleanup(() => {
         window.removeEventListener("resize", updateDimensions);
+    });
+
+    // Regenerate roulette items when the source items or view configuration changes
+    createEffect(() => {
+        setRouletteItems(generateRouletteItems());
     });
 
     // Generate a set of items for the roulette
@@ -81,11 +85,6 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
 
         return generatedItems;
     };
-
-    // Initialize the roulette on mount
-    onMount(() => {
-        setRouletteItems(generateRouletteItems());
-    });
 
     // Update the CSS variable for spin duration
     createEffect(() => {
