@@ -15,7 +15,8 @@
     background: linear-gradient(to bottom, #1f3747, #111922);
     border-radius: 8px;
     padding: 20px;
-    max-width: 500px;
+    max-width: 1100px;
+    /* Increased from 500px to fit ~7 items */
     width: 90%;
     max-height: 80vh;
     overflow-y: auto;
@@ -52,70 +53,125 @@
     color: white;
 }
 
-.mapList {
-    list-style: none;
+/* Removed the old .mapList style as it's no longer needed */
+
+.mapRowsContainer {
+    display: flex;
+    flex-direction: column;
+    /* Stack rows vertically */
+    gap: 16px;
+    /* Gap between the two rows */
+    margin-bottom: 20px;
+    /* Space before modal actions */
+    max-height: 60vh;
+    /* Max height for the rows area */
+    overflow-y: auto;
+    /* Allow vertical scrolling if content overflows */
+    padding: 5px;
+    /* Small padding for scrollbar */
+}
+
+.mapListRow {
+    display: flex;
+    /* Lay out items horizontally within a row */
+    flex-wrap: wrap;
+    /* Allow items to wrap if row is too narrow */
+    gap: 16px;
+    /* Gap between items in a row */
     padding: 0;
-    margin: 0 0 20px 0;
+    list-style-type: none;
+    justify-content: center;
+    /* Center items in the row */
 }
 
 .mapItem {
-    display: flex;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #2c3e50;
+    /* The li itself doesn't need much styling if the label handles it */
 }
 
-.mapItem:last-child {
-    border-bottom: none;
-}
-
-.mapItem label {
+.mapItem>label {
     display: flex;
+    flex-direction: column;
+    /* Stack checkbox, image, name vertically */
     align-items: center;
+    /* Center items horizontally within the label */
+    text-align: center;
     cursor: pointer;
-    width: 100%;
-    color: #e0e0e0;
+    padding: 10px;
+    border: 1px solid #4a5568;
+    /* Using a color from your button for consistency */
+    border-radius: 6px;
+    background-color: #2d3748;
+    /* Darker item background */
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    width: 120px;
+    /* Changed from 140px */
+    box-sizing: border-box;
+    /* Padding and border included in width/height */
+}
+
+.mapItem>label:hover {
+    background-color: #4a5568;
+    /* Highlight on hover */
+    transform: translateY(-2px);
+    /* Slight lift effect */
 }
 
 .mapItem input[type="checkbox"] {
-    margin-right: 10px;
-    width: 18px;
-    height: 18px;
-    accent-color: #f0c14b;
+    margin-bottom: 8px;
+    /* Space between checkbox and image */
+    transform: scale(1.2);
+    /* Make checkbox slightly larger */
 }
 
 .mapItemImage {
-    width: 40px;
-    height: 30px;
+    width: 80px;
+    /* Changed from 100px */
+    height: 60px;
+    /* Changed from 75px */
     object-fit: cover;
-    border-radius: 3px;
-    margin-right: 10px;
+    border-radius: 4px;
+    /* Rounded corners for the image */
+    margin-bottom: 8px;
+    /* Space between image and name */
+    border: 1px solid #4a5568;
+    /* Optional border for image */
 }
 
 .mapItemName {
-    font-size: 16px;
+    transform: translateY(-2px);
+    font-size: 13px;
+    /* Slightly smaller font for map name */
+    color: #e2e8f0;
+    /* Light text color */
+    word-break: break-word;
+    /* Prevent long names from breaking layout */
+    max-width: 100%;
+    /* Ensure name doesn't overflow the label's width */
+    line-height: 1.3;
 }
 
 .modalActions {
     display: flex;
     justify-content: flex-end;
+    /* Align buttons to the right */
     gap: 10px;
-}
-
-.saveButton,
-.cancelButton {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 14px;
+    /* Space between buttons */
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #3a4f62;
+    /* Separator line */
 }
 
 .saveButton {
     background: linear-gradient(to bottom, #f0c14b, #c7a140);
     color: #111;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .saveButton:hover {
@@ -125,6 +181,13 @@
 .cancelButton {
     background-color: #4a5568;
     color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .cancelButton:hover {

@@ -2,13 +2,6 @@ import { CSGOItem } from "../roulette/types";
 
 export const mapCase: CSGOItem[] = [
     {
-        id: 1,
-        name: "Ancient",
-        image: "/maps/de_ancient.png",
-        rarity: "Industrial",
-        weight: 1,
-    },
-    {
         id: 2,
         name: "Dust II",
         image: "/maps/de_dust2.png",
@@ -30,6 +23,13 @@ export const mapCase: CSGOItem[] = [
         weight: 1,
     },
     {
+        id: 9,
+        name: "Vertigo",
+        image: "/maps/de_vertigo.png",
+        rarity: "Industrial",
+        weight: 1,
+    },
+    {
         id: 5,
         name: "Train",
         image: "/maps/de_train.png",
@@ -37,17 +37,17 @@ export const mapCase: CSGOItem[] = [
         weight: 1,
     },
     {
-        id: 6,
-        name: "Office",
-        image: "/maps/cs_office.png",
-        rarity: "Rare Special Item",
+        id: 10,
+        name: "Anubis",
+        image: "/maps/de_anubis.png",
+        rarity: "Classified",
         weight: 1,
     },
     {
-        id: 7,
-        name: "Italy",
-        image: "/maps/cs_italy.png",
-        rarity: "Classified",
+        id: 1,
+        name: "Ancient",
+        image: "/maps/de_ancient.png",
+        rarity: "Industrial",
         weight: 1,
     },
     {
@@ -58,17 +58,10 @@ export const mapCase: CSGOItem[] = [
         weight: 1,
     },
     {
-        id: 9,
-        name: "Vertigo",
-        image: "/maps/de_vertigo.png",
-        rarity: "Industrial",
-        weight: 1,
-    },
-    {
-        id: 10,
-        name: "Anubis",
-        image: "/maps/de_anubis.png",
-        rarity: "Classified",
+        id: 13,
+        name: "Nuke",
+        image: "/maps/de_nuke.png",
+        rarity: "Mil-spec",
         weight: 1,
     },
     {
@@ -86,17 +79,24 @@ export const mapCase: CSGOItem[] = [
         weight: 1,
     },
     {
-        id: 13,
-        name: "Nuke",
-        image: "/maps/de_nuke.png",
-        rarity: "Mil-spec",
-        weight: 1,
-    },
-    {
         id: 14,
         name: "Agency",
         image: "/maps/cs_agency.png",
         rarity: "Covert",
+        weight: 1,
+    },
+    {
+        id: 6,
+        name: "Office",
+        image: "/maps/cs_office.png",
+        rarity: "Rare Special Item",
+        weight: 1,
+    },
+    {
+        id: 7,
+        name: "Italy",
+        image: "/maps/cs_italy.png",
+        rarity: "Classified",
         weight: 1,
     },
 ];

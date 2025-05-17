@@ -1,5 +1,5 @@
 import type { Component } from "solid-js";
-import { createSignal, For, Show, createEffect } from "solid-js"; // Added createEffect
+import { createSignal, For, Show, createEffect } from "solid-js";
 import type { CSGOItem } from "../roulette/types";
 import styles from "./MapSelectionModal.module.css";
 
@@ -40,6 +40,9 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
         }
     };
 
+    const firstRowMaps = () => props.allMaps.slice(0, 7);
+    const secondRowMaps = () => props.allMaps.slice(7, 14);
+
     return (
         <Show when={props.isOpen}>
             <div
@@ -60,23 +63,44 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
                         </button>
                     </div>
 
-                    <ul class={styles.mapList}>
-                        <For each={props.allMaps}>
-                            {(map) => (
-                                <li class={styles.mapItem}>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedIds().includes(map.id)}
-                                            onChange={(e) => handleCheckboxChange(map.id, e.currentTarget.checked)}
-                                        />
-                                        <img src={map.image} alt={map.name} class={styles.mapItemImage} />
-                                        <span class={styles.mapItemName}>{map.name}</span>
-                                    </label>
-                                </li>
-                            )}
-                        </For>
-                    </ul>
+                    <div class={styles.mapRowsContainer}>
+                        <ul class={styles.mapListRow}>
+                            <For each={firstRowMaps()}>
+                                {(map) => (
+                                    <li class={styles.mapItem}>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedIds().includes(map.id)}
+                                                onChange={(e) => handleCheckboxChange(map.id, e.currentTarget.checked)}
+                                            />
+                                            <img src={map.image} alt={map.name} class={styles.mapItemImage} />
+                                            <span class={styles.mapItemName}>{map.name}</span>
+                                        </label>
+                                    </li>
+                                )}
+                            </For>
+                        </ul>
+                        <Show when={secondRowMaps().length > 0}>
+                            <ul class={styles.mapListRow}>
+                                <For each={secondRowMaps()}>
+                                    {(map) => (
+                                        <li class={styles.mapItem}>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedIds().includes(map.id)}
+                                                    onChange={(e) => handleCheckboxChange(map.id, e.currentTarget.checked)}
+                                                />
+                                                <img src={map.image} alt={map.name} class={styles.mapItemImage} />
+                                                <span class={styles.mapItemName}>{map.name}</span>
+                                            </label>
+                                        </li>
+                                    )}
+                                </For>
+                            </ul>
+                        </Show>
+                    </div>
 
                     <div class={styles.modalActions}>
                         <button type="button" class={styles.cancelButton} onClick={props.onClose}>
