@@ -1,5 +1,5 @@
 import type { Component } from "solid-js";
-import { For, Show, createEffect } from "solid-js";
+import { For, Show, createEffect, createMemo } from "solid-js";
 import { createStore } from "solid-js/store";
 import type { CSGOItem } from "../roulette/types";
 import styles from "./MapWeightModal.module.css";
@@ -18,6 +18,10 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
         if (props.isOpen) {
             setEditableMapConfigs(props.currentMapConfigs.map(map => ({ ...map })));
         }
+    });
+
+    const totalWeight = createMemo(() => {
+        return editableMapConfigs.reduce((sum, map) => sum + (map.weight || 0), 0);
     });
 
     const handleWeightChange = (mapId: string | number, newWeight: string) => {
@@ -75,19 +79,29 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
 
                     <ul class={styles.mapWeightList}>
                         <For each={editableMapConfigs}>
-                            {(map) => (
-                                <li class={styles.mapWeightItem}>
-                                    <img src={map.image} alt={map.name} class={styles.mapImage} />
-                                    <span class={styles.mapName}>{map.name}</span>
-                                    <input
-                                        type="number"
-                                        value={(map.weight).toString()}
-                                        onInput={(e) => handleWeightChange(map.id, e.currentTarget.value)}
-                                        class={styles.weightInput}
-                                        min="0"
-                                    />
-                                </li>
-                            )}
+                            {(map) => {
+                                const probability = createMemo(() => {
+                                    const currentTotalWeight = totalWeight();
+                                    return currentTotalWeight > 0 ? ((map.weight || 0) / currentTotalWeight) * 100 : 0;
+                                });
+
+                                return (
+                                    <li class={styles.mapWeightItem}>
+                                        <img src={map.image} alt={map.name} class={styles.mapImage} />
+                                        <span class={styles.mapName}>{map.name}</span>
+                                        <input
+                                            type="number"
+                                            value={(map.weight).toString()}
+                                            onInput={(e) => handleWeightChange(map.id, e.currentTarget.value)}
+                                            class={styles.weightInput}
+                                            min="0"
+                                        />
+                                        <span class={styles.mapProbability}>
+                                            ({probability().toFixed(1)}%)
+                                        </span>
+                                    </li>
+                                );
+                            }}
                         </For>
                     </ul>
 
