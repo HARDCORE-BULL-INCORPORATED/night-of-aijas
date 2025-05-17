@@ -83,20 +83,20 @@ export const mapCase: CSGOItem[] = [
         name: "Agency",
         image: "/maps/cs_agency.png",
         rarity: "Covert",
-        weight: 1,
+        weight: 1.5,
     },
     {
         id: 6,
         name: "Office",
         image: "/maps/cs_office.png",
         rarity: "Rare Special Item",
-        weight: 1,
+        weight: 1.5,
     },
     {
         id: 7,
         name: "Italy",
         image: "/maps/cs_italy.png",
         rarity: "Classified",
-        weight: 1,
+        weight: 1.5,
     },
 ];
