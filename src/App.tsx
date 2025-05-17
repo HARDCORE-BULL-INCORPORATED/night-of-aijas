@@ -2,10 +2,10 @@ import { createSignal, Show, onMount } from "solid-js";
 import Docs from "./components/docs/Docs";
 import Home from "./components/Home";
 import Navigation from "./components/Navigation";
-import Tactics from "./components/tactics/Tactics";
 import "./App.css";
+import MapRoulette from "./components/MapRoulette/MapRoulette";
+import TacticsRoulettePage from "./components/TacticsRoulettePage/TacticsRoulettePage";
 import PIEPINATOR from "./components/PIEPINATOR/PIEPINATOR";
-import CaseOpeningDemo from "./components/roulette/CaseOpeningDemo";
 
 function App() {
   const [currentPage, setCurrentPage] = createSignal("home");
@@ -56,14 +56,14 @@ function App() {
         <Show when={currentPage() === "docs"}>
           <Docs />
         </Show>
-        <Show when={currentPage() === "tactics"}>
-          <Tactics />
-        </Show>
         <Show when={currentPage() === "PIEP-I-NATOR"}>
           <PIEPINATOR />
         </Show>
         <Show when={currentPage() === "roulette"}>
-          <CaseOpeningDemo />
+          <MapRoulette />
+        </Show>
+        <Show when={currentPage() === "tactics"}>
+          <TacticsRoulettePage />
         </Show>
       </main>
     </div>

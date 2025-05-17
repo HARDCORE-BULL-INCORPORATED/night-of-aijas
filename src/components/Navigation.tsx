@@ -46,17 +46,7 @@ const Navigation: Component<NavigationProps> = (props) => {
                         <h2>Tactics</h2>
                     </a>
                 </li>
-                <li class={props.activePage === "PIEP-I-NATOR" ? "active" : ""}>
-                    <a
-                        href="/?page=PIEP-I-NATOR"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            handleNavigation("PIEP-I-NATOR");
-                        }}
-                    >
-                        <h2>PIEP-I-NATOR</h2>
-                    </a>
-                </li>
+
                 <li class={props.activePage === "roulette" ? "active" : ""}>
                     <a
                         href="/?page=roulette"
@@ -66,6 +56,17 @@ const Navigation: Component<NavigationProps> = (props) => {
                         }}
                     >
                         <h2>MAPS</h2>
+                    </a>
+                </li>
+                <li class={props.activePage === "PIEP-I-NATOR" ? "active" : ""}>
+                    <a
+                        href="/?page=PIEP-I-NATOR"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            handleNavigation("PIEP-I-NATOR");
+                        }}
+                    >
+                        <h2>PIEP-I-NATOR</h2>
                     </a>
                 </li>
             </ul>

@@ -3,10 +3,9 @@ import { createSignal, For } from "solid-js";
 import CSGOCaseRoulette from "../roulette/CSGOCaseRoulette";
 import type { CSGOItem } from "../roulette/types";
 
-const CaseOpeningDemo: Component = () => {
+const MapRoulette: Component = () => {
     const [wonItems, setWonItems] = createSignal<CSGOItem[]>([]);
 
-    // Define your case items
     const caseItems: CSGOItem[] = [
         {
             id: 1,
@@ -108,7 +107,6 @@ const CaseOpeningDemo: Component = () => {
         },
     ];
 
-    // Handle when a map is won
     const handleItemWon = (item: CSGOItem): void => {
         setWonItems([item, ...wonItems()]);
         console.log(`Map selected: ${item.name} (${item.rarity})`);
@@ -122,7 +120,7 @@ const CaseOpeningDemo: Component = () => {
             <CSGOCaseRoulette
                 items={caseItems}
                 onItemWon={handleItemWon}
-                spinDuration={6}
+                spinDuration={8}
             />
 
             {wonItems().length > 0 && (
@@ -187,4 +185,4 @@ const CaseOpeningDemo: Component = () => {
     );
 };
 
-export default CaseOpeningDemo;
+export default MapRoulette;
