@@ -2,110 +2,12 @@ import type { Component } from "solid-js";
 import { createSignal, For } from "solid-js";
 import CSGOCaseRoulette from "../roulette/CSGOCaseRoulette";
 import type { CSGOItem } from "../roulette/types";
+import { mapCase } from "./mapCase";
 
 const MapRoulette: Component = () => {
     const [wonItems, setWonItems] = createSignal<CSGOItem[]>([]);
 
-    const caseItems: CSGOItem[] = [
-        {
-            id: 1,
-            name: "Ancient",
-            image: "/maps/de_ancient.png",
-            rarity: "Industrial",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 2,
-            name: "Dust II",
-            image: "/maps/de_dust2.png",
-            rarity: "Consumer",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 3,
-            name: "Mirage",
-            image: "/maps/de_mirage.png",
-            rarity: "Consumer",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 4,
-            name: "Inferno",
-            image: "/maps/de_inferno.png",
-            rarity: "Industrial",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 5,
-            name: "Train",
-            image: "/maps/de_train.png",
-            rarity: "Mil-spec",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 6,
-            name: "Office",
-            image: "/maps/cs_office.png",
-            rarity: "Rare Special Item",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 7,
-            name: "Italy",
-            image: "/maps/cs_italy.png",
-            rarity: "Classified",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 8,
-            name: "Overpass",
-            image: "/maps/de_overpass.png",
-            rarity: "Mil-spec",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 9,
-            name: "Vertigo",
-            image: "/maps/de_vertigo.png",
-            rarity: "Industrial",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 10,
-            name: "Anubis",
-            image: "/maps/de_anubis.png",
-            rarity: "Classified",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 11,
-            name: "Jura",
-            image: "/maps/de_jura.png",
-            rarity: "Classified",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 12,
-            name: "Grail",
-            image: "/maps/de_grail.png",
-            rarity: "Industrial",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 13,
-            name: "Nuke",
-            image: "/maps/de_nuke.png",
-            rarity: "Mil-spec",
-            weight: 1, // Equal probability
-        },
-        {
-            id: 14,
-            name: "Agency",
-            image: "/maps/cs_agency.png",
-            rarity: "Covert",
-            weight: 1, // Equal probability
-        },
-    ];
+    const caseItems = mapCase;
 
     const handleItemWon = (item: CSGOItem): void => {
         setWonItems([item, ...wonItems()]);
