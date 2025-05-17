@@ -4,11 +4,13 @@ import CSGOCaseRoulette from "../roulette/CSGOCaseRoulette";
 import type { CSGOItem } from "../roulette/types";
 import { mapCase as allPossibleMaps } from "./mapCase";
 import MapSelectionModal from "./MapSelectionModal";
+import MapWeightModal from "./MapWeightModal"; // Import the new modal
 
 const MapRoulette: Component = () => {
     const [wonItems, setWonItems] = createSignal<CSGOItem[]>([]);
     const [activeMaps, setActiveMaps] = createSignal<CSGOItem[]>([...allPossibleMaps]);
     const [isModalOpen, setIsModalOpen] = createSignal(false);
+    const [isWeightModalOpen, setIsWeightModalOpen] = createSignal(false); // State for the new modal
 
     const handleItemWon = (item: CSGOItem): void => {
         setWonItems([item, ...wonItems()]);
@@ -25,7 +27,28 @@ const MapRoulette: Component = () => {
 
     const handleSaveMapSelection = (selectedMapIds: (string | number)[]) => {
         const newActiveMaps = allPossibleMaps.filter(map => selectedMapIds.includes(map.id));
+        // Preserve existing weights when selection changes, or reset if that's preferred.
+        // For now, let's find the original weight from allPossibleMaps for newly selected maps.
+        // Or, better, ensure that mapCase items have default weights and they are carried over.
+        // The current approach will use weights from allPossibleMaps for newly filtered maps.
         setActiveMaps(newActiveMaps);
+    };
+
+    // Handlers for the weight modal
+    const handleOpenWeightModal = () => {
+        setIsWeightModalOpen(true);
+    };
+
+    const handleCloseWeightModal = () => {
+        setIsWeightModalOpen(false);
+    };
+
+    const handleSaveMapWeights = (updatedMapConfigs: CSGOItem[]) => {
+        // The updatedMapConfigs from MapWeightModal already contains all active maps with their new weights.
+        // We need to ensure that this update also respects the current filter of active maps.
+        // A simple setActiveMaps should work if MapWeightModal only receives and returns currently active maps.
+        setActiveMaps(updatedMapConfigs);
+        // No need to call handleCloseWeightModal here as it's called inside MapWeightModal on save
     };
 
     return (
@@ -33,22 +56,39 @@ const MapRoulette: Component = () => {
             <h1>CS:GO MAP ROULETTE</h1>
             <p>SPIN THE WHEEL AND LET THE GAME DECIDE YOUR NEXT MAP!</p>
 
-            <button
-                type="button"
-                onClick={handleOpenModal}
-                style={{
-                    "margin-bottom": "20px",
-                    padding: "10px 15px",
-                    "background-color": "#4A5568",
-                    color: "white",
-                    border: "none",
-                    "border-radius": "4px",
-                    cursor: "pointer",
-                    "font-size": "14px",
-                }}
-            >
-                Customize Map Pool
-            </button>
+            <div style={{ "display": "flex", "gap": "10px", "margin-bottom": "20px", "justify-content": "center" }}> {/* Wrapper for buttons, added justify-content */}
+                <button
+                    type="button"
+                    onClick={handleOpenModal}
+                    style={{
+                        padding: "10px 15px",
+                        "background-color": "#4A5568",
+                        color: "white",
+                        border: "none",
+                        "border-radius": "4px",
+                        cursor: "pointer",
+                        "font-size": "14px",
+                    }}
+                >
+                    Customize Map Pool
+                </button>
+                <button // Button to open the weight modal
+                    type="button"
+                    onClick={handleOpenWeightModal}
+                    style={{
+                        padding: "10px 15px",
+                        "background-color": "#4A5568", // Same style for now, can be changed
+                        color: "white",
+                        border: "none",
+                        "border-radius": "4px",
+                        cursor: "pointer",
+                        "font-size": "14px",
+                    }}
+                    disabled={activeMaps().length === 0} // Disable if no maps are active
+                >
+                    Customize Map Weights
+                </button>
+            </div>
 
             <CSGOCaseRoulette
                 items={activeMaps()}
@@ -63,6 +103,14 @@ const MapRoulette: Component = () => {
                 allMaps={allPossibleMaps}
                 activeMapIds={activeMaps().map(map => map.id)}
                 onSave={handleSaveMapSelection}
+            />
+
+            {/* Render the MapWeightModal */}
+            <MapWeightModal
+                isOpen={isWeightModalOpen()}
+                onClose={handleCloseWeightModal}
+                currentMapConfigs={activeMaps()} // Pass activeMaps, as modal should only edit weights of active maps
+                onSave={handleSaveMapWeights}
             />
 
             <Show when={wonItems().length > 0}>

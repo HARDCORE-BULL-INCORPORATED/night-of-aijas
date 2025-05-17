@@ -11,7 +11,7 @@ export interface CSGOItem {
     | "Covert"
     | "Rare Special Item";
     color?: string; // Optional custom color
-    weight?: number; // Probability weight (higher = more likely)
+    weight: number; // Probability weight (higher = more likely)
 }
 
 export interface CSGOCaseRouletteProps {

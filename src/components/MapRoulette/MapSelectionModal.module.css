@@ -84,9 +84,7 @@
     /* Center items in the row */
 }
 
-.mapItem {
-    /* The li itself doesn't need much styling if the label handles it */
-}
+/* .mapItem {} */
 
 .mapItem>label {
     display: flex;
