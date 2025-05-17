@@ -213,7 +213,7 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
                                 width={itemWidth()} // Use itemWidth()
                                 isWinner={Boolean(
                                     winningItem() &&
-                                        item.id === winningItem()?.id,
+                                    item.id === winningItem()?.id,
                                 )}
                             />
                         )}

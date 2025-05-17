@@ -33,6 +33,7 @@ const RouletteItem: Component<RouletteItemProps> = (props) => {
                     <div class={styles.itemName} title={props.item.name}>
                         {props.item.name}
                     </div>
+                    {/* This is the rarity name inside the roulette */}
                     {/* <div class={styles.itemRarity} style={{ color: rarityColor }}>
             {props.item.rarity}
           </div> */}

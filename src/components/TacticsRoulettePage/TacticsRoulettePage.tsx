@@ -2,21 +2,11 @@ import type { Component } from "solid-js";
 import { createSignal, For } from "solid-js";
 import CSGOCaseRoulette from "../roulette/CSGOCaseRoulette";
 import type { CSGOItem } from "../roulette/types";
+import { tacticsCase } from "./tacticsCase";
 
 const TacticsRoulettePage: Component = () => {
     const [wonItems, setWonItems] = createSignal<CSGOItem[]>([]);
 
-    // Placeholder for tactics items - you can add your tactics here later
-    const caseItems: CSGOItem[] = [
-        // Example placeholder item:
-        // {
-        // id: 1,
-        // name: "Placeholder Tactic",
-        // image: "/tactics/default_tactic_image.png", // Replace with an actual image path if you have one
-        // rarity: "Common",
-        // weight: 1,
-        // },
-    ];
 
     const handleItemWon = (item: CSGOItem): void => {
         setWonItems([item, ...wonItems()]);
@@ -29,7 +19,7 @@ const TacticsRoulettePage: Component = () => {
             <p>SPIN THE WHEEL AND LET FATE DECIDE YOUR NEXT STRATEGY!</p>
 
             <CSGOCaseRoulette
-                items={caseItems}
+                items={tacticsCase}
                 onItemWon={handleItemWon}
                 spinDuration={8} // You can adjust this
             // itemWidth={140} // Optional: Adjust item width if needed

@@ -46,7 +46,7 @@ const MapRoulette: Component = () => {
             id: 6,
             name: "Office",
             image: "/maps/cs_office.png",
-            rarity: "Contraband",
+            rarity: "Rare Special Item",
             weight: 1, // Equal probability
         },
         {
