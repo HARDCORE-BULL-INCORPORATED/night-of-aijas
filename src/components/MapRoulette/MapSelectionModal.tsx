@@ -1,0 +1,95 @@
+import type { Component } from "solid-js";
+import { createSignal, For, Show, createEffect } from "solid-js"; // Added createEffect
+import type { CSGOItem } from "../roulette/types";
+import styles from "./MapSelectionModal.module.css";
+
+interface MapSelectionModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    allMaps: CSGOItem[];
+    activeMapIds: (string | number)[];
+    onSave: (selectedMapIds: (string | number)[]) => void;
+}
+
+const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
+    const [selectedIds, setSelectedIds] = createSignal<(string | number)[]>([]);
+
+    // Initialize selectedIds when the modal opens or activeMapIds change
+    createEffect(() => {
+        if (props.isOpen) {
+            setSelectedIds([...props.activeMapIds]);
+        }
+    });
+
+    const handleCheckboxChange = (mapId: string | number, checked: boolean) => {
+        if (checked) {
+            setSelectedIds([...selectedIds(), mapId]);
+        } else {
+            setSelectedIds(selectedIds().filter((id) => id !== mapId));
+        }
+    };
+
+    const handleSave = () => {
+        props.onSave(selectedIds());
+        props.onClose();
+    };
+
+    const handleBackdropClick = (e: MouseEvent) => {
+        if (e.target === e.currentTarget) {
+            props.onClose();
+        }
+    };
+
+    return (
+        <Show when={props.isOpen}>
+            <div
+                class={styles.modalBackdrop}
+                onClick={handleBackdropClick}
+                role="presentation"
+            >
+                <div class={styles.modalContent} role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+                    <div class={styles.modalHeader}>
+                        <h2 id="modalTitle" class={styles.modalTitle}>Select Map Pool</h2>
+                        <button
+                            type="button"
+                            class={styles.closeButton}
+                            onClick={props.onClose}
+                            aria-label="Close"
+                        >
+                            ×
+                        </button>
+                    </div>
+
+                    <ul class={styles.mapList}>
+                        <For each={props.allMaps}>
+                            {(map) => (
+                                <li class={styles.mapItem}>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedIds().includes(map.id)}
+                                            onChange={(e) => handleCheckboxChange(map.id, e.currentTarget.checked)}
+                                        />
+                                        <img src={map.image} alt={map.name} class={styles.mapItemImage} />
+                                        <span class={styles.mapItemName}>{map.name}</span>
+                                    </label>
+                                </li>
+                            )}
+                        </For>
+                    </ul>
+
+                    <div class={styles.modalActions}>
+                        <button type="button" class={styles.cancelButton} onClick={props.onClose}>
+                            Cancel
+                        </button>
+                        <button type="button" class={styles.saveButton} onClick={handleSave}>
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </Show>
+    );
+};
+
+export default MapSelectionModal;

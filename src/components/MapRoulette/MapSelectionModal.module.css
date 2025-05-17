@@ -1,0 +1,132 @@
+.modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: linear-gradient(to bottom, #1f3747, #111922);
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    text-align: left;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+    position: relative;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3a4f62;
+}
+
+.modalTitle {
+    font-size: 20px;
+    color: #f0c14b;
+    margin: 0;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.closeButton:hover {
+    color: white;
+}
+
+.mapList {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.mapItem {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #2c3e50;
+}
+
+.mapItem:last-child {
+    border-bottom: none;
+}
+
+.mapItem label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+    color: #e0e0e0;
+}
+
+.mapItem input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    accent-color: #f0c14b;
+}
+
+.mapItemImage {
+    width: 40px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+
+.mapItemName {
+    font-size: 16px;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.saveButton,
+.cancelButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.saveButton {
+    background: linear-gradient(to bottom, #f0c14b, #c7a140);
+    color: #111;
+}
+
+.saveButton:hover {
+    background: linear-gradient(to bottom, #f4ca58, #d6ae4a);
+}
+
+.cancelButton {
+    background-color: #4a5568;
+    color: white;
+}
+
+.cancelButton:hover {
+    background-color: #2d3748;
+}
