@@ -27,6 +27,7 @@
     flex-direction: column;
     /* Allow header, list, actions to stack */
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+    margin: auto;
 }
 
 .modalHeader {

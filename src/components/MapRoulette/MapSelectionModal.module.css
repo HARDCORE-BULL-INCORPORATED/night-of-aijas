@@ -4,11 +4,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.85); /* Slightly darker backdrop */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1040; /* Increased z-index, below weight modal but above most other content */
 }
 
 .modalContent {
@@ -16,13 +16,15 @@
     border-radius: 8px;
     padding: 20px;
     max-width: 1100px;
-    /* Increased from 500px to fit ~7 items */
     width: 90%;
-    max-height: 80vh;
+    max-height: 85vh; /* Increased max-height slightly */
     overflow-y: auto;
     text-align: left;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
-    position: relative;
+    position: relative; /* Keep relative positioning */
+    z-index: 1041; /* Ensure content is above its own backdrop */
+    display: flex; /* Use flex to better manage internal layout */
+    flex-direction: column; /* Stack header, content, actions vertically */
 }
 
 .modalHeader {
