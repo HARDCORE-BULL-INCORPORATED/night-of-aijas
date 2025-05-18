@@ -54,12 +54,13 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 
     return (
         <Show when={props.isOpen}>
+            {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
             <div
                 class={styles.modalBackdrop}
                 onClick={handleBackdropClick}
                 role="presentation"
             >
-                <div class={styles.modalContent} role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+                <dialog class={styles.modalContent} aria-modal="true" aria-labelledby="modalTitle">
                     <div class={styles.modalHeader}>
                         <h2 id="modalTitle" class={styles.modalTitle}>Select Map Pool</h2>
                         <button
@@ -125,7 +126,7 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
                             Save Changes
                         </button>
                     </div>
-                </div>
+                </dialog>
             </div>
         </Show>
     );

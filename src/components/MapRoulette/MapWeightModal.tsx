@@ -34,9 +34,9 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
             return;
         }
 
-        const weightValue = parseFloat(newWeight);
+        const weightValue = Number.parseFloat(newWeight);
 
-        if (isNaN(weightValue) || weightValue < 0) {
+        if (Number.isNaN(weightValue) || weightValue < 0) {
             return;
         }
 
@@ -50,7 +50,7 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
     const handleSave = () => {
         const configsWithEnsuredWeights = editableMapConfigs.map(map => ({
             ...map,
-            weight: (typeof map.weight !== 'number' || isNaN(map.weight) || map.weight < 0) ? 1 : map.weight,
+            weight: (typeof map.weight !== 'number' || Number.isNaN(map.weight) || map.weight < 0) ? 1 : map.weight,
         }));
         props.onSave(configsWithEnsuredWeights);
         props.onClose();
@@ -64,8 +64,9 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
 
     return (
         <Show when={props.isOpen}>
+            {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
             <div class={styles.modalBackdrop} onClick={handleBackdropClick} role="presentation">
-                <div class={styles.modalContent} role="dialog" aria-modal="true" aria-labelledby="weightModalTitle">
+                <dialog class={styles.modalContent} aria-modal="true" aria-labelledby="weightModalTitle">
                     <div class={styles.modalHeader}>
                         <h2 id="weightModalTitle" class={styles.modalTitle}>Customize Map Weights</h2>
                         <button type="button" class={styles.closeButton} onClick={props.onClose} aria-label="Close">×</button>
@@ -109,7 +110,7 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
                         <button type="button" class={styles.actionButton} onClick={props.onClose}>Cancel</button>
                         <button type="button" class={`${styles.actionButton} ${styles.saveButton}`} onClick={handleSave}>Save Weights</button>
                     </div>
-                </div>
+                </dialog>
             </div>
         </Show>
     );

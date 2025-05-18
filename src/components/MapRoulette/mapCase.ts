@@ -1,4 +1,4 @@
-import { CSGOItem } from "../roulette/types";
+import type { CSGOItem } from "../roulette/types";
 
 export const mapCase: CSGOItem[] = [
     {
