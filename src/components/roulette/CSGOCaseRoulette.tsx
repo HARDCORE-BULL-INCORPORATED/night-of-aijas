@@ -63,26 +63,45 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
 
     // Regenerate roulette items when the source items or view configuration changes
     createEffect(() => {
-        setRouletteItems(generateRouletteItems());
+        // Ensure props.items is accessed reactively if it's a signal/prop that can change independently
+        // For this component, props.items changes when activeMaps in parent changes.
+        setRouletteItems(generateRouletteItems(props.items));
     });
 
-    // Generate a set of items for the roulette
-    const generateRouletteItems = () => {
-        if (!props.items.length) return [];
+    const generateRouletteItems = (currentItems: CSGOItem[]) => {
+        if (!currentItems.length) return [];
 
-        // We need enough items to fill the roulette multiple times
-        const totalItemsToGenerate = Math.max(100, itemsInView() * 5); // Use itemsInView()
+        // Increase total items for better visual representation of probabilities
+        const totalItemsToGenerate = Math.max(200, itemsInView() * 20);
         const generatedItems: CSGOItem[] = [];
 
-        // Add random items until we reach the desired count
-        for (let i = 0; i < totalItemsToGenerate; i++) {
-            // Use totalItemsToGenerate
-            // Clone a random item from the props
-            const randomIndex = Math.floor(Math.random() * props.items.length);
-            const item = { ...props.items[randomIndex], id: `item-${i}` };
-            generatedItems.push(item);
-        }
+        const allWeightsZero = currentItems.every((item) => item.weight === 0);
 
+        for (let i = 0; i < totalItemsToGenerate; i++) {
+            let chosenItem: CSGOItem | null = null;
+
+            if (allWeightsZero && currentItems.length > 0) {
+                // If all weights are zero (and list is not empty), pick uniformly.
+                const randomIndex = Math.floor(Math.random() * currentItems.length);
+                chosenItem = currentItems[randomIndex];
+            } else if (currentItems.length > 0) {
+                // Use weighted selection.
+                chosenItem = selectWeightedRandomItem(currentItems);
+            }
+
+            if (chosenItem) {
+                // Clone the chosen item and assign a unique ID for this slot in the reel.
+                const itemForReel = { ...chosenItem, id: `reel-item-${i}` };
+                generatedItems.push(itemForReel);
+            } else if (currentItems.length > 0) {
+                // Fallback if chosenItem is null (e.g., selectWeightedRandomItem had an issue or list became unexpectedly empty)
+                // This should be rare given the checks.
+                const fallbackItem = { ...currentItems[0], id: `reel-item-fallback-${i}` };
+                generatedItems.push(fallbackItem);
+                console.warn("CSGOCaseRoulette: Used fallback in generateRouletteItems.");
+            }
+            // If currentItems is empty and somehow this loop runs, no items will be added, which is fine.
+        }
         return generatedItems;
     };
 
@@ -106,16 +125,23 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
     const handleSpin = (): void => {
         if (isSpinning() || !props.items.length || !trackRef) return;
 
-        // 1. Determine a winning item using weighted probability
+        // 1. Determine a winning item using weighted probability from the original props.items
         const winnerFromPool = selectWeightedRandomItem(props.items);
 
-        // 2. Prepare roulette items and place the winner
-        const items = rouletteItems();
-        const winnerIndex =
-            Math.floor(items.length * 0.7) +
-            Math.floor(Math.random() * Math.floor(items.length * 0.2));
+        // Ensure winnerFromPool is not null before proceeding
+        if (!winnerFromPool) {
+            console.error("CSGOCaseRoulette: Could not determine a winner from the pool.");
+            return; // Cannot spin if no winner can be selected
+        }
 
-        const newItems = [...items];
+        // 2. Prepare roulette items and place the winner
+        // It's important that rouletteItems() here uses the latest generated items
+        const currentVisualItems = rouletteItems();
+        const winnerIndex =
+            Math.floor(currentVisualItems.length * 0.7) +
+            Math.floor(Math.random() * Math.floor(currentVisualItems.length * 0.2));
+
+        const newItems = [...currentVisualItems];
         // Ensure the winner item in the array has a unique ID for reliable rendering and state tracking
         const actualWinnerInArray = {
             ...winnerFromPool,

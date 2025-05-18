@@ -55,7 +55,6 @@ export const selectWeightedRandomItem = (items: CSGOItem[]): CSGOItem => {
         0,
     );
 
-    // Get a random value
     const randomValue = Math.random() * totalWeight;
 
     // Find the item based on weights
