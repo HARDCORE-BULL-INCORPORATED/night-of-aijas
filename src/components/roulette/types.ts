@@ -22,6 +22,7 @@ export interface CSGOCaseRouletteProps {
     itemsInView?: number; // Number of items visible in the viewport
     customClassName?: string;
     disabled?: boolean;
+    showModal?: boolean; // Allow parent to control modal visibility
 }
 
 // Rarity colors mapping

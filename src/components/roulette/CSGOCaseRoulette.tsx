@@ -214,6 +214,10 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
 		setShowModal(false);
 	};
 
+	// Accept a prop to control modal visibility from parent (MapRoulette)
+	const shouldShowModal = () =>
+		props.showModal !== undefined ? props.showModal : showModal();
+
 	return (
 		<div class={`${styles.rouletteContainer} ${props.customClassName || ""}`}>
 			<div class={styles.rouletteViewport}>
@@ -223,7 +227,7 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
 					ref={trackRef}
 					class={`${styles.rouletteTrack} ${isSpinning() ? styles.spinning : ""}`}
 					style={{
-						left: isSpinning() ? `-${spinOffset()}px` : "0px",
+						left: `-${spinOffset()}px`,
 					}}
 				>
 					<For each={rouletteItems()}>
@@ -248,7 +252,7 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
 			</button>
 
 			<ResultModal
-				isOpen={showModal()}
+				isOpen={shouldShowModal()}
 				onClose={handleCloseModal}
 				item={winningItem()}
 			/>

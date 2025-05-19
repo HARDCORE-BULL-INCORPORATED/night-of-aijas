@@ -15,6 +15,7 @@ const MapRoulette: Component = () => {
 	const [isModalOpen, setIsModalOpen] = createSignal(false);
 	const [isWeightModalOpen, setIsWeightModalOpen] = createSignal(false); // State for the new modal
 	const [spinDuration, setSpinDuration] = createSignal(8); // Default 8 seconds
+	const [showModal, setShowModal] = createSignal(true); // Default to true
 
 	const handleItemWon = (item: CSGOItem): void => {
 		setWonItems([item, ...wonItems()]);
@@ -76,29 +77,25 @@ const MapRoulette: Component = () => {
 					onClick={handleOpenModal}
 					style={{
 						padding: "10px 15px",
-						"background-color": "#4A5568",
 						color: "white",
 						border: "none",
-						"border-radius": "4px",
 						cursor: "pointer",
 						"font-size": "14px",
 					}}
 				>
 					Customize Map Pool
 				</button>
-				<button // Button to open the weight modal
+				<button
 					type="button"
 					onClick={handleOpenWeightModal}
 					style={{
 						padding: "10px 15px",
-						"background-color": "#4A5568", // Same style for now, can be changed
-						color: "white",
+						// color: "white",
 						border: "none",
-						"border-radius": "4px",
 						cursor: "pointer",
 						"font-size": "14px",
 					}}
-					disabled={activeMaps().length === 0} // Disable if no maps are active
+					disabled={activeMaps().length === 0}
 				>
 					Customize Map Weights
 				</button>
@@ -142,11 +139,27 @@ const MapRoulette: Component = () => {
 				</span>
 			</div>
 
+			<label>
+				<input
+					type="checkbox"
+					checked={showModal()}
+					onInput={(e) => setShowModal(e.currentTarget.checked)}
+				/>
+				<span
+					style={{
+						"margin-left": "10px",
+					}}
+				>
+					Show result modal
+				</span>
+			</label>
+
 			<CSGOCaseRoulette
 				items={activeMaps()}
 				onItemWon={handleItemWon}
 				spinDuration={spinDuration()}
 				disabled={activeMaps().length === 0}
+				showModal={showModal() ? undefined : false}
 			/>
 
 			<MapSelectionModal
