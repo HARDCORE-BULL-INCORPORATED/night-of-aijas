@@ -123,8 +123,8 @@ const MapRoulette: Component = () => {
 				<input
 					id="spinDurationSlider"
 					type="range"
-					min="2"
-					max="20"
+					min="1"
+					max="60"
 					step="0.5"
 					value={spinDuration()}
 					onInput={(e) => setSpinDuration(Number(e.currentTarget.value))}
@@ -180,9 +180,16 @@ const MapRoulette: Component = () => {
 						<For each={wonItems()}>
 							{(item, index) => (
 								<div
-									style={{ display: "flex", "flex-direction": "column", "align-items": "center", width: "140px" }}
+									style={{
+										display: "flex",
+										"flex-direction": "column",
+										"align-items": "center",
+										width: "140px",
+									}}
 								>
-									<span style={{ "font-size": "0.8em", opacity: "0.7" }}>#{index() + 1}</span>
+									<span style={{ "font-size": "0.8em", opacity: "0.7" }}>
+										#{index() + 1}
+									</span>
 									<RouletteItem item={item} width={140} />
 								</div>
 							)}
