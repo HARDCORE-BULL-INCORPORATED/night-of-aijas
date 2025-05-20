@@ -1,7 +1,7 @@
 import type { Component } from "solid-js";
 import { Show } from "solid-js";
 import { type CaseItem, getItemColor } from "./types";
-import styles from "./CSGOCaseRoulette.module.css";
+import styles from "./CaseRoulette.module.css";
 
 interface ResultModalProps {
 	isOpen: boolean;
