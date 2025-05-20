@@ -15,7 +15,7 @@ import {
 } from "./types";
 import RouletteItem from "./RouletteItem";
 import ResultModal from "./ResultModal";
-import styles from "./CSGOCaseRoulette.module.css";
+import styles from "./CaseRoulette.module.css";
 import MapSelectionModal from "./MapSelectionModal";
 import MapWeightModal from "./MapWeightModal";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
