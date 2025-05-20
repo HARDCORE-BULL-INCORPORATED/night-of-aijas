@@ -2,19 +2,11 @@ export interface CaseItem {
     id: string | number;
     name: string;
     image: string;
-    rarity:
-    | "Consumer"
-    | "Industrial"
-    | "Mil-spec"
-    | "Restricted"
-    | "Classified"
-    | "Covert"
-    | "Rare Special Item";
-    color?: string; // Optional custom color
-    weight: number; // Probability weight (higher = more likely)
+    rarity: keyof typeof RARITY_COLORS;
+    weight: number; 
 }
 
-export interface CSGOCaseRouletteProps {
+export interface CSCaseRouletteProps {
     items: CaseItem[];
     onItemWon?: (item: CaseItem) => void;
     spinDuration?: number; // in seconds
@@ -34,18 +26,11 @@ export const RARITY_COLORS = {
     "Classified": "#d32ce6",
     "Covert": "#eb4b4b",
     "Rare Special Item": "#e4ae39",
-};
+} as const;
 
 // Get the color for an item based on its rarity
 export const getItemColor = (item: CaseItem): string => {
-    if (item.color) {
-        return item.color;
-    }
-
-    return (
-        RARITY_COLORS[item.rarity as keyof typeof RARITY_COLORS] ||
-        RARITY_COLORS.Consumer
-    );
+    return RARITY_COLORS[item.rarity] || RARITY_COLORS.Consumer;
 };
 
 // Select a weighted random item from the array

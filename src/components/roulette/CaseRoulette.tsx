@@ -10,7 +10,7 @@ import {
 } from "solid-js";
 import {
 	type CaseItem,
-	type CSGOCaseRouletteProps,
+	type CSCaseRouletteProps,
 	selectWeightedRandomItem,
 } from "./types";
 import RouletteItem from "./RouletteItem";
@@ -21,7 +21,7 @@ import MapWeightModal from "./MapWeightModal";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
 
 // Extend props to include map selection/weight functionality
-export interface CSGOCaseRouletteWithMapOptionsProps extends CSGOCaseRouletteProps {
+export interface CSGOCaseRouletteWithMapOptionsProps extends CSCaseRouletteProps {
 	enableMapManagement?: boolean; // To control if map modals are active
 	allMaps?: CaseItem[]; // All available maps for selection
 	initialActiveMaps?: CaseItem[]; // Initially selected maps
@@ -29,7 +29,7 @@ export interface CSGOCaseRouletteWithMapOptionsProps extends CSGOCaseRoulettePro
 	initialSpinDuration?: number; // Initial spin duration
 }
 
-const CSGOCaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
+const CaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 	props,
 ) => {
 	// Default props
@@ -421,4 +421,4 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 	);
 };
 
-export default CSGOCaseRoulette;
+export default CaseRoulette;

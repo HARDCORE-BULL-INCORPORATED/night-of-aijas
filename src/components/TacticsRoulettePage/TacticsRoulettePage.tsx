@@ -1,6 +1,6 @@
 import type { Component } from "solid-js";
 import { createSignal, For } from "solid-js";
-import CSGOCaseRoulette from "../roulette/CSGOCaseRoulette";
+import CaseRoulette from "../roulette/CaseRoulette";
 import type { CaseItem } from "../roulette/types";
 import { tacticsCase as allPossibleTactics } from "./tacticsCase"; // Renamed for clarity
 // MapSelectionModal and MapWeightModal are now handled by CSGOCaseRoulette
@@ -23,7 +23,7 @@ const TacticsRoulettePage: Component = () => {
             {/* Add a toggle for showing result modal, similar to MapRoulette */}
             {/* You can also add toggles for map management and spin duration slider if needed */}
 
-            <CSGOCaseRoulette
+            <CaseRoulette
                 items={allPossibleTactics} // Provide initial items
                 allMaps={allPossibleTactics} // For item selection modal if enabled
                 initialActiveMaps={allPossibleTactics} // Start with all tactics active if management enabled

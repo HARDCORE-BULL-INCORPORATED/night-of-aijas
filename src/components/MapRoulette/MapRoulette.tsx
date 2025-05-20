@@ -1,6 +1,6 @@
 import type { Component } from "solid-js";
 import { createSignal, For, Show } from "solid-js";
-import CSGOCaseRoulette from "../roulette/CSGOCaseRoulette";
+import CaseRoulette from "../roulette/CaseRoulette";
 import type { CaseItem } from "../roulette/types";
 import { mapCase as allPossibleMapsData } from "./mapCase";
 import RouletteItem from "../roulette/RouletteItem";
@@ -34,7 +34,7 @@ const MapRoulette: Component = () => {
 				</span>
 			</label>
 
-			<CSGOCaseRoulette
+			<CaseRoulette
 				items={allPossibleMapsData} // Provide initial items, CSGOCaseRoulette will manage activeMaps from this if enabled
 				allMaps={allPossibleMapsData}
 				initialActiveMaps={allPossibleMapsData} // Start with all maps active
