@@ -58,18 +58,38 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteProps> = (props) => {
 		window.removeEventListener("resize", updateDimensions);
 	});
 
-	// Regenerate roulette items when the source items or view configuration changes
+	// Regenerate roulette items when the source items, spin duration, or view configuration changes
 	createEffect(() => {
-		// Ensure props.items is accessed reactively if it's a signal/prop that can change independently
-		// For this component, props.items changes when activeMaps in parent changes.
-		setRouletteItems(generateRouletteItems(props.items));
+		// Access props and signals reactively
+		const currentPropItems = props.items; // props.items is reactive if it's a prop
+		const duration = props.spinDuration || 8; // props.spinDuration is reactive
+		const inViewCount = itemsInView(); // itemsInView is a signal
+
+		setRouletteItems(
+			generateRouletteItems(currentPropItems, duration, inViewCount),
+		);
 	});
 
-	const generateRouletteItems = (currentItems: CSGOItem[]) => {
+	const generateRouletteItems = (
+		currentItems: CSGOItem[],
+		spinDuration: number,
+		itemsInViewCount: number,
+	) => {
 		if (!currentItems.length) return [];
 
-		// Increase total items for better visual representation of probabilities
-		const totalItemsToGenerate = Math.max(200, itemsInView() * 20);
+		// Determine the total number of items to generate for the reel
+		// More items for longer spin durations to give the illusion of spinning through more content.
+		const itemsPerSecondFactor = 25; // Adjust this to control how many items "pass by" per second
+		const minTotalItems = Math.max(150, itemsInViewCount * 10); // Minimum items for a decent visual
+		const calculatedItemsBasedOnDuration = spinDuration * itemsPerSecondFactor;
+
+		let totalItemsToGenerate = Math.max(
+			minTotalItems,
+			calculatedItemsBasedOnDuration,
+		);
+		// Add an upper cap to prevent performance issues with extremely long reels
+		totalItemsToGenerate = Math.min(totalItemsToGenerate, 3000);
+
 		const generatedItems: CSGOItem[] = [];
 
 		const allWeightsZero = currentItems.every((item) => item.weight === 0);
