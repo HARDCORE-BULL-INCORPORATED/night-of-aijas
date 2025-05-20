@@ -1,6 +1,6 @@
-import type { CSGOItem } from "../roulette/types";
+import type { CaseItem } from "../roulette/types";
 
-export const mapCase: CSGOItem[] = [
+export const mapCase: CaseItem[] = [
     {
         id: 2,
         name: "Dust II",

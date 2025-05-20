@@ -1,18 +1,18 @@
 import type { Component } from "solid-js";
 import { For, Show, createEffect, createMemo } from "solid-js";
 import { createStore } from "solid-js/store";
-import type { CSGOItem } from "../roulette/types";
+import type { CaseItem } from "../roulette/types";
 import styles from "./MapWeightModal.module.css";
 
 interface MapWeightModalProps {
     isOpen: boolean;
     onClose: () => void;
-    currentMapConfigs: CSGOItem[];
-    onSave: (updatedMapConfigs: CSGOItem[]) => void;
+    currentMapConfigs: CaseItem[];
+    onSave: (updatedMapConfigs: CaseItem[]) => void;
 }
 
 const MapWeightModal: Component<MapWeightModalProps> = (props) => {
-    const [editableMapConfigs, setEditableMapConfigs] = createStore<CSGOItem[]>([]);
+    const [editableMapConfigs, setEditableMapConfigs] = createStore<CaseItem[]>([]);
 
     createEffect(() => {
         if (props.isOpen) {

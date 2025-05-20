@@ -1,12 +1,12 @@
 import type { Component } from "solid-js";
 import { createSignal, For, Show, createEffect } from "solid-js";
-import type { CSGOItem } from "../roulette/types";
+import type { CaseItem } from "../roulette/types";
 import styles from "./MapSelectionModal.module.css";
 
 interface MapSelectionModalProps {
     isOpen: boolean;
     onClose: () => void;
-    allMaps: CSGOItem[];
+    allMaps: CaseItem[];
     activeMapIds: (string | number)[];
     onSave: (selectedMapIds: (string | number)[]) => void;
 }

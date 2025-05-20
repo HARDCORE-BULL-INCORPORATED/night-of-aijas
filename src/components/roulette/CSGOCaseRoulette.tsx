@@ -9,7 +9,7 @@ import {
 	Show,
 } from "solid-js";
 import {
-	type CSGOItem,
+	type CaseItem,
 	type CSGOCaseRouletteProps,
 	selectWeightedRandomItem,
 } from "./types";
@@ -23,8 +23,8 @@ import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
 // Extend props to include map selection/weight functionality
 export interface CSGOCaseRouletteWithMapOptionsProps extends CSGOCaseRouletteProps {
 	enableMapManagement?: boolean; // To control if map modals are active
-	allMaps?: CSGOItem[]; // All available maps for selection
-	initialActiveMaps?: CSGOItem[]; // Initially selected maps
+	allMaps?: CaseItem[]; // All available maps for selection
+	initialActiveMaps?: CaseItem[]; // Initially selected maps
 	enableSpinDurationSlider?: boolean; // To control if spin duration slider is active
 	initialSpinDuration?: number; // Initial spin duration
 }
@@ -42,16 +42,16 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 
 	// State
 	const [isSpinning, setIsSpinning] = createSignal(false);
-	const [rouletteItems, setRouletteItems] = createSignal<CSGOItem[]>([]);
+	const [rouletteItems, setRouletteItems] = createSignal<CaseItem[]>([]);
 	const [spinOffset, setSpinOffset] = createSignal(0);
-	const [winningItem, setWinningItem] = createSignal<CSGOItem | null>(null);
+	const [winningItem, setWinningItem] = createSignal<CaseItem | null>(null);
 	const [showResultModal, setShowResultModal] = createSignal(false);
 
 	let trackRef: HTMLDivElement | undefined;
 
 	// State for map management modals
-	const [allPossibleMaps, _setAllPossibleMaps] = createSignal<CSGOItem[]>(props.allMaps || allPossibleMapsArray);
-	const [activeMaps, setActiveMaps] = createSignal<CSGOItem[]>(props.items); // Default to props.items
+	const [allPossibleMaps, _setAllPossibleMaps] = createSignal<CaseItem[]>(props.allMaps || allPossibleMapsArray);
+	const [activeMaps, setActiveMaps] = createSignal<CaseItem[]>(props.items); // Default to props.items
 
 
 	const [isMapSelectionModalOpen, setIsMapSelectionModalOpen] = createSignal(false);
@@ -122,7 +122,7 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 	});
 
 	const generateRouletteItems = (
-		currentItems: CSGOItem[],
+		currentItems: CaseItem[],
 		spinDuration: number, // Parameter name matches usage
 		itemsInViewCount: number,
 	) => {
@@ -141,12 +141,12 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 		// Add an upper cap to prevent performance issues with extremely long reels
 		totalItemsToGenerate = Math.min(totalItemsToGenerate, 3000);
 
-		const generatedItems: CSGOItem[] = [];
+		const generatedItems: CaseItem[] = [];
 
 		const allWeightsZero = currentItems.every((item) => item.weight === 0);
 
 		for (let i = 0; i < totalItemsToGenerate; i++) {
-			let chosenItem: CSGOItem | null = null;
+			let chosenItem: CaseItem | null = null;
 
 			if (allWeightsZero && currentItems.length > 0) {
 				// If all weights are zero (and list is not empty), pick uniformly.
@@ -279,7 +279,7 @@ const CSGOCaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 	// Handlers for MapWeightModal
 	const handleOpenMapWeightModal = () => setIsMapWeightModalOpen(true);
 	const handleCloseMapWeightModal = () => setIsMapWeightModalOpen(false);
-	const handleSaveMapWeights = (updatedMapConfigs: CSGOItem[]) => {
+	const handleSaveMapWeights = (updatedMapConfigs: CaseItem[]) => {
 		setActiveMaps(updatedMapConfigs);
 		// Potentially re-generate roulette items if activeMaps weights change
 		// This is handled by the createEffect on itemsToSpin()

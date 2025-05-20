@@ -1,6 +1,6 @@
-import type { CSGOItem } from "../roulette/types";
+import type { CaseItem } from "../roulette/types";
 
-export const tacticsCase: CSGOItem[] = [
+export const tacticsCase: CaseItem[] = [
     {
         id: 1,
         name: "RELLU KOURAA",

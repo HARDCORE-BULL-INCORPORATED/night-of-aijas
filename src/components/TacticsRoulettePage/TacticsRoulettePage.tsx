@@ -1,16 +1,16 @@
 import type { Component } from "solid-js";
 import { createSignal, For } from "solid-js";
 import CSGOCaseRoulette from "../roulette/CSGOCaseRoulette";
-import type { CSGOItem } from "../roulette/types";
+import type { CaseItem } from "../roulette/types";
 import { tacticsCase as allPossibleTactics } from "./tacticsCase"; // Renamed for clarity
 // MapSelectionModal and MapWeightModal are now handled by CSGOCaseRoulette
 
 const TacticsRoulettePage: Component = () => {
-    const [wonItems, setWonItems] = createSignal<CSGOItem[]>([]);
+    const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
     // spinDuration is now managed by CSGOCaseRoulette internally if slider is enabled
     // const [spinDuration, setSpinDuration] = createSignal(8); // Default 8 seconds
 
-    const handleItemWon = (item: CSGOItem): void => {
+    const handleItemWon = (item: CaseItem): void => {
         setWonItems([item, ...wonItems()]);
         console.log(`Tactic selected: ${item.name} (${item.rarity})`);
     };

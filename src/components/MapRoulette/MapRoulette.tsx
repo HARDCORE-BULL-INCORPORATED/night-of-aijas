@@ -1,15 +1,15 @@
 import type { Component } from "solid-js";
 import { createSignal, For, Show } from "solid-js";
 import CSGOCaseRoulette from "../roulette/CSGOCaseRoulette";
-import type { CSGOItem } from "../roulette/types";
+import type { CaseItem } from "../roulette/types";
 import { mapCase as allPossibleMapsData } from "./mapCase";
 import RouletteItem from "../roulette/RouletteItem";
 
 const MapRoulette: Component = () => {
-	const [wonItems, setWonItems] = createSignal<CSGOItem[]>([]);
+	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
 	const [showResultModalToggle, setShowResultModalToggle] = createSignal(true); // Renamed for clarity
 
-	const handleItemWon = (item: CSGOItem): void => {
+	const handleItemWon = (item: CaseItem): void => {
 		setWonItems([item, ...wonItems()]);
 		console.log(`Map selected: ${item.name} (${item.rarity})`);
 	};

@@ -1,4 +1,4 @@
-export interface CSGOItem {
+export interface CaseItem {
     id: string | number;
     name: string;
     image: string;
@@ -15,8 +15,8 @@ export interface CSGOItem {
 }
 
 export interface CSGOCaseRouletteProps {
-    items: CSGOItem[];
-    onItemWon?: (item: CSGOItem) => void;
+    items: CaseItem[];
+    onItemWon?: (item: CaseItem) => void;
     spinDuration?: number; // in seconds
     itemWidth?: number; // Width of each item in pixels
     itemsInView?: number; // Number of items visible in the viewport
@@ -37,7 +37,7 @@ export const RARITY_COLORS = {
 };
 
 // Get the color for an item based on its rarity
-export const getItemColor = (item: CSGOItem): string => {
+export const getItemColor = (item: CaseItem): string => {
     if (item.color) {
         return item.color;
     }
@@ -49,7 +49,7 @@ export const getItemColor = (item: CSGOItem): string => {
 };
 
 // Select a weighted random item from the array
-export const selectWeightedRandomItem = (items: CSGOItem[]): CSGOItem => {
+export const selectWeightedRandomItem = (items: CaseItem[]): CaseItem => {
     // Calculate total weight
     const totalWeight = items.reduce(
         (sum, item) => sum + (item.weight || 1),

@@ -1,9 +1,9 @@
 import type { Component } from "solid-js";
-import { type CSGOItem, getItemColor } from "./types";
+import { type CaseItem, getItemColor } from "./types";
 import styles from "./RouletteItem.module.css";
 
 interface RouletteItemProps {
-    item: CSGOItem;
+    item: CaseItem;
     width?: number;
     isWinner?: boolean;
 }
