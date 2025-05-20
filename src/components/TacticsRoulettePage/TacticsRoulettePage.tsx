@@ -2,11 +2,13 @@ import type { Component } from "solid-js";
 import { createSignal, For } from "solid-js";
 import CSGOCaseRoulette from "../roulette/CSGOCaseRoulette";
 import type { CSGOItem } from "../roulette/types";
-import { tacticsCase } from "./tacticsCase";
+import { tacticsCase as allPossibleTactics } from "./tacticsCase"; // Renamed for clarity
+// MapSelectionModal and MapWeightModal are now handled by CSGOCaseRoulette
 
 const TacticsRoulettePage: Component = () => {
     const [wonItems, setWonItems] = createSignal<CSGOItem[]>([]);
-
+    // spinDuration is now managed by CSGOCaseRoulette internally if slider is enabled
+    // const [spinDuration, setSpinDuration] = createSignal(8); // Default 8 seconds
 
     const handleItemWon = (item: CSGOItem): void => {
         setWonItems([item, ...wonItems()]);
@@ -18,12 +20,20 @@ const TacticsRoulettePage: Component = () => {
             <h1>TACTICS ROULETTE</h1>
             <p>SPIN THE WHEEL AND LET FATE DECIDE YOUR NEXT STRATEGY!</p>
 
+            {/* Add a toggle for showing result modal, similar to MapRoulette */}
+            {/* You can also add toggles for map management and spin duration slider if needed */}
+
             <CSGOCaseRoulette
-                items={tacticsCase}
+                items={allPossibleTactics} // Provide initial items
+                allMaps={allPossibleTactics} // For item selection modal if enabled
+                initialActiveMaps={allPossibleTactics} // Start with all tactics active if management enabled
                 onItemWon={handleItemWon}
-                spinDuration={8} // You can adjust this
-            // itemWidth={140} // Optional: Adjust item width if needed
-            // itemsInView={5} // Optional: Adjust items in view if needed
+                // spinDuration is now managed internally by CSGOCaseRoulette via enableSpinDurationSlider
+                // To enable item management and spin duration slider:
+                enableMapManagement={true} // Set to true to enable item selection/weighting
+                enableSpinDurationSlider={true} // Set to true to enable spin duration slider
+                initialSpinDuration={8} // Set initial spin duration for the slider
+                // showModal can be controlled similarly if a result modal toggle is added
             />
 
             {wonItems().length > 0 && (
