@@ -1,0 +1,30 @@
+/* Styles for WonItemsHistory */
+.historyContainer {
+	margin: 20px 0;
+}
+
+/* .historyTitle {
+	/* Add any specific title styles here if needed */
+/* Example: text-align: center; color: #eee; */
+/*} */
+
+.itemsGrid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: center;
+	margin-top: 15px;
+}
+
+.historyItemContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* width is set by prop, but you could add min-width or other constraints */
+}
+
+.itemIndex {
+	font-size: 0.8em;
+	opacity: 0.7;
+	/* Add any specific index styles here if needed */
+}

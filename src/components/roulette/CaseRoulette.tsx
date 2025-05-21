@@ -4,22 +4,18 @@ import {
 	onMount,
 	createEffect,
 	batch,
-	For,
 	onCleanup,
 	Show,
 } from "solid-js";
-import {
-	type CaseItem,
-	selectWeightedRandomItem,
-	type RoulettePreset,
-} from "./types";
-import RouletteItem from "./RouletteItem";
-import ResultModal from "./ResultModal";
+import type { CaseItem, RoulettePreset } from "./types";
+import { generateRouletteItems, selectWeightedRandomItem } from "./utils";
+import ResultModal from "./Modals/ResultModal/ResultModal";
 import styles from "./CaseRoulette.module.css";
-import MapSelectionModal from "./MapSelectionModal";
-import MapWeightModal from "./MapWeightModal";
-import PresetSelectionModal from "./PresetSelectionModal";
+import MapManagementButtons from "./MapManagementButtons";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
+import SpinDurationSliderContainer from "./SpinDurationSlider/SpinDurationSliderContainer";
+import RouletteDisplay from "./RouletteDisplay/RouletteDisplay";
+import WonItemsHistory from "./WonItemsHistory/WonItemsHistory";
 
 interface CSCaseRouletteProps {
 	items: CaseItem[];
@@ -36,6 +32,10 @@ interface CSCaseRouletteProps {
 	enableSpinDurationSlider?: boolean; // To control if spin duration slider is active
 	initialSpinDuration?: number; // Initial spin duration
 	presets?: RoulettePreset[]; // Optional array of presets
+	showWonItemsHistory?: boolean; // New prop
+	wonItems?: CaseItem[]; // New prop - list of items for history
+	historyTitle?: string; // New prop - title for history section
+	historyItemWidth?: number; // New prop - item width for history items
 }
 
 const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
@@ -55,17 +55,14 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 	const [showResultModal, setShowResultModal] = createSignal(false);
 
 	let trackRef: HTMLDivElement | undefined;
+	const assignTrackRef = (el: HTMLDivElement) => {
+		trackRef = el;
+	};
 
 	const [allPossibleMaps, _setAllPossibleMaps] = createSignal<CaseItem[]>(
 		props.allMaps || allPossibleMapsArray,
 	);
 	const [activeMaps, setActiveMaps] = createSignal<CaseItem[]>(props.items); // Default to props.items
-
-	const [isMapSelectionModalOpen, setIsMapSelectionModalOpen] =
-		createSignal(false);
-	const [isMapWeightModalOpen, setIsMapWeightModalOpen] = createSignal(false);
-	const [isPresetSelectionModalOpen, setIsPresetSelectionModalOpen] =
-		createSignal(false); // State for the new modal
 
 	// Update items for the roulette based on activeMaps if map management is enabled
 	const itemsToSpin = () =>
@@ -82,7 +79,6 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 			preset.itemNames.includes(map.name),
 		);
 		setActiveMaps(newActiveMaps);
-		setIsPresetSelectionModalOpen(false); // Close modal after selection
 	};
 
 	// Function to update dimensions based on window size
@@ -141,64 +137,6 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 			generateRouletteItems(currentPropItems, duration, inViewCount),
 		);
 	});
-
-	const generateRouletteItems = (
-		currentItems: CaseItem[],
-		spinDuration: number, // Parameter name matches usage
-		itemsInViewCount: number,
-	) => {
-		if (!currentItems || !currentItems.length) return [];
-
-		// Determine the total number of items to generate for the reel
-		// More items for longer spin durations to give the illusion of spinning through more content.
-		const itemsPerSecondFactor = 25; // Adjust this to control how many items "pass by" per second
-		const minTotalItems = Math.max(150, itemsInViewCount * 10); // Minimum items for a decent visual
-		const calculatedItemsBasedOnDuration = spinDuration * itemsPerSecondFactor;
-
-		let totalItemsToGenerate = Math.max(
-			minTotalItems,
-			calculatedItemsBasedOnDuration,
-		);
-		// Add an upper cap to prevent performance issues with extremely long reels
-		totalItemsToGenerate = Math.min(totalItemsToGenerate, 3000);
-
-		const generatedItems: CaseItem[] = [];
-
-		const allWeightsZero = currentItems.every((item) => item.weight === 0);
-
-		for (let i = 0; i < totalItemsToGenerate; i++) {
-			let chosenItem: CaseItem | null = null;
-
-			if (allWeightsZero && currentItems.length > 0) {
-				// If all weights are zero (and list is not empty), pick uniformly.
-				const randomIndex = Math.floor(Math.random() * currentItems.length);
-				chosenItem = currentItems[randomIndex];
-			} else if (currentItems.length > 0) {
-				// Use weighted selection.
-				chosenItem = selectWeightedRandomItem(currentItems);
-			}
-
-			if (chosenItem) {
-				// Clone the chosen item and assign a unique ID for this slot in the reel.
-				const itemForReel = {
-					...chosenItem,
-					id: `reel-item-${i}-${Date.now()}`,
-				};
-				generatedItems.push(itemForReel);
-			} else if (currentItems.length > 0) {
-				// Fallback if chosenItem is null
-				const fallbackItem = {
-					...currentItems[Math.floor(Math.random() * currentItems.length)], // Pick a random one as fallback
-					id: `reel-item-fallback-${i}-${Date.now()}`,
-				};
-				generatedItems.push(fallbackItem);
-				console.warn(
-					"CSGOCaseRoulette: Used fallback in generateRouletteItems.",
-				);
-			}
-		}
-		return generatedItems;
-	};
 
 	// Update the CSS variable for spin duration
 	createEffect(() => {
@@ -287,146 +225,45 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 		setShowResultModal(false);
 	};
 
-	// Handlers for MapSelectionModal
-	const handleOpenMapSelectionModal = () => setIsMapSelectionModalOpen(true);
-	const handleCloseMapSelectionModal = () => setIsMapSelectionModalOpen(false);
-	const handleSaveMapSelection = (selectedMapIds: (string | number)[]) => {
-		const newActiveMaps = allPossibleMaps().filter((map) =>
-			selectedMapIds.includes(map.id),
-		);
-		setActiveMaps(newActiveMaps);
-		// Potentially re-generate roulette items if activeMaps changes
-		// This is handled by the createEffect on itemsToSpin()
-	};
-
-	// Handlers for MapWeightModal
-	const handleOpenMapWeightModal = () => setIsMapWeightModalOpen(true);
-	const handleCloseMapWeightModal = () => setIsMapWeightModalOpen(false);
-	const handleSaveMapWeights = (updatedMapConfigs: CaseItem[]) => {
-		setActiveMaps(updatedMapConfigs);
-		// Potentially re-generate roulette items if activeMaps weights change
-		// This is handled by the createEffect on itemsToSpin()
-	};
-
-	// Handlers for PresetSelectionModal
-	const handleOpenPresetSelectionModal = () =>
-		setIsPresetSelectionModalOpen(true);
-	const handleClosePresetSelectionModal = () =>
-		setIsPresetSelectionModalOpen(false);
-
 	// Accept a prop to control modal visibility from parent (MapRoulette)
 	const shouldShowResultModal = () =>
 		props.showModal !== undefined ? props.showModal : showResultModal();
 
+	// Combined disabled state for the spin button
+	const isSpinButtonDisabled = () =>
+		isSpinning() || props.disabled || itemsToSpin().length === 0;
+
 	return (
 		<div class={`${styles.rouletteContainer} ${props.customClassName || ""}`}>
-			{/* Buttons for map management */}
-			<Show when={props.enableMapManagement}>
-				<div
-					style={{
-						display: "flex",
-						"margin-bottom": "10px",
-						"justify-content": "center",
-						"flex-wrap": "wrap",
-						gap: "5px", // Ensure gap is explicitly set here
-					}}
-				>
-					<button
-						type="button"
-						onClick={handleOpenMapSelectionModal}
-						class="cs-btn"
-						style={{ "font-size": "14px", padding: "10px 15px", margin: "0" }}
-					>
-						Select Items
-					</button>
-					<button
-						type="button"
-						onClick={handleOpenMapWeightModal}
-						class="cs-btn"
-						style={{ "font-size": "14px", padding: "10px 15px", margin: "0" }}
-						disabled={activeMaps().length === 0}
-					>
-						Item Weights
-					</button>
-					<Show when={props.presets && props.presets.length > 0}>
-						<button
-							type="button"
-							onClick={handleOpenPresetSelectionModal}
-							class="cs-btn"
-							style={{ "font-size": "14px", padding: "10px 15px", margin: "0" }}
-						>
-							Select Preset
-						</button>
-					</Show>
-				</div>
-			</Show>
+			<MapManagementButtons
+				enableMapManagement={props.enableMapManagement}
+				presets={props.presets}
+				activeMaps={activeMaps()}
+				allPossibleMaps={allPossibleMaps()}
+				onActiveMapsChange={setActiveMaps}
+				onPresetSelect={handlePresetSelect}
+			/>
 
-			{/* Spin Duration Slider Container for Centering */}
-			<Show when={props.enableSpinDurationSlider}>
-				<div
-					style={{
-						display: "flex",
-						"justify-content": "center",
-						"margin-bottom": "5px",
-					}}
-				>
-					<div class="cs-slider">
-						<div class="value">
-							<p class="">{internalSpinDuration().toFixed(1)}s</p>
-						</div>
-						<div class="ruler" />
-						<input
-							id="spinDurationSliderInternal" // ID for the label to point to
-							type="range"
-							min="1"
-							max="60"
-							step="0.5"
-							value={internalSpinDuration()}
-							onInput={(e) =>
-								setInternalSpinDuration(Number(e.currentTarget.value))
-							}
-							disabled={isSpinning()}
-						/>
-						<label for="spinDurationSliderInternal"> Roll Duration</label>
-					</div>
-				</div>
-			</Show>
+			<SpinDurationSliderContainer
+				enableSlider={() => props.enableSpinDurationSlider}
+				value={internalSpinDuration}
+				onChange={setInternalSpinDuration}
+				disabled={isSpinning}
+				min={1}
+				max={30}
+				step={1}
+				label="Spin Duration (seconds):"
+			/>
 
-			<div class={styles.rouletteViewport}>
-				<div class={styles.indicator} />
-
-				<div
-					ref={trackRef}
-					class={`${styles.rouletteTrack} ${isSpinning() ? styles.spinning : ""}`}
-					style={{
-						left: `-${spinOffset()}px`,
-					}}
-				>
-					<For each={rouletteItems()}>
-						{(item) => (
-							<RouletteItem
-								item={item}
-								width={itemWidth()}
-								// isWinner={winningItem()?.id === item.id && item.id?.startsWith('winner-')} // More specific winner check
-							/>
-						)}
-					</For>
-				</div>
-			</div>
-
-			<button
-				type="button"
-				class="cs-btn"
-				onClick={() => handleSpin()}
-				disabled={isSpinning() || props.disabled || itemsToSpin().length === 0}
-				style={{
-					"font-size": "18px",
-					padding: "12px 20px",
-					"margin-top": "15px",
-				}}
-			>
-				{isSpinning() ? "Spinning..." : "Spin"}
-			</button>
+			<RouletteDisplay
+				isSpinning={isSpinning}
+				spinOffset={spinOffset}
+				rouletteItems={rouletteItems}
+				itemWidth={itemWidth}
+				assignTrackRef={assignTrackRef}
+				onSpinClick={handleSpin}
+				isSpinButtonDisabled={isSpinButtonDisabled}
+			/>
 
 			<ResultModal
 				isOpen={shouldShowResultModal()}
@@ -434,31 +271,18 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 				item={winningItem()}
 			/>
 
-			<Show when={props.enableMapManagement}>
-				<MapSelectionModal
-					isOpen={isMapSelectionModalOpen()}
-					onClose={handleCloseMapSelectionModal}
-					allMaps={allPossibleMaps()} // Pass allPossibleMaps signal
-					activeMapIds={activeMaps().map((map) => map.id)}
-					onSave={handleSaveMapSelection}
+			<Show
+				when={
+					props.showWonItemsHistory &&
+					props.wonItems &&
+					props.wonItems.length > 0
+				}
+			>
+				<WonItemsHistory
+					items={props.wonItems || []}
+					title={props.historyTitle || "History"}
+					itemWidth={props.historyItemWidth}
 				/>
-
-				<MapWeightModal
-					isOpen={isMapWeightModalOpen()}
-					onClose={handleCloseMapWeightModal}
-					currentMapConfigs={activeMaps()} // Pass activeMaps signal
-					onSave={handleSaveMapWeights}
-				/>
-
-				{/* Preset Selection Modal */}
-				<Show when={props.presets && props.presets.length > 0}>
-					<PresetSelectionModal
-						isOpen={isPresetSelectionModalOpen()}
-						onClose={handleClosePresetSelectionModal}
-						presets={props.presets || []}
-						onPresetSelect={handlePresetSelect}
-					/>
-				</Show>
 			</Show>
 		</div>
 	);

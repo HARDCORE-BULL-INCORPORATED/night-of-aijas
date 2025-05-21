@@ -3,7 +3,6 @@ import { createSignal } from "solid-js";
 import CaseRoulette from "../roulette/CaseRoulette";
 import type { CaseItem } from "../roulette/types";
 import { tacticsCase as allPossibleTactics } from "./tacticsCase";
-import WonItemsHistory from "../roulette/WonItemsHistory";
 
 const TacticsRoulettePage: Component = () => {
 	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
@@ -29,12 +28,6 @@ const TacticsRoulettePage: Component = () => {
 				enableSpinDurationSlider={true} // Set to true to enable spin duration slider
 				initialSpinDuration={8} // Set initial spin duration for the slider
 				// showModal can be controlled similarly if a result modal toggle is added
-			/>
-
-			<WonItemsHistory
-				items={wonItems()}
-				title="Tactics History"
-				itemWidth={120}
 			/>
 		</div>
 	);

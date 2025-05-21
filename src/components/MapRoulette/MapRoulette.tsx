@@ -3,7 +3,6 @@ import { createSignal } from "solid-js";
 import CaseRoulette from "../roulette/CaseRoulette";
 import type { CaseItem, RoulettePreset } from "../roulette/types"; // Added RoulettePreset
 import { mapCase as allPossibleMapsData } from "./mapCase";
-import WonItemsHistory from "../roulette/WonItemsHistory";
 
 const MapRoulette: Component = () => {
 	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
@@ -52,9 +51,13 @@ const MapRoulette: Component = () => {
 				enableSpinDurationSlider={true} // Enable the internal spin duration slider
 				initialSpinDuration={8} // Set initial spin duration for the slider
 				presets={mapPresets} // Pass the presets here
+				showWonItemsHistory={true} // New prop to show history
+				wonItems={wonItems()} // Pass won items to CaseRoulette
+				historyTitle="Map History" // Pass history title
 			/>
 
-			<WonItemsHistory items={wonItems()} title="Map History" />
+			{/* WonItemsHistory component is now rendered inside CaseRoulette */}
+			{/* <WonItemsHistory items={wonItems()} title="Map History" /> */}
 		</div>
 	);
 };
