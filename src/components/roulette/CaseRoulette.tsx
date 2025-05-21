@@ -25,7 +25,7 @@ interface CSCaseRouletteProps {
 	itemsInView?: number; // Number of items visible in the viewport
 	customClassName?: string;
 	disabled?: boolean; // Disable the spin button
-	showModal?: boolean; // Allow parent to control modal visibility
+	showModal?: boolean; // Allow parent to control modal visibility (e.g., force hide)
 	enableMapManagement?: boolean; // To control if map modals are active
 	allMaps?: CaseItem[]; // All available maps for selection
 	initialActiveMaps?: CaseItem[]; // Initially selected maps
@@ -36,6 +36,7 @@ interface CSCaseRouletteProps {
 	wonItems?: CaseItem[]; // New prop - list of items for history
 	historyTitle?: string; // New prop - title for history section
 	historyItemWidth?: number; // New prop - item width for history items
+	// showResultModalToggle and onShowResultModalToggleChange are removed
 }
 
 const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
@@ -52,7 +53,11 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 	const [rouletteItems, setRouletteItems] = createSignal<CaseItem[]>([]);
 	const [spinOffset, setSpinOffset] = createSignal(0);
 	const [winningItem, setWinningItem] = createSignal<CaseItem | null>(null);
-	const [showResultModal, setShowResultModal] = createSignal(false);
+	const [showResultModal, setShowResultModal] = createSignal(false); // True when spin ends and modal *should* try to show
+	const [
+		internalDisplayResultModalToggle,
+		setInternalDisplayResultModalToggle,
+	] = createSignal(true); // Internal state for the checkbox
 
 	let trackRef: HTMLDivElement | undefined;
 	const assignTrackRef = (el: HTMLDivElement) => {
@@ -225,9 +230,13 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 		setShowResultModal(false);
 	};
 
-	// Accept a prop to control modal visibility from parent (MapRoulette)
-	const shouldShowResultModal = () =>
-		props.showModal !== undefined ? props.showModal : showResultModal();
+	// Modal visibility logic:
+	// 1. Parent can force-hide with props.showModal = false.
+	// 2. Otherwise, depends on spin completion (showResultModal()) AND internal checkbox (internalDisplayResultModalToggle()).
+	const shouldActuallyShowResultModal = () =>
+		props.showModal !== false &&
+		showResultModal() &&
+		internalDisplayResultModalToggle();
 
 	// Combined disabled state for the spin button
 	const isSpinButtonDisabled = () =>
@@ -244,16 +253,32 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 				onPresetSelect={handlePresetSelect}
 			/>
 
-			<SpinDurationSliderContainer
-				enableSlider={() => props.enableSpinDurationSlider}
-				value={internalSpinDuration}
-				onChange={setInternalSpinDuration}
-				disabled={isSpinning}
-				min={1}
-				max={30}
-				step={1}
-				label="Spin Duration (seconds):"
-			/>
+			<div class={styles.controlsContainer}>
+				{/* Checkbox is now always rendered and uses internal state */}
+				<div class="cs-checkbox">
+					<input
+						id="checkbox"
+						type="checkbox"
+						checked={internalDisplayResultModalToggle()}
+						onInput={(e) =>
+							setInternalDisplayResultModalToggle(e.currentTarget.checked)
+						}
+					/>
+					<label class="cs-checkbox__label" for="checkbox">
+						Show result modal
+					</label>
+				</div>
+				<SpinDurationSliderContainer
+					enableSlider={() => props.enableSpinDurationSlider}
+					value={internalSpinDuration}
+					onChange={setInternalSpinDuration}
+					disabled={isSpinning}
+					min={1}
+					max={30}
+					step={1}
+					label="Spin Duration (seconds):"
+				/>
+			</div>
 
 			<RouletteDisplay
 				isSpinning={isSpinning}
@@ -266,7 +291,7 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 			/>
 
 			<ResultModal
-				isOpen={shouldShowResultModal()}
+				isOpen={shouldActuallyShowResultModal()}
 				onClose={handleCloseResultModal}
 				item={winningItem()}
 			/>

@@ -22,12 +22,11 @@ const TacticsRoulettePage: Component = () => {
 				allMaps={allPossibleTactics} // For item selection modal if enabled
 				initialActiveMaps={allPossibleTactics} // Start with all tactics active if management enabled
 				onItemWon={handleItemWon}
-				// spinDuration is now managed internally by CSGOCaseRoulette via enableSpinDurationSlider
-				// To enable item management and spin duration slider:
+				// showModal can be used to force hide if needed, e.g. showModal={false}
 				enableMapManagement={true} // Set to true to enable item selection/weighting
 				enableSpinDurationSlider={true} // Set to true to enable spin duration slider
 				initialSpinDuration={8} // Set initial spin duration for the slider
-				// showModal can be controlled similarly if a result modal toggle is added
+				// showResultModalToggle and onShowResultModalToggleChange are removed
 			/>
 		</div>
 	);

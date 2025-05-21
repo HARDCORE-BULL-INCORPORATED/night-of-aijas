@@ -10,7 +10,30 @@
 	overflow: hidden;
 }
 
-/* Styles for ResultModal moved to ResultModal/ResultModal.module.css */
+.rouletteTrack {
+	display: flex;
+	position: absolute;
+	left: 0; /* Initial position, will be animated */
+	transition: left var(--spin-duration) cubic-bezier(0.25, 0.1, 0.25, 1); /* Default timing function */
+	will-change: left; /* Optimize for animation */
+	align-items: center; /* Vertically align items in the track */
+	height: 100%; /* Ensure track takes full height of its container */
+}
+
+.controlsContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px; /* Adjust gap as needed */
+	margin-bottom: 20px; /* Space below the controls */
+}
+
+.showResultModalLabel {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	font-size: 0.9rem; /* Adjust font size as needed */
+}
 
 /* Media queries for responsiveness */
 @media (max-width: 480px) {

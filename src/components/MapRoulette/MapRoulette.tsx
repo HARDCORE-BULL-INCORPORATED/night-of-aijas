@@ -6,7 +6,6 @@ import { mapCase as allPossibleMapsData } from "./mapCase";
 
 const MapRoulette: Component = () => {
 	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
-	const [showResultModalToggle, setShowResultModalToggle] = createSignal(true);
 
 	const handleItemWon = (item: CaseItem): void => {
 		setWonItems([item, ...wonItems()]);
@@ -26,27 +25,12 @@ const MapRoulette: Component = () => {
 			<h1>CS:GO MAP ROULETTE</h1>
 			<p>SPIN THE WHEEL AND LET THE GAME DECIDE YOUR NEXT MAP!</p>
 
-			<label>
-				<input
-					type="checkbox"
-					checked={showResultModalToggle()}
-					onInput={(e) => setShowResultModalToggle(e.currentTarget.checked)}
-				/>
-				<span
-					style={{
-						"margin-left": "10px",
-					}}
-				>
-					Show result modal
-				</span>
-			</label>
-
 			<CaseRoulette
 				items={allPossibleMapsData} // Provide initial items, CSGOCaseRoulette will manage activeMaps from this if enabled
 				allMaps={allPossibleMapsData}
 				initialActiveMaps={allPossibleMapsData} // Start with all maps active
 				onItemWon={handleItemWon}
-				showModal={showResultModalToggle() ? undefined : false}
+				// showModal can be used to force hide if needed, e.g. showModal={false}
 				enableMapManagement={true} // Enable map selection and weight modals
 				enableSpinDurationSlider={true} // Enable the internal spin duration slider
 				initialSpinDuration={8} // Set initial spin duration for the slider
@@ -54,6 +38,7 @@ const MapRoulette: Component = () => {
 				showWonItemsHistory={true} // New prop to show history
 				wonItems={wonItems()} // Pass won items to CaseRoulette
 				historyTitle="Map History" // Pass history title
+				// showResultModalToggle and onShowResultModalToggleChange are removed
 			/>
 
 			{/* WonItemsHistory component is now rendered inside CaseRoulette */}
