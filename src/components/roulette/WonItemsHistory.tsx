@@ -2,7 +2,7 @@
 import type { Component } from "solid-js";
 import { For, Show } from "solid-js";
 import type { CaseItem } from "./types";
-import RouletteItem from "./RouletteItem";
+import RouletteItem from "./RouletteDisplay/RouletteItem";
 
 export interface WonItemsHistoryProps {
 	items: CaseItem[];

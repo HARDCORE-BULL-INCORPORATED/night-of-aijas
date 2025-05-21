@@ -11,13 +11,12 @@ import {
 	selectWeightedRandomItem,
 	type RoulettePreset,
 } from "./types";
-import ResultModal from "./ResultModal";
+import ResultModal from "./ResultModal/ResultModal"; // Adjusted path
 import styles from "./CaseRoulette.module.css";
 import MapManagementButtons from "./MapManagementButtons";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
 import SpinDurationSliderContainer from "./SpinDurationSlider/SpinDurationSliderContainer";
 import RouletteDisplay from "./RouletteDisplay/RouletteDisplay";
-import SpinButton from "./RouletteDisplay/SpinButton"; // Import the new SpinButton component
 
 interface CSCaseRouletteProps {
 	items: CaseItem[];
@@ -317,12 +316,8 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 				rouletteItems={rouletteItems}
 				itemWidth={itemWidth}
 				assignTrackRef={assignTrackRef}
-			/>
-
-			<SpinButton
-				onClick={handleSpin}
-				isSpinning={isSpinning}
-				isDisabled={isSpinButtonDisabled}
+				onSpinClick={handleSpin}
+				isSpinButtonDisabled={isSpinButtonDisabled}
 			/>
 
 			<ResultModal
