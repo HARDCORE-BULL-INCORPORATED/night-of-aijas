@@ -1,7 +1,7 @@
 import type { Component } from "solid-js";
 import { For, Show } from "solid-js";
 import type { RoulettePreset } from "./types";
-import styles from "./PresetSelectionModal.module.css"; // Will create this CSS module next
+import styles from "./PresetSelectionModal.module.css";
 
 interface PresetSelectionModalProps {
 	isOpen: boolean;
@@ -13,7 +13,7 @@ interface PresetSelectionModalProps {
 const PresetSelectionModal: Component<PresetSelectionModalProps> = (props) => {
 	const handleSelect = (preset: RoulettePreset) => {
 		props.onPresetSelect(preset);
-		props.onClose(); // Close modal after selection
+		props.onClose();
 	};
 
 	return (
@@ -26,8 +26,9 @@ const PresetSelectionModal: Component<PresetSelectionModalProps> = (props) => {
 							{(preset) => (
 								<button
 									type="button"
-									class={styles.presetButton}
+									class="cs-btn"
 									onClick={() => handleSelect(preset)}
+									style={{ padding: "12px 10px" }}
 								>
 									{preset.name}
 								</button>
@@ -36,8 +37,9 @@ const PresetSelectionModal: Component<PresetSelectionModalProps> = (props) => {
 					</div>
 					<button
 						type="button"
-						class={styles.closeButton}
+						class="cs-btn"
 						onClick={props.onClose}
+						style={{ padding: "12px 10px" }}
 					>
 						Close
 					</button>

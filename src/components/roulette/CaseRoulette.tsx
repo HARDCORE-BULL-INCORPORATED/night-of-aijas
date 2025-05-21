@@ -12,13 +12,13 @@ import {
 	type CaseItem,
 	selectWeightedRandomItem,
 	type RoulettePreset,
-} from "./types"; // Added RoulettePreset
+} from "./types";
 import RouletteItem from "./RouletteItem";
 import ResultModal from "./ResultModal";
 import styles from "./CaseRoulette.module.css";
 import MapSelectionModal from "./MapSelectionModal";
 import MapWeightModal from "./MapWeightModal";
-import PresetSelectionModal from "./PresetSelectionModal"; // Import the new modal
+import PresetSelectionModal from "./PresetSelectionModal";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
 
 interface CSCaseRouletteProps {
@@ -385,6 +385,7 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 							onInput={(e) =>
 								setInternalSpinDuration(Number(e.currentTarget.value))
 							}
+							disabled={isSpinning()}
 						/>
 						<label for="spinDurationSliderInternal"> Roll Duration</label>
 					</div>
