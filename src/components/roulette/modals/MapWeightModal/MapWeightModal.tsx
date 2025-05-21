@@ -1,8 +1,8 @@
 import type { Component } from "solid-js";
 import { For, Show, createEffect, createMemo } from "solid-js";
 import { createStore } from "solid-js/store";
-import type { CaseItem } from "../roulette/types";
 import styles from "./MapWeightModal.module.css";
+import type { CaseItem } from "../../types";
 
 interface MapWeightModalProps {
 	isOpen: boolean;

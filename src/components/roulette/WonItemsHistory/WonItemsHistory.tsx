@@ -1,8 +1,9 @@
 // /Users/kristjan/Documents/github/äijä/src/components/roulette/WonItemsHistory.tsx
 import type { Component } from "solid-js";
 import { For, Show } from "solid-js";
-import type { CaseItem } from "./types";
-import RouletteItem from "./RouletteItem";
+import type { CaseItem } from "../types"; // Adjusted path
+import RouletteItem from "../RouletteDisplay/RouletteItem"; // Adjusted path
+import styles from "./WonItemsHistory.module.css"; // Will be created
 
 export interface WonItemsHistoryProps {
 	items: CaseItem[];
@@ -15,32 +16,15 @@ const WonItemsHistory: Component<WonItemsHistoryProps> = (props) => {
 
 	return (
 		<Show when={props.items.length > 0}>
-			<div style={{ margin: "20px 0" }}>
-				<h2>
+			<div class={styles.historyContainer}>
+				<h2 class={styles.historyTitle}>
 					{props.title} ({props.items.length})
 				</h2>
-				<div
-					style={{
-						display: "flex",
-						"flex-wrap": "wrap",
-						gap: "10px",
-						"justify-content": "center",
-						"margin-top": "15px",
-					}}
-				>
+				<div class={styles.itemsGrid}>
 					<For each={props.items}>
 						{(item, index) => (
-							<div
-								style={{
-									display: "flex",
-									"flex-direction": "column",
-									"align-items": "center",
-									width: `${width()}px`,
-								}}
-							>
-								<span style={{ "font-size": "0.8em", opacity: "0.7" }}>
-									#{index() + 1}
-								</span>
+							<div class={styles.historyItemContainer}>
+								<span class={styles.itemIndex}>#{index() + 1}</span>
 								<RouletteItem item={item} width={width()} />
 							</div>
 						)}
