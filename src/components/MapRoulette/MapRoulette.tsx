@@ -1,8 +1,9 @@
 import type { Component } from "solid-js";
 import { createSignal } from "solid-js";
 import CaseRoulette from "../roulette/CaseRoulette";
-import type { CaseItem, RoulettePreset } from "../roulette/types"; // Added RoulettePreset
+import type { CaseItem } from "../roulette/types";
 import { mapCase as allPossibleMapsData } from "./mapCase";
+import { mapPresets } from "./mapPresets"; // Import presets from the new file
 
 const MapRoulette: Component = () => {
 	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
@@ -11,14 +12,6 @@ const MapRoulette: Component = () => {
 		setWonItems([item, ...wonItems()]);
 		console.log(`Map selected: ${item.name} (${item.rarity})`);
 	};
-
-	const mapPresets: RoulettePreset[] = [
-		{
-			name: "Hostage Maps",
-			itemNames: ["Agency", "Office", "Italy"],
-		},
-		// Add more presets here if needed
-	];
 
 	return (
 		<div class="container">
