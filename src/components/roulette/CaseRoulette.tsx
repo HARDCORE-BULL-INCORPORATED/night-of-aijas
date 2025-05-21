@@ -9,13 +9,13 @@ import {
 } from "solid-js";
 import type { CaseItem, RoulettePreset } from "./types";
 import { generateRouletteItems, selectWeightedRandomItem } from "./utils";
-import ResultModal from "./Modals/ResultModal/ResultModal";
 import styles from "./CaseRoulette.module.css";
 import MapManagementButtons from "./MapManagementButtons";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
 import SpinDurationSliderContainer from "./SpinDurationSlider/SpinDurationSliderContainer";
 import RouletteDisplay from "./RouletteDisplay/RouletteDisplay";
 import WonItemsHistory from "./WonItemsHistory/WonItemsHistory";
+import ResultModal from "./modals/ResultModal/ResultModal";
 
 interface CSCaseRouletteProps {
 	items: CaseItem[];

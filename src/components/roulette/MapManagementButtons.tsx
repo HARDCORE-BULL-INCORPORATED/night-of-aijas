@@ -1,8 +1,8 @@
 import { type Component, createSignal, Show } from "solid-js";
 import type { CaseItem, RoulettePreset } from "./types";
-import MapSelectionModal from "./Modals/MapSelectionModal/MapSelectionModal";
-import MapWeightModal from "./Modals/MapWeightModal/MapWeightModal";
-import PresetSelectionModal from "./Modals/PresetSelectionModal/PresetSelectionModal";
+import PresetSelectionModal from "./modals/PresetSelectionModal/PresetSelectionModal";
+import MapWeightModal from "./modals/MapWeightModal/MapWeightModal";
+import MapSelectionModal from "./modals/MapSelectionModal/MapSelectionModal";
 
 interface MapManagementButtonsProps {
 	enableMapManagement?: boolean;
