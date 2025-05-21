@@ -1,7 +1,7 @@
 import type { Component } from "solid-js";
 import { For, Show } from "solid-js";
 import styles from "./PresetSelectionModal.module.css";
-import type { RoulettePreset } from "../types";
+import type { RoulettePreset } from "../../types";
 
 interface PresetSelectionModalProps {
 	isOpen: boolean;

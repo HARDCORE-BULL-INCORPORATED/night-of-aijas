@@ -1,7 +1,7 @@
 import type { Component } from "solid-js";
 import { createSignal, For, Show, createEffect } from "solid-js";
 import styles from "./MapSelectionModal.module.css";
-import type { CaseItem } from "../types";
+import type { CaseItem } from "../../types";
 
 interface MapSelectionModalProps {
 	isOpen: boolean;
