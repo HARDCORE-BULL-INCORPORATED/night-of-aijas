@@ -5,20 +5,17 @@ import {
 	createEffect,
 	batch,
 	onCleanup,
+	Show,
 } from "solid-js";
-import {
-	type CaseItem,
-	selectWeightedRandomItem,
-	type RoulettePreset,
-} from "./types";
+import type { CaseItem, RoulettePreset } from "./types";
+import { generateRouletteItems, selectWeightedRandomItem } from "./utils";
 import ResultModal from "./Modals/ResultModal/ResultModal";
 import styles from "./CaseRoulette.module.css";
 import MapManagementButtons from "./MapManagementButtons";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
 import SpinDurationSliderContainer from "./SpinDurationSlider/SpinDurationSliderContainer";
 import RouletteDisplay from "./RouletteDisplay/RouletteDisplay";
-import WonItemsHistory from "./WonItemsHistory/WonItemsHistory"; // Added import
-import { Show } from "solid-js"; // Ensure Show is imported if not already globally available
+import WonItemsHistory from "./WonItemsHistory/WonItemsHistory";
 
 interface CSCaseRouletteProps {
 	items: CaseItem[];
@@ -140,64 +137,6 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 			generateRouletteItems(currentPropItems, duration, inViewCount),
 		);
 	});
-
-	const generateRouletteItems = (
-		currentItems: CaseItem[],
-		spinDuration: number, // Parameter name matches usage
-		itemsInViewCount: number,
-	) => {
-		if (!currentItems || !currentItems.length) return [];
-
-		// Determine the total number of items to generate for the reel
-		// More items for longer spin durations to give the illusion of spinning through more content.
-		const itemsPerSecondFactor = 25; // Adjust this to control how many items "pass by" per second
-		const minTotalItems = Math.max(150, itemsInViewCount * 10); // Minimum items for a decent visual
-		const calculatedItemsBasedOnDuration = spinDuration * itemsPerSecondFactor;
-
-		let totalItemsToGenerate = Math.max(
-			minTotalItems,
-			calculatedItemsBasedOnDuration,
-		);
-		// Add an upper cap to prevent performance issues with extremely long reels
-		totalItemsToGenerate = Math.min(totalItemsToGenerate, 3000);
-
-		const generatedItems: CaseItem[] = [];
-
-		const allWeightsZero = currentItems.every((item) => item.weight === 0);
-
-		for (let i = 0; i < totalItemsToGenerate; i++) {
-			let chosenItem: CaseItem | null = null;
-
-			if (allWeightsZero && currentItems.length > 0) {
-				// If all weights are zero (and list is not empty), pick uniformly.
-				const randomIndex = Math.floor(Math.random() * currentItems.length);
-				chosenItem = currentItems[randomIndex];
-			} else if (currentItems.length > 0) {
-				// Use weighted selection.
-				chosenItem = selectWeightedRandomItem(currentItems);
-			}
-
-			if (chosenItem) {
-				// Clone the chosen item and assign a unique ID for this slot in the reel.
-				const itemForReel = {
-					...chosenItem,
-					id: `reel-item-${i}-${Date.now()}`,
-				};
-				generatedItems.push(itemForReel);
-			} else if (currentItems.length > 0) {
-				// Fallback if chosenItem is null
-				const fallbackItem = {
-					...currentItems[Math.floor(Math.random() * currentItems.length)], // Pick a random one as fallback
-					id: `reel-item-fallback-${i}-${Date.now()}`,
-				};
-				generatedItems.push(fallbackItem);
-				console.warn(
-					"CSGOCaseRoulette: Used fallback in generateRouletteItems.",
-				);
-			}
-		}
-		return generatedItems;
-	};
 
 	// Update the CSS variable for spin duration
 	createEffect(() => {
