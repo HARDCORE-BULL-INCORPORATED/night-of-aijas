@@ -9,17 +9,24 @@ export const tacticsCase: CaseItem[] = [
 		weight: 1,
 	},
 	{
-		id: 1,
+		id: 2,
 		name: "RUSH A",
 		image: "/tactics/bruhpepe.jpg",
 		rarity: "Mil-spec",
 		weight: 1,
 	},
 	{
-		id: 1,
+		id: 3,
 		name: "RUSH B",
 		image: "/tactics/trollface.png",
 		rarity: "Restricted",
+		weight: 1,
+	},
+	{
+		id: 4,
+		name: "RUSH MID",
+		image: "",
+		rarity: "Mil-spec",
 		weight: 1,
 	},
 ];
