@@ -6,7 +6,6 @@ import {
 	batch,
 	For,
 	onCleanup,
-	Show,
 } from "solid-js";
 import {
 	type CaseItem,
@@ -18,6 +17,7 @@ import ResultModal from "./ResultModal";
 import styles from "./CaseRoulette.module.css";
 import MapManagementButtons from "./MapManagementButtons";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
+import SpinDurationSliderContainer from "./SpinDurationSlider/SpinDurationSliderContainer";
 
 interface CSCaseRouletteProps {
 	items: CaseItem[];
@@ -293,36 +293,16 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 				onPresetSelect={handlePresetSelect}
 			/>
 
-			{/* Spin Duration Slider Container for Centering */}
-			<Show when={props.enableSpinDurationSlider}>
-				<div
-					style={{
-						display: "flex",
-						"justify-content": "center",
-						"margin-bottom": "5px",
-					}}
-				>
-					<div class="cs-slider">
-						<div class="value">
-							<p class="">{internalSpinDuration().toFixed(1)}s</p>
-						</div>
-						<div class="ruler" />
-						<input
-							id="spinDurationSliderInternal" // ID for the label to point to
-							type="range"
-							min="1"
-							max="60"
-							step="0.5"
-							value={internalSpinDuration()}
-							onInput={(e) =>
-								setInternalSpinDuration(Number(e.currentTarget.value))
-							}
-							disabled={isSpinning()}
-						/>
-						<label for="spinDurationSliderInternal"> Roll Duration</label>
-					</div>
-				</div>
-			</Show>
+			<SpinDurationSliderContainer
+				enableSlider={() => props.enableSpinDurationSlider} // Pass as an accessor
+				value={internalSpinDuration}
+				onChange={setInternalSpinDuration}
+				disabled={isSpinning}
+				min={1}
+				max={30}
+				step={1}
+				label="Spin Duration (seconds):"
+			/>
 
 			<div class={styles.rouletteViewport}>
 				<div class={styles.indicator} />
