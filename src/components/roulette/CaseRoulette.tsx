@@ -253,7 +253,6 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 				onPresetSelect={handlePresetSelect}
 			/>
 
-			{/* Replace old controls div with the new RouletteControls component */}
 			<RouletteControls
 				showResultModalToggle={internalDisplayResultModalToggle}
 				onShowResultModalToggleChange={setInternalDisplayResultModalToggle}
