@@ -294,7 +294,7 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 			/>
 
 			<SpinDurationSliderContainer
-				enableSlider={() => props.enableSpinDurationSlider} // Pass as an accessor
+				enableSlider={() => props.enableSpinDurationSlider}
 				value={internalSpinDuration}
 				onChange={setInternalSpinDuration}
 				disabled={isSpinning}
