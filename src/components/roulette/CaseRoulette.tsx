@@ -16,9 +16,7 @@ import {
 import RouletteItem from "./RouletteItem";
 import ResultModal from "./ResultModal";
 import styles from "./CaseRoulette.module.css";
-import MapSelectionModal from "./MapSelectionModal";
-import MapWeightModal from "./MapWeightModal";
-import PresetSelectionModal from "./PresetSelectionModal";
+import MapManagementButtons from "./MapManagementButtons";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
 
 interface CSCaseRouletteProps {
@@ -61,12 +59,6 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 	);
 	const [activeMaps, setActiveMaps] = createSignal<CaseItem[]>(props.items); // Default to props.items
 
-	const [isMapSelectionModalOpen, setIsMapSelectionModalOpen] =
-		createSignal(false);
-	const [isMapWeightModalOpen, setIsMapWeightModalOpen] = createSignal(false);
-	const [isPresetSelectionModalOpen, setIsPresetSelectionModalOpen] =
-		createSignal(false); // State for the new modal
-
 	// Update items for the roulette based on activeMaps if map management is enabled
 	const itemsToSpin = () =>
 		props.enableMapManagement ? activeMaps() : props.items;
@@ -82,7 +74,6 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 			preset.itemNames.includes(map.name),
 		);
 		setActiveMaps(newActiveMaps);
-		setIsPresetSelectionModalOpen(false); // Close modal after selection
 	};
 
 	// Function to update dimensions based on window size
@@ -287,79 +278,20 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 		setShowResultModal(false);
 	};
 
-	// Handlers for MapSelectionModal
-	const handleOpenMapSelectionModal = () => setIsMapSelectionModalOpen(true);
-	const handleCloseMapSelectionModal = () => setIsMapSelectionModalOpen(false);
-	const handleSaveMapSelection = (selectedMapIds: (string | number)[]) => {
-		const newActiveMaps = allPossibleMaps().filter((map) =>
-			selectedMapIds.includes(map.id),
-		);
-		setActiveMaps(newActiveMaps);
-		// Potentially re-generate roulette items if activeMaps changes
-		// This is handled by the createEffect on itemsToSpin()
-	};
-
-	// Handlers for MapWeightModal
-	const handleOpenMapWeightModal = () => setIsMapWeightModalOpen(true);
-	const handleCloseMapWeightModal = () => setIsMapWeightModalOpen(false);
-	const handleSaveMapWeights = (updatedMapConfigs: CaseItem[]) => {
-		setActiveMaps(updatedMapConfigs);
-		// Potentially re-generate roulette items if activeMaps weights change
-		// This is handled by the createEffect on itemsToSpin()
-	};
-
-	// Handlers for PresetSelectionModal
-	const handleOpenPresetSelectionModal = () =>
-		setIsPresetSelectionModalOpen(true);
-	const handleClosePresetSelectionModal = () =>
-		setIsPresetSelectionModalOpen(false);
-
 	// Accept a prop to control modal visibility from parent (MapRoulette)
 	const shouldShowResultModal = () =>
 		props.showModal !== undefined ? props.showModal : showResultModal();
 
 	return (
 		<div class={`${styles.rouletteContainer} ${props.customClassName || ""}`}>
-			{/* Buttons for map management */}
-			<Show when={props.enableMapManagement}>
-				<div
-					style={{
-						display: "flex",
-						"margin-bottom": "10px",
-						"justify-content": "center",
-						"flex-wrap": "wrap",
-						gap: "5px", // Ensure gap is explicitly set here
-					}}
-				>
-					<button
-						type="button"
-						onClick={handleOpenMapSelectionModal}
-						class="cs-btn"
-						style={{ "font-size": "14px", padding: "10px 15px", margin: "0" }}
-					>
-						Select Items
-					</button>
-					<button
-						type="button"
-						onClick={handleOpenMapWeightModal}
-						class="cs-btn"
-						style={{ "font-size": "14px", padding: "10px 15px", margin: "0" }}
-						disabled={activeMaps().length === 0}
-					>
-						Item Weights
-					</button>
-					<Show when={props.presets && props.presets.length > 0}>
-						<button
-							type="button"
-							onClick={handleOpenPresetSelectionModal}
-							class="cs-btn"
-							style={{ "font-size": "14px", padding: "10px 15px", margin: "0" }}
-						>
-							Select Preset
-						</button>
-					</Show>
-				</div>
-			</Show>
+			<MapManagementButtons
+				enableMapManagement={props.enableMapManagement}
+				presets={props.presets}
+				activeMaps={activeMaps()}
+				allPossibleMaps={allPossibleMaps()}
+				onActiveMapsChange={setActiveMaps}
+				onPresetSelect={handlePresetSelect}
+			/>
 
 			{/* Spin Duration Slider Container for Centering */}
 			<Show when={props.enableSpinDurationSlider}>
@@ -433,33 +365,6 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 				onClose={handleCloseResultModal}
 				item={winningItem()}
 			/>
-
-			<Show when={props.enableMapManagement}>
-				<MapSelectionModal
-					isOpen={isMapSelectionModalOpen()}
-					onClose={handleCloseMapSelectionModal}
-					allMaps={allPossibleMaps()} // Pass allPossibleMaps signal
-					activeMapIds={activeMaps().map((map) => map.id)}
-					onSave={handleSaveMapSelection}
-				/>
-
-				<MapWeightModal
-					isOpen={isMapWeightModalOpen()}
-					onClose={handleCloseMapWeightModal}
-					currentMapConfigs={activeMaps()} // Pass activeMaps signal
-					onSave={handleSaveMapWeights}
-				/>
-
-				{/* Preset Selection Modal */}
-				<Show when={props.presets && props.presets.length > 0}>
-					<PresetSelectionModal
-						isOpen={isPresetSelectionModalOpen()}
-						onClose={handleClosePresetSelectionModal}
-						presets={props.presets || []}
-						onPresetSelect={handlePresetSelect}
-					/>
-				</Show>
-			</Show>
 		</div>
 	);
 };

@@ -1,0 +1,181 @@
+/* filepath: /Users/kristjan/Documents/github/äijä/src/components/roulette/MapWeightModal.module.css */
+/* General Modal Styles (can be shared or adapted from MapSelectionModal) */
+.modalBackdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.85);
+	/* Slightly darker for focus */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1050;
+	/* Ensure it's above other modals if any */
+}
+
+.modalContent {
+	background: linear-gradient(to bottom, #1a2e3d, #0f171f);
+	/* Darker gradient */
+	border-radius: 8px;
+	padding: 25px;
+	max-width: 600px;
+	/* Adjusted for content */
+	width: 90%;
+	max-height: 85vh;
+	display: flex;
+	flex-direction: column;
+	/* Allow header, list, actions to stack */
+	box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+	margin: auto;
+}
+
+.modalHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #334a5e;
+	/* Adjusted border color */
+}
+
+.modalTitle {
+	font-size: 22px;
+	/* Slightly larger title */
+	color: #f0c14b;
+	/* Consistent title color */
+	margin: 0;
+}
+
+.closeButton {
+	background: none;
+	border: none;
+	color: #b0bec5;
+	/* Softer close button color */
+	font-size: 30px;
+	cursor: pointer;
+	line-height: 1;
+	padding: 0 5px;
+	/* Easier to click */
+}
+
+.closeButton:hover {
+	color: #eceff1;
+}
+
+.explanationText {
+	font-size: 0.9em;
+	color: #b0bec5;
+	/* Softer color for explanation text */
+	margin-bottom: 15px;
+	/* Space before the list starts */
+	line-height: 1.4;
+	text-align: left;
+}
+
+/* Map Weight Specific Styles */
+.mapWeightList {
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 20px 0;
+	overflow-y: auto;
+	/* Scroll if many maps */
+	max-height: calc(85vh - 200px);
+	/* Adjust based on header/footer height */
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	/* Space between items */
+}
+
+.mapWeightItem {
+	display: flex;
+	align-items: center;
+	margin-bottom: 15px;
+	padding: 10px;
+	background-color: rgba(255, 255, 255, 0.05);
+	border-radius: 4px;
+}
+
+.mapImage {
+	width: 80px;
+	height: auto;
+	margin-right: 15px;
+	border-radius: 3px;
+}
+
+.mapName {
+	flex-grow: 1;
+	color: #e0e0e0;
+	font-size: 16px;
+}
+
+.weightInput {
+	width: 70px;
+	padding: 8px;
+	border: 1px solid #334a5e;
+	background-color: #0f171f;
+	color: #e0e0e0;
+	border-radius: 4px;
+	text-align: right;
+	font-size: 16px;
+	margin-right: 10px;
+	/* Add some space before the probability */
+}
+
+.mapProbability {
+	color: #a0a0a0;
+	/* Lighter grey for probability text */
+	font-size: 14px;
+	min-width: 60px;
+	/* Ensure space for text like (100.0%) */
+	text-align: right;
+}
+
+/* Modal Actions */
+.modalActions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 12px;
+	margin-top: auto;
+	/* Push actions to the bottom if content is short */
+	padding-top: 20px;
+	border-top: 1px solid #334a5e;
+}
+
+.actionButton {
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 14px;
+	cursor: pointer;
+	transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.actionButton.saveButton {
+	/* More specific selector for save */
+	background: linear-gradient(to bottom, #f0c14b, #c7a140);
+	color: #111;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.actionButton.saveButton:hover {
+	background: linear-gradient(to bottom, #f4ca58, #d6ae4a);
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.actionButton {
+	/* Default/Cancel button style */
+	background-color: #4b5563;
+	/* Neutral button color */
+	color: white;
+}
+
+.actionButton:hover {
+	background-color: #5a6675;
+	/* Slightly lighter on hover */
+}
