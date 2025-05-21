@@ -17,6 +17,8 @@ import MapManagementButtons from "./MapManagementButtons";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
 import SpinDurationSliderContainer from "./SpinDurationSlider/SpinDurationSliderContainer";
 import RouletteDisplay from "./RouletteDisplay/RouletteDisplay";
+import WonItemsHistory from "./WonItemsHistory/WonItemsHistory"; // Added import
+import { Show } from "solid-js"; // Ensure Show is imported if not already globally available
 
 interface CSCaseRouletteProps {
 	items: CaseItem[];
@@ -33,6 +35,10 @@ interface CSCaseRouletteProps {
 	enableSpinDurationSlider?: boolean; // To control if spin duration slider is active
 	initialSpinDuration?: number; // Initial spin duration
 	presets?: RoulettePreset[]; // Optional array of presets
+	showWonItemsHistory?: boolean; // New prop
+	wonItems?: CaseItem[]; // New prop - list of items for history
+	historyTitle?: string; // New prop - title for history section
+	historyItemWidth?: number; // New prop - item width for history items
 }
 
 const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
@@ -325,6 +331,20 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 				onClose={handleCloseResultModal}
 				item={winningItem()}
 			/>
+
+			<Show
+				when={
+					props.showWonItemsHistory &&
+					props.wonItems &&
+					props.wonItems.length > 0
+				}
+			>
+				<WonItemsHistory
+					items={props.wonItems || []}
+					title={props.historyTitle || "History"}
+					itemWidth={props.historyItemWidth}
+				/>
+			</Show>
 		</div>
 	);
 };
