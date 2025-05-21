@@ -1,11 +1,11 @@
 import type { Component, Accessor, Setter } from "solid-js";
 import { Show } from "solid-js";
-import SpinDurationSlider from "./SpinDurationSlider"; // Adjusted path
+import SpinDurationSlider from "./SpinDurationSlider";
 
 interface SpinDurationSliderContainerProps {
 	enableSlider?: Accessor<boolean | undefined>;
-	value: Accessor<number>;
-	onChange: Setter<number>;
+	value: Accessor<number>; // This will now be the 'committed' value
+	onChange: Setter<number>; // This will be called when the slider value is committed
 	disabled: Accessor<boolean>;
 	min?: number;
 	max?: number;
@@ -29,9 +29,8 @@ const SpinDurationSliderContainer: Component<
 				}}
 			>
 				<SpinDurationSlider
-					label={props.label || "Spin Duration (seconds):"}
-					value={props.value}
-					onChange={props.onChange}
+					initialValue={props.value} // Pass the current committed value as initialValue
+					onCommit={props.onChange} // onCommit from slider will call onChange of container (which is the Setter)
 					min={props.min || 1}
 					max={props.max || 30}
 					step={props.step || 1}
