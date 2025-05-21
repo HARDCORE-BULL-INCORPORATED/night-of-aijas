@@ -11,7 +11,7 @@ import {
 	selectWeightedRandomItem,
 	type RoulettePreset,
 } from "./types";
-import ResultModal from "./ResultModal/ResultModal"; // Adjusted path
+import ResultModal from "./Modals/ResultModal/ResultModal";
 import styles from "./CaseRoulette.module.css";
 import MapManagementButtons from "./MapManagementButtons";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
