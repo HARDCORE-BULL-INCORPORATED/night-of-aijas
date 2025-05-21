@@ -29,7 +29,7 @@ const MapRoulette: Component = () => {
 				presets={mapPresets} // Pass the presets here
 				showWonItemsHistory={true} // New prop to show history
 				wonItems={wonItems()} // Pass won items to CaseRoulette
-				historyTitle="Map History" // Pass history title
+				historyTitle="Map History"
 			/>
 		</div>
 	);

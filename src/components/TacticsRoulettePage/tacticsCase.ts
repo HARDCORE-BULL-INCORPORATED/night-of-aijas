@@ -1,6 +1,4 @@
-import type { CaseItem } from "../roulette/types";
-
-export const tacticsCase: CaseItem[] = [
+export const tacticsCase = [
 	{
 		id: 1,
 		name: "RELLU KOURAA",
