@@ -1,214 +1,214 @@
 .modalBackdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.85); /* Slightly darker backdrop */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1040; /* Increased z-index, below weight modal but above most other content */
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.85); /* Slightly darker backdrop */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1040; /* Increased z-index, below weight modal but above most other content */
 }
 
 .modalContent {
-    background: linear-gradient(to bottom, #1f3747, #111922);
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 1100px;
-    width: 90%;
-    max-height: 85vh; /* Increased max-height slightly */
-    overflow-y: auto;
-    text-align: left;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
-    position: relative; /* Keep relative positioning */
-    z-index: 1041; /* Ensure content is above its own backdrop */
-    display: flex; /* Use flex to better manage internal layout */
-    flex-direction: column; /* Stack header, content, actions vertically */
+	background: linear-gradient(to bottom, #1f3747, #111922);
+	border-radius: 8px;
+	padding: 20px;
+	max-width: 1100px;
+	width: 90%;
+	max-height: 85vh; /* Increased max-height slightly */
+	overflow-y: auto;
+	text-align: left;
+	box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+	position: relative; /* Keep relative positioning */
+	z-index: 1041; /* Ensure content is above its own backdrop */
+	display: flex; /* Use flex to better manage internal layout */
+	flex-direction: column; /* Stack header, content, actions vertically */
 }
 
 .modalHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #3a4f62;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #3a4f62;
 }
 
 .modalTitle {
-    font-size: 20px;
-    color: #f0c14b;
-    margin: 0;
+	font-size: 20px;
+	color: #f0c14b;
+	margin: 0;
 }
 
 .closeButton {
-    background: none;
-    border: none;
-    color: #ccc;
-    font-size: 28px;
-    cursor: pointer;
-    line-height: 1;
+	background: none;
+	border: none;
+	color: #ccc;
+	font-size: 28px;
+	cursor: pointer;
+	line-height: 1;
 }
 
 .closeButton:hover {
-    color: white;
+	color: white;
 }
 
 /* Removed the old .mapList style as it's no longer needed */
 
 .mapRowsContainer {
-    display: flex;
-    flex-direction: column;
-    /* Stack rows vertically */
-    gap: 16px;
-    /* Gap between the two rows */
-    margin-bottom: 20px;
-    /* Space before modal actions */
-    max-height: 60vh;
-    /* Max height for the rows area */
-    overflow-y: auto;
-    /* Allow vertical scrolling if content overflows */
-    padding: 5px;
-    /* Small padding for scrollbar */
+	display: flex;
+	flex-direction: column;
+	/* Stack rows vertically */
+	gap: 16px;
+	/* Gap between the two rows */
+	margin-bottom: 20px;
+	/* Space before modal actions */
+	max-height: 60vh;
+	/* Max height for the rows area */
+	overflow-y: auto;
+	/* Allow vertical scrolling if content overflows */
+	padding: 5px;
+	/* Small padding for scrollbar */
 }
 
 .mapListRow {
-    display: flex;
-    /* Lay out items horizontally within a row */
-    flex-wrap: wrap;
-    /* Allow items to wrap if row is too narrow */
-    gap: 16px;
-    /* Gap between items in a row */
-    padding: 0;
-    list-style-type: none;
-    justify-content: center;
-    /* Center items in the row */
+	display: flex;
+	/* Lay out items horizontally within a row */
+	flex-wrap: wrap;
+	/* Allow items to wrap if row is too narrow */
+	gap: 16px;
+	/* Gap between items in a row */
+	padding: 0;
+	list-style-type: none;
+	justify-content: center;
+	/* Center items in the row */
 }
 
 /* .mapItem {} */
 
-.mapItem>label {
-    display: flex;
-    flex-direction: column;
-    /* Stack checkbox, image, name vertically */
-    align-items: center;
-    /* Center items horizontally within the label */
-    text-align: center;
-    cursor: pointer;
-    padding: 10px;
-    border: 1px solid #4a5568;
-    /* Using a color from your button for consistency */
-    border-radius: 6px;
-    background-color: #2d3748;
-    /* Darker item background */
-    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
-    width: 120px;
-    /* Changed from 140px */
-    box-sizing: border-box;
-    /* Padding and border included in width/height */
+.mapItem > label {
+	display: flex;
+	flex-direction: column;
+	/* Stack checkbox, image, name vertically */
+	align-items: center;
+	/* Center items horizontally within the label */
+	text-align: center;
+	cursor: pointer;
+	padding: 10px;
+	border: 1px solid #4a5568;
+	/* Using a color from your button for consistency */
+	border-radius: 6px;
+	background-color: #2d3748;
+	/* Darker item background */
+	transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+	width: 120px;
+	/* Changed from 140px */
+	box-sizing: border-box;
+	/* Padding and border included in width/height */
 }
 
-.mapItem>label:hover {
-    background-color: #4a5568;
-    /* Highlight on hover */
-    transform: translateY(-2px);
-    /* Slight lift effect */
+.mapItem > label:hover {
+	background-color: #4a5568;
+	/* Highlight on hover */
+	transform: translateY(-2px);
+	/* Slight lift effect */
 }
 
 .mapItem input[type="checkbox"] {
-    margin-bottom: 8px;
-    /* Space between checkbox and image */
-    transform: scale(1.2);
-    /* Make checkbox slightly larger */
+	margin-bottom: 8px;
+	/* Space between checkbox and image */
+	transform: scale(1.2);
+	/* Make checkbox slightly larger */
 }
 
 .mapItemImage {
-    width: 80px;
-    /* Changed from 100px */
-    height: 60px;
-    /* Changed from 75px */
-    object-fit: cover;
-    border-radius: 4px;
-    /* Rounded corners for the image */
-    margin-bottom: 8px;
-    /* Space between image and name */
-    border: 1px solid #4a5568;
-    /* Optional border for image */
+	width: 80px;
+	/* Changed from 100px */
+	height: 60px;
+	/* Changed from 75px */
+	object-fit: cover;
+	border-radius: 4px;
+	/* Rounded corners for the image */
+	margin-bottom: 8px;
+	/* Space between image and name */
+	border: 1px solid #4a5568;
+	/* Optional border for image */
 }
 
 .mapItemName {
-    transform: translateY(-2px);
-    font-size: 13px;
-    /* Slightly smaller font for map name */
-    color: #e2e8f0;
-    /* Light text color */
-    word-break: break-word;
-    /* Prevent long names from breaking layout */
-    max-width: 100%;
-    /* Ensure name doesn't overflow the label's width */
-    line-height: 1.3;
+	transform: translateY(-2px);
+	font-size: 13px;
+	/* Slightly smaller font for map name */
+	color: #e2e8f0;
+	/* Light text color */
+	word-break: break-word;
+	/* Prevent long names from breaking layout */
+	max-width: 100%;
+	/* Ensure name doesn't overflow the label's width */
+	line-height: 1.3;
 }
 
 .modalActions {
-    display: flex;
-    justify-content: flex-end;
-    /* Align buttons to the right */
-    gap: 10px;
-    /* Space between buttons */
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #3a4f62;
-    /* Separator line */
-    flex-wrap: wrap;
-    /* Allow buttons to wrap on smaller screens */
+	display: flex;
+	justify-content: flex-end;
+	/* Align buttons to the right */
+	gap: 10px;
+	/* Space between buttons */
+	margin-top: 20px;
+	padding-top: 20px;
+	border-top: 1px solid #3a4f62;
+	/* Separator line */
+	flex-wrap: wrap;
+	/* Allow buttons to wrap on smaller screens */
 }
 
 /* General style for all action buttons in the modal footer */
 .actionButton {
-    padding: 10px 15px;
-    /* Adjusted padding slightly */
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 13px;
-    /* Slightly smaller font for more buttons */
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+	padding: 10px 15px;
+	/* Adjusted padding slightly */
+	border: none;
+	border-radius: 4px;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 13px;
+	/* Slightly smaller font for more buttons */
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .saveButton {
-    background: linear-gradient(to bottom, #f0c14b, #c7a140);
-    color: #111;
-    /* Inherits from .actionButton: padding, border, border-radius, font-weight, text-transform, font-size, cursor */
+	background: linear-gradient(to bottom, #f0c14b, #c7a140);
+	color: #111;
+	/* Inherits from .actionButton: padding, border, border-radius, font-weight, text-transform, font-size, cursor */
 }
 
 .saveButton:hover {
-    background: linear-gradient(to bottom, #f4ca58, #d6ae4a);
+	background: linear-gradient(to bottom, #f4ca58, #d6ae4a);
 }
 
 .cancelButton {
-    background-color: #4a5568;
-    color: white;
-    /* Inherits from .actionButton */
+	background-color: #4a5568;
+	color: white;
+	/* Inherits from .actionButton */
 }
 
 .cancelButton:hover {
-    background-color: #2d3748;
+	background-color: #2d3748;
 }
 
 /* Style for secondary action buttons like Select All / Deselect All */
 .secondaryButton {
-    background-color: #3a4f62;
-    /* A neutral, secondary color from your theme */
-    color: #e2e8f0;
-    /* Light text color */
-    /* Inherits from .actionButton */
+	background-color: #3a4f62;
+	/* A neutral, secondary color from your theme */
+	color: #e2e8f0;
+	/* Light text color */
+	/* Inherits from .actionButton */
 }
 
 .secondaryButton:hover {
-    background-color: #4A5568;
-    /* Slightly lighter on hover */
-    color: white;
+	background-color: #4a5568;
+	/* Slightly lighter on hover */
+	color: white;
 }

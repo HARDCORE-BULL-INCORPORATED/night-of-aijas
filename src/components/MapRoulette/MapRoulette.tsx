@@ -7,7 +7,7 @@ import WonItemsHistory from "../roulette/WonItemsHistory";
 
 const MapRoulette: Component = () => {
 	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
-	const [showResultModalToggle, setShowResultModalToggle] = createSignal(true); // Renamed for clarity
+	const [showResultModalToggle, setShowResultModalToggle] = createSignal(true); 
 
 	const handleItemWon = (item: CaseItem): void => {
 		setWonItems([item, ...wonItems()]);

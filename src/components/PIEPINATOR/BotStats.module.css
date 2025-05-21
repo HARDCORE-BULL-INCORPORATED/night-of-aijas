@@ -1,210 +1,210 @@
 .statsContainer {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 20px;
 }
 
 .loading,
 .error {
-  text-align: center;
-  padding: 20px;
+	text-align: center;
+	padding: 20px;
 }
 
 .error {
-  color: #ff4444;
+	color: #ff4444;
 }
 
 .statsList {
-  list-style: none;
-  padding: 0;
+	list-style: none;
+	padding: 0;
 }
 
 .statsItem {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 15px;
-  margin: 5px 0;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  transition: background-color 0.2s;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 15px;
+	margin: 5px 0;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 4px;
+	transition: background-color 0.2s;
 }
 
 .statsItem:hover {
-  background: rgba(255, 255, 255, 0.15);
+	background: rgba(255, 255, 255, 0.15);
 }
 
 .songLink {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  text-decoration: none;
-  color: inherit;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	text-decoration: none;
+	color: inherit;
 }
 
 .songName {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .songAmount {
-  color: #4caf50;
-  font-weight: bold;
+	color: #4caf50;
+	font-weight: bold;
 }
 
 .pagination {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 20px 0;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin: 20px 0;
 }
 
 .pageButton {
-  padding: 8px 16px;
-  border: none;
-  background: #4a5942;
-  color: white;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+	padding: 8px 16px;
+	border: none;
+	background: #4a5942;
+	color: white;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: background-color 0.2s;
 }
 
 .pageButton:hover {
-  background: #5a6952;
+	background: #5a6952;
 }
 
 .pageButton:disabled {
-  background: #2a3922;
-  cursor: not-allowed;
+	background: #2a3922;
+	cursor: not-allowed;
 }
 
 .pageButton.active {
-  background: #6a7962;
+	background: #6a7962;
 }
 
 .pageInfo {
-  text-align: center;
-  margin: 10px 0;
-  color: #888;
+	text-align: center;
+	margin: 10px 0;
+	color: #888;
 }
 
 .itemsPerPageSelect {
-  margin: 10px 0;
-  padding: 5px;
-  background: #4a5942;
-  color: white;
-  border: none;
-  border-radius: 4px;
+	margin: 10px 0;
+	padding: 5px;
+	background: #4a5942;
+	color: white;
+	border: none;
+	border-radius: 4px;
 }
 
 .goToPageForm {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  width: 100%;
-  justify-content: center;
-  margin-top: 10px;
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	width: 100%;
+	justify-content: center;
+	margin-top: 10px;
 }
 
 .goToPageInput {
-  width: 80px;
-  padding: 8px;
-  border: 1px solid #4a5942;
-  border-radius: 4px;
-  background: #2a3922;
-  color: white;
-  text-align: center;
+	width: 80px;
+	padding: 8px;
+	border: 1px solid #4a5942;
+	border-radius: 4px;
+	background: #2a3922;
+	color: white;
+	text-align: center;
 }
 
 .goToPageInput:focus {
-  outline: none;
-  border-color: #6a7962;
+	outline: none;
+	border-color: #6a7962;
 }
 
 /* Hide number input arrows */
 .goToPageInput::-webkit-inner-spin-button,
 .goToPageInput::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 .goToPageInput[type="number"] {
-  -moz-appearance: textfield;
+	-moz-appearance: textfield;
 }
 
 /* Add these styles to the existing CSS file */
 
 @media (max-width: 768px) {
-  .pagination {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+	.pagination {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
 
-  .pageNumbersContainer {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    max-width: 60%;
-    margin: 0 5px;
-    scroll-behavior: smooth;
-  }
+	.pageNumbersContainer {
+		display: flex;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		max-width: 60%;
+		margin: 0 5px;
+		scroll-behavior: smooth;
+	}
 
-  .pageButton {
-    padding: 6px 12px;
-    min-width: 32px;
-    margin: 0 2px;
-  }
+	.pageButton {
+		padding: 6px 12px;
+		min-width: 32px;
+		margin: 0 2px;
+	}
 
-  .ellipsis {
-    display: inline-block;
-    width: 20px;
-    text-align: center;
-    line-height: 32px;
-    color: #888;
-  }
+	.ellipsis {
+		display: inline-block;
+		width: 20px;
+		text-align: center;
+		line-height: 32px;
+		color: #888;
+	}
 
-  .goToPageToggle {
-    display: block;
-  }
+	.goToPageToggle {
+		display: block;
+	}
 
-  .goToPageForm {
-    width: 100%;
-    margin-top: 10px;
-    justify-content: center;
-  }
+	.goToPageForm {
+		width: 100%;
+		margin-top: 10px;
+		justify-content: center;
+	}
 
-  .goToPageInput {
-    width: 60px;
-  }
+	.goToPageInput {
+		width: 60px;
+	}
 
-  .statsItem {
-    padding: 8px 10px;
-  }
+	.statsItem {
+		padding: 8px 10px;
+	}
 }
 
 @media (max-width: 480px) {
-  .statsContainer {
-    padding: 10px;
-  }
+	.statsContainer {
+		padding: 10px;
+	}
 
-  .pageNumbersContainer {
-    max-width: 50%;
-  }
+	.pageNumbersContainer {
+		max-width: 50%;
+	}
 
-  .pageButton {
-    padding: 5px 10px;
-    min-width: 30px;
-  }
+	.pageButton {
+		padding: 5px 10px;
+		min-width: 30px;
+	}
 
-  .songName,
-  .songAmount {
-    font-size: 14px;
-  }
+	.songName,
+	.songAmount {
+		font-size: 14px;
+	}
 
-  .pageInfo {
-    font-size: 12px;
-  }
+	.pageInfo {
+		font-size: 12px;
+	}
 
-  .itemsPerPageSelect {
-    padding: 4px;
-    font-size: 12px;
-  }
+	.itemsPerPageSelect {
+		padding: 4px;
+		font-size: 12px;
+	}
 }

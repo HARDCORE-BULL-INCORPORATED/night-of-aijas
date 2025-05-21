@@ -8,11 +8,7 @@ import {
 	onCleanup,
 	Show,
 } from "solid-js";
-import {
-	type CaseItem,
-	type CSCaseRouletteProps,
-	selectWeightedRandomItem,
-} from "./types";
+import { type CaseItem, selectWeightedRandomItem } from "./types";
 import RouletteItem from "./RouletteItem";
 import ResultModal from "./ResultModal";
 import styles from "./CaseRoulette.module.css";
@@ -20,8 +16,15 @@ import MapSelectionModal from "./MapSelectionModal";
 import MapWeightModal from "./MapWeightModal";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
 
-// Extend props to include map selection/weight functionality
-export interface CSGOCaseRouletteWithMapOptionsProps extends CSCaseRouletteProps {
+interface CSCaseRouletteProps {
+	items: CaseItem[];
+	onItemWon?: (item: CaseItem) => void;
+	spinDuration?: number; // in seconds
+	itemWidth?: number; // Width of each item in pixels
+	itemsInView?: number; // Number of items visible in the viewport
+	customClassName?: string;
+	disabled?: boolean;
+	showModal?: boolean; // Allow parent to control modal visibility
 	enableMapManagement?: boolean; // To control if map modals are active
 	allMaps?: CaseItem[]; // All available maps for selection
 	initialActiveMaps?: CaseItem[]; // Initially selected maps
@@ -29,18 +32,16 @@ export interface CSGOCaseRouletteWithMapOptionsProps extends CSCaseRouletteProps
 	initialSpinDuration?: number; // Initial spin duration
 }
 
-const CaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
-	props,
-) => {
-	// Default props
+const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 	const [itemWidth, setItemWidth] = createSignal(props.itemWidth || 140);
 	const [itemsInView, setItemsInView] = createSignal(props.itemsInView || 5);
-	const [internalSpinDuration, setInternalSpinDuration] = createSignal(props.initialSpinDuration || props.spinDuration || 8);
+	const [internalSpinDuration, setInternalSpinDuration] = createSignal(
+		props.initialSpinDuration || props.spinDuration || 8,
+	);
 
-	const itemMarginHorizontal = 4; // From RouletteItem.module.css (4px each side)
+	const itemMarginHorizontal = 4; //4px
 	const actualItemSpace = () => itemWidth() + itemMarginHorizontal * 2; // Total horizontal space per item
 
-	// State
 	const [isSpinning, setIsSpinning] = createSignal(false);
 	const [rouletteItems, setRouletteItems] = createSignal<CaseItem[]>([]);
 	const [spinOffset, setSpinOffset] = createSignal(0);
@@ -49,20 +50,24 @@ const CaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 
 	let trackRef: HTMLDivElement | undefined;
 
-	// State for map management modals
-	const [allPossibleMaps, _setAllPossibleMaps] = createSignal<CaseItem[]>(props.allMaps || allPossibleMapsArray);
+	const [allPossibleMaps, _setAllPossibleMaps] = createSignal<CaseItem[]>(
+		props.allMaps || allPossibleMapsArray,
+	);
 	const [activeMaps, setActiveMaps] = createSignal<CaseItem[]>(props.items); // Default to props.items
 
-
-	const [isMapSelectionModalOpen, setIsMapSelectionModalOpen] = createSignal(false);
+	const [isMapSelectionModalOpen, setIsMapSelectionModalOpen] =
+		createSignal(false);
 	const [isMapWeightModalOpen, setIsMapWeightModalOpen] = createSignal(false);
 
-
 	// Update items for the roulette based on activeMaps if map management is enabled
-	const itemsToSpin = () => props.enableMapManagement ? activeMaps() : props.items;
+	const itemsToSpin = () =>
+		props.enableMapManagement ? activeMaps() : props.items;
 
 	// Use internalSpinDuration if slider is enabled, otherwise props.spinDuration
-	const currentSpinDuration = () => props.enableSpinDurationSlider ? internalSpinDuration() : (props.spinDuration || 8);
+	const currentSpinDuration = () =>
+		props.enableSpinDurationSlider
+			? internalSpinDuration()
+			: props.spinDuration || 8;
 
 	// Function to update dimensions based on window size
 	const updateDimensions = () => {
@@ -93,9 +98,9 @@ const CaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 				setActiveMaps(allPossibleMapsArray);
 			}
 		} else {
-            // If map management is not enabled, ensure activeMaps reflects props.items
-            setActiveMaps(props.items);
-        }
+			// If map management is not enabled, ensure activeMaps reflects props.items
+			setActiveMaps(props.items);
+		}
 	});
 
 	// Cleanup resize listener
@@ -103,12 +108,12 @@ const CaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 		window.removeEventListener("resize", updateDimensions);
 	});
 
-    // Effect to update activeMaps if props.items changes and map management is not enabled
-    createEffect(() => {
-        if (!props.enableMapManagement) {
-            setActiveMaps(props.items);
-        }
-    });
+	// Effect to update activeMaps if props.items changes and map management is not enabled
+	createEffect(() => {
+		if (!props.enableMapManagement) {
+			setActiveMaps(props.items);
+		}
+	});
 
 	// Regenerate roulette items when the source items, spin duration, or view configuration changes
 	createEffect(() => {
@@ -159,7 +164,10 @@ const CaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 
 			if (chosenItem) {
 				// Clone the chosen item and assign a unique ID for this slot in the reel.
-				const itemForReel = { ...chosenItem, id: `reel-item-${i}-${Date.now()}` };
+				const itemForReel = {
+					...chosenItem,
+					id: `reel-item-${i}-${Date.now()}`,
+				};
 				generatedItems.push(itemForReel);
 			} else if (currentItems.length > 0) {
 				// Fallback if chosenItem is null
@@ -189,7 +197,6 @@ const CaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 		trackRef.style.setProperty("--actual-item-space", `${actualItemSpace()}px`);
 	});
 
-	// Handle the spin
 	const handleSpin = (): void => {
 		const currentItemsForSpin = itemsToSpin(); // Use reactive items
 		if (isSpinning() || !currentItemsForSpin.length || !trackRef) return;
@@ -284,11 +291,10 @@ const CaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 		// Potentially re-generate roulette items if activeMaps weights change
 		// This is handled by the createEffect on itemsToSpin()
 	};
-	
+
 	// Accept a prop to control modal visibility from parent (MapRoulette)
 	const shouldShowResultModal = () =>
 		props.showModal !== undefined ? props.showModal : showResultModal();
-
 
 	return (
 		<div class={`${styles.rouletteContainer} ${props.customClassName || ""}`}>
@@ -346,7 +352,9 @@ const CaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 						max="60"
 						step="0.5"
 						value={internalSpinDuration()}
-						onInput={(e) => setInternalSpinDuration(Number(e.currentTarget.value))}
+						onInput={(e) =>
+							setInternalSpinDuration(Number(e.currentTarget.value))
+						}
 						style={{ width: "150px" }}
 					/>
 					<span
@@ -377,7 +385,7 @@ const CaseRoulette: Component<CSGOCaseRouletteWithMapOptionsProps> = (
 							<RouletteItem
 								item={item}
 								width={itemWidth()}
-							// isWinner={winningItem()?.id === item.id && item.id?.startsWith('winner-')} // More specific winner check
+								// isWinner={winningItem()?.id === item.id && item.id?.startsWith('winner-')} // More specific winner check
 							/>
 						)}
 					</For>
