@@ -46,7 +46,7 @@ const MapManagementButtons: Component<MapManagementButtonsProps> = (props) => {
 		setIsPresetSelectionModalOpen(false);
 	const handlePresetSelected = (preset: RoulettePreset) => {
 		props.onPresetSelect(preset);
-		setIsPresetSelectionModalOpen(false); // Close modal after selection
+		setIsPresetSelectionModalOpen(false);
 	};
 
 	return (
