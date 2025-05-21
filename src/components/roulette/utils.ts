@@ -1,4 +1,10 @@
 import type { CaseItem } from "./types";
+import { RARITY_COLORS } from "./types"; // Import RARITY_COLORS
+
+// Get the color for an item based on its rarity
+export const getItemColor = (item: CaseItem): string => {
+	return RARITY_COLORS[item.rarity] || RARITY_COLORS.Consumer;
+};
 
 // Select a weighted random item from the array
 export const selectWeightedRandomItem = (items: CaseItem[]): CaseItem => {

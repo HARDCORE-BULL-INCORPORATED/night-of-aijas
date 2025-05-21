@@ -3,7 +3,7 @@ import { For } from "solid-js";
 import type { CaseItem } from "../types";
 import RouletteItem from "./RouletteItem";
 import styles from "./RouletteDisplay.module.css";
-import SpinButton from "./SpinButton"; // Import SpinButton
+import SpinButton from "./SpinButton";
 
 interface RouletteDisplayProps {
 	isSpinning: Accessor<boolean>;

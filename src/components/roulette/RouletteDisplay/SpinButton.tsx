@@ -1,5 +1,5 @@
 import type { Component, Accessor } from "solid-js";
-import styles from "./SpinButton.module.css"; // Import the CSS module for the spin button
+import styles from "./SpinButton.module.css";
 
 interface SpinButtonProps {
 	onClick: () => void;

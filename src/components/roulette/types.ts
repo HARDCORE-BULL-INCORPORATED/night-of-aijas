@@ -16,11 +16,6 @@ export const RARITY_COLORS = {
 	"Rare Special Item": "#e4ae39",
 } as const;
 
-// Get the color for an item based on its rarity
-export const getItemColor = (item: CaseItem): string => {
-	return RARITY_COLORS[item.rarity] || RARITY_COLORS.Consumer;
-};
-
 export interface RoulettePreset {
 	name: string;
 	itemNames: string[];
