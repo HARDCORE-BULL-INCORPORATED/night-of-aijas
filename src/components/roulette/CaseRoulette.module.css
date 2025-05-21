@@ -20,21 +20,6 @@
 	height: 100%; /* Ensure track takes full height of its container */
 }
 
-.controlsContainer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 20px; /* Adjust gap as needed */
-	margin-bottom: 20px; /* Space below the controls */
-}
-
-.showResultModalLabel {
-	display: flex;
-	align-items: center;
-	cursor: pointer;
-	font-size: 0.9rem; /* Adjust font size as needed */
-}
-
 /* Media queries for responsiveness */
 @media (max-width: 480px) {
 	.rouletteContainer {

@@ -12,7 +12,7 @@ import { generateRouletteItems, selectWeightedRandomItem } from "./utils";
 import styles from "./CaseRoulette.module.css";
 import MapManagementButtons from "./MapManagementButtons";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
-import SpinDurationSliderContainer from "./SpinDurationSlider/SpinDurationSliderContainer";
+import RouletteControls from "./RouletteControls/RouletteControls"; // Import the new composite component
 import RouletteDisplay from "./RouletteDisplay/RouletteDisplay";
 import WonItemsHistory from "./WonItemsHistory/WonItemsHistory";
 import ResultModal from "./modals/ResultModal/ResultModal";
@@ -253,32 +253,15 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 				onPresetSelect={handlePresetSelect}
 			/>
 
-			<div class={styles.controlsContainer}>
-				{/* Checkbox is now always rendered and uses internal state */}
-				<div class="cs-checkbox">
-					<input
-						id="checkbox"
-						type="checkbox"
-						checked={internalDisplayResultModalToggle()}
-						onInput={(e) =>
-							setInternalDisplayResultModalToggle(e.currentTarget.checked)
-						}
-					/>
-					<label class="cs-checkbox__label" for="checkbox">
-						Show result modal
-					</label>
-				</div>
-				<SpinDurationSliderContainer
-					enableSlider={() => props.enableSpinDurationSlider}
-					value={internalSpinDuration}
-					onChange={setInternalSpinDuration}
-					disabled={isSpinning}
-					min={1}
-					max={30}
-					step={1}
-					label="Spin Duration (seconds):"
-				/>
-			</div>
+			{/* Replace old controls div with the new RouletteControls component */}
+			<RouletteControls
+				showResultModalToggle={internalDisplayResultModalToggle}
+				onShowResultModalToggleChange={setInternalDisplayResultModalToggle}
+				enableSpinDurationSlider={() => props.enableSpinDurationSlider}
+				internalSpinDuration={internalSpinDuration}
+				setInternalSpinDuration={setInternalSpinDuration}
+				isSpinning={isSpinning}
+			/>
 
 			<RouletteDisplay
 				isSpinning={isSpinning}
