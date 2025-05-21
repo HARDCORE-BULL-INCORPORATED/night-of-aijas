@@ -4,7 +4,6 @@ import {
 	onMount,
 	createEffect,
 	batch,
-	For,
 	onCleanup,
 } from "solid-js";
 import {
@@ -12,12 +11,13 @@ import {
 	selectWeightedRandomItem,
 	type RoulettePreset,
 } from "./types";
-import RouletteItem from "./RouletteItem";
 import ResultModal from "./ResultModal";
 import styles from "./CaseRoulette.module.css";
 import MapManagementButtons from "./MapManagementButtons";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
 import SpinDurationSliderContainer from "./SpinDurationSlider/SpinDurationSliderContainer";
+import RouletteDisplay from "./RouletteDisplay/RouletteDisplay";
+import SpinButton from "./RouletteDisplay/SpinButton"; // Import the new SpinButton component
 
 interface CSCaseRouletteProps {
 	items: CaseItem[];
@@ -53,6 +53,9 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 	const [showResultModal, setShowResultModal] = createSignal(false);
 
 	let trackRef: HTMLDivElement | undefined;
+	const assignTrackRef = (el: HTMLDivElement) => {
+		trackRef = el;
+	};
 
 	const [allPossibleMaps, _setAllPossibleMaps] = createSignal<CaseItem[]>(
 		props.allMaps || allPossibleMapsArray,
@@ -282,6 +285,10 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 	const shouldShowResultModal = () =>
 		props.showModal !== undefined ? props.showModal : showResultModal();
 
+	// Combined disabled state for the spin button
+	const isSpinButtonDisabled = () =>
+		isSpinning() || props.disabled || itemsToSpin().length === 0;
+
 	return (
 		<div class={`${styles.rouletteContainer} ${props.customClassName || ""}`}>
 			<MapManagementButtons
@@ -304,41 +311,19 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 				label="Spin Duration (seconds):"
 			/>
 
-			<div class={styles.rouletteViewport}>
-				<div class={styles.indicator} />
+			<RouletteDisplay
+				isSpinning={isSpinning}
+				spinOffset={spinOffset}
+				rouletteItems={rouletteItems}
+				itemWidth={itemWidth}
+				assignTrackRef={assignTrackRef}
+			/>
 
-				<div
-					ref={trackRef}
-					class={`${styles.rouletteTrack} ${isSpinning() ? styles.spinning : ""}`}
-					style={{
-						left: `-${spinOffset()}px`,
-					}}
-				>
-					<For each={rouletteItems()}>
-						{(item) => (
-							<RouletteItem
-								item={item}
-								width={itemWidth()}
-								// isWinner={winningItem()?.id === item.id && item.id?.startsWith('winner-')} // More specific winner check
-							/>
-						)}
-					</For>
-				</div>
-			</div>
-
-			<button
-				type="button"
-				class="cs-btn"
-				onClick={() => handleSpin()}
-				disabled={isSpinning() || props.disabled || itemsToSpin().length === 0}
-				style={{
-					"font-size": "18px",
-					padding: "12px 20px",
-					"margin-top": "15px",
-				}}
-			>
-				{isSpinning() ? "Spinning..." : "Spin"}
-			</button>
+			<SpinButton
+				onClick={handleSpin}
+				isSpinning={isSpinning}
+				isDisabled={isSpinButtonDisabled}
+			/>
 
 			<ResultModal
 				isOpen={shouldShowResultModal()}
