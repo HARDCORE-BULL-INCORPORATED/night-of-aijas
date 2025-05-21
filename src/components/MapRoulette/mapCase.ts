@@ -1,6 +1,4 @@
-import type { CaseItem } from "../roulette/types";
-
-export const mapCase: CaseItem[] = [
+export const mapCase = [
 	{
 		id: 1,
 		name: "Dust II",
@@ -99,4 +97,6 @@ export const mapCase: CaseItem[] = [
 		rarity: "Classified",
 		weight: 1,
 	},
-];
+] as const;
+
+export type MapName = (typeof mapCase)[number]["name"];

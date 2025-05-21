@@ -29,4 +29,6 @@ export const tacticsCase: CaseItem[] = [
 		rarity: "Mil-spec",
 		weight: 1,
 	},
-];
+] as const;
+
+export type TacticName = (typeof tacticsCase)[number]["name"];

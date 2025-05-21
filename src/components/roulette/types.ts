@@ -1,3 +1,6 @@
+import type { MapName } from "../MapRoulette/mapCase";
+import type { TacticName } from "../TacticsRoulettePage/tacticsCase"; // Import TacticName
+
 export interface CaseItem {
 	id: string | number;
 	name: string;
@@ -16,7 +19,14 @@ export const RARITY_COLORS = {
 	"Rare Special Item": "#e4ae39",
 } as const;
 
-export interface RoulettePreset {
+export interface RoulettePresetItemConfig<T extends string> {
+	name: T;
+	weight: number;
+}
+
+export interface RoulettePreset<
+	T extends MapName | TacticName = MapName | TacticName,
+> {
 	name: string;
-	itemNames: string[];
+	items: RoulettePresetItemConfig<T>[];
 }

@@ -17,7 +17,7 @@ import RouletteDisplay from "./RouletteDisplay/RouletteDisplay";
 import WonItemsHistory from "./WonItemsHistory/WonItemsHistory";
 import ResultModal from "./modals/ResultModal/ResultModal";
 
-interface CSCaseRouletteProps {
+interface CaseRouletteProps {
 	items: CaseItem[];
 	onItemWon?: (item: CaseItem) => void;
 	spinDuration?: number; // in seconds
@@ -39,7 +39,7 @@ interface CSCaseRouletteProps {
 	// showResultModalToggle and onShowResultModalToggleChange are removed
 }
 
-const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
+const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 	const [itemWidth, setItemWidth] = createSignal(props.itemWidth || 140);
 	const [itemsInView, setItemsInView] = createSignal(props.itemsInView || 5);
 	const [internalSpinDuration, setInternalSpinDuration] = createSignal(
@@ -65,7 +65,7 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 	};
 
 	const [allPossibleMaps, _setAllPossibleMaps] = createSignal<CaseItem[]>(
-		props.allMaps || allPossibleMapsArray,
+		props.allMaps || [...allPossibleMapsArray], // Spread to create a mutable copy
 	);
 	const [activeMaps, setActiveMaps] = createSignal<CaseItem[]>(props.items); // Default to props.items
 
@@ -80,9 +80,16 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 			: props.spinDuration || 8;
 
 	const handlePresetSelect = (preset: RoulettePreset) => {
-		const newActiveMaps = allPossibleMaps().filter((map) =>
-			preset.itemNames.includes(map.name),
-		);
+		const newActiveMaps = allPossibleMaps()
+			.map((map) => {
+				const presetItem = preset.items.find((item) => item.name === map.name);
+				if (presetItem) {
+					return { ...map, weight: presetItem.weight };
+				}
+				return null; // Or handle maps not in preset differently, e.g., keep original weight or exclude
+			})
+			.filter((map): map is CaseItem => map !== null);
+
 		setActiveMaps(newActiveMaps);
 	};
 
@@ -112,7 +119,7 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 				setActiveMaps(props.allMaps);
 			} else {
 				// Default to allPossibleMapsArray if nothing specific is provided for map management
-				setActiveMaps(allPossibleMapsArray);
+				setActiveMaps([...allPossibleMapsArray]); // Spread to create a mutable copy
 			}
 		} else {
 			// If map management is not enabled, ensure activeMaps reflects props.items
