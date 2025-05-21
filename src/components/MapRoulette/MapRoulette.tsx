@@ -1,18 +1,26 @@
 import type { Component } from "solid-js";
 import { createSignal } from "solid-js";
 import CaseRoulette from "../roulette/CaseRoulette";
-import type { CaseItem } from "../roulette/types";
+import type { CaseItem, RoulettePreset } from "../roulette/types"; // Added RoulettePreset
 import { mapCase as allPossibleMapsData } from "./mapCase";
 import WonItemsHistory from "../roulette/WonItemsHistory";
 
 const MapRoulette: Component = () => {
 	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
-	const [showResultModalToggle, setShowResultModalToggle] = createSignal(true); 
+	const [showResultModalToggle, setShowResultModalToggle] = createSignal(true);
 
 	const handleItemWon = (item: CaseItem): void => {
 		setWonItems([item, ...wonItems()]);
 		console.log(`Map selected: ${item.name} (${item.rarity})`);
 	};
+
+	const mapPresets: RoulettePreset[] = [
+		{
+			name: "Hostage Maps",
+			itemNames: ["Agency", "Office", "Italy"],
+		},
+		// Add more presets here if needed
+	];
 
 	return (
 		<div class="container">
@@ -43,6 +51,7 @@ const MapRoulette: Component = () => {
 				enableMapManagement={true} // Enable map selection and weight modals
 				enableSpinDurationSlider={true} // Enable the internal spin duration slider
 				initialSpinDuration={8} // Set initial spin duration for the slider
+				presets={mapPresets} // Pass the presets here
 			/>
 
 			<WonItemsHistory items={wonItems()} title="Map History" />

@@ -39,3 +39,8 @@ export const selectWeightedRandomItem = (items: CaseItem[]): CaseItem => {
 	// Fallback to first item (should never happen with positive weights)
 	return items[0];
 };
+
+export interface RoulettePreset {
+	name: string;
+	itemNames: string[];
+}

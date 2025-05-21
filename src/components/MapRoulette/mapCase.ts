@@ -83,7 +83,7 @@ export const mapCase: CaseItem[] = [
 		name: "Agency",
 		image: "/maps/cs_agency.png",
 		rarity: "Covert",
-		weight: 1.1,
+		weight: 1,
 	},
 	{
 		id: 6,
@@ -97,6 +97,6 @@ export const mapCase: CaseItem[] = [
 		name: "Italy",
 		image: "/maps/cs_italy.png",
 		rarity: "Classified",
-		weight: 1.1,
+		weight: 1,
 	},
 ];
