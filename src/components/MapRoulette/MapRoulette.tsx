@@ -1,9 +1,9 @@
 import type { Component } from "solid-js";
-import { createSignal, For, Show } from "solid-js";
+import { createSignal } from "solid-js";
 import CaseRoulette from "../roulette/CaseRoulette";
 import type { CaseItem } from "../roulette/types";
 import { mapCase as allPossibleMapsData } from "./mapCase";
-import RouletteItem from "../roulette/RouletteItem";
+import WonItemsHistory from "../roulette/WonItemsHistory";
 
 const MapRoulette: Component = () => {
 	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
@@ -45,38 +45,7 @@ const MapRoulette: Component = () => {
 				initialSpinDuration={8} // Set initial spin duration for the slider
 			/>
 
-			<Show when={wonItems().length > 0}>
-				<div style={{ margin: "20px 0" }}>
-					<h2>Map History ({wonItems().length})</h2>
-					<div
-						style={{
-							display: "flex",
-							"flex-wrap": "wrap",
-							gap: "10px",
-							"justify-content": "center",
-							"margin-top": "15px",
-						}}
-					>
-						<For each={wonItems()}>
-							{(item, index) => (
-								<div
-									style={{
-										display: "flex",
-										"flex-direction": "column",
-										"align-items": "center",
-										width: "140px",
-									}}
-								>
-									<span style={{ "font-size": "0.8em", opacity: "0.7" }}>
-										#{index() + 1}
-									</span>
-									<RouletteItem item={item} width={140} />
-								</div>
-							)}
-						</For>
-					</div>
-				</div>
-			</Show>
+			<WonItemsHistory items={wonItems()} title="Map History" />
 		</div>
 	);
 };
