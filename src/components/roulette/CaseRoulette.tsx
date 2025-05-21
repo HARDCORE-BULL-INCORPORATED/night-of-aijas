@@ -325,36 +325,35 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 				<div
 					style={{
 						display: "flex",
-						gap: "10px",
-						"margin-bottom": "10px", // Adjusted margin
+						"margin-bottom": "10px",
 						"justify-content": "center",
-						"flex-wrap": "wrap", // Allow buttons to wrap
+						"flex-wrap": "wrap",
+						gap: "5px", // Ensure gap is explicitly set here
 					}}
 				>
 					<button
 						type="button"
 						onClick={handleOpenMapSelectionModal}
-						class={styles.spinButton} // Re-use spinButton style or create a new one
-						style={{ "font-size": "14px", padding: "10px 15px" }}
+						class="cs-btn"
+						style={{ "font-size": "14px", padding: "10px 15px", margin: "0" }}
 					>
 						Select Items
 					</button>
 					<button
 						type="button"
 						onClick={handleOpenMapWeightModal}
-						class={styles.spinButton} // Re-use spinButton style or create a new one
-						style={{ "font-size": "14px", padding: "10px 15px" }}
+						class="cs-btn"
+						style={{ "font-size": "14px", padding: "10px 15px", margin: "0" }}
 						disabled={activeMaps().length === 0}
 					>
 						Item Weights
 					</button>
-					{/* Button to open Preset Selection Modal */}
 					<Show when={props.presets && props.presets.length > 0}>
 						<button
 							type="button"
 							onClick={handleOpenPresetSelectionModal}
-							class={styles.spinButton}
-							style={{ "font-size": "14px", padding: "10px 15px" }}
+							class="cs-btn"
+							style={{ "font-size": "14px", padding: "10px 15px", margin: "0" }}
 						>
 							Select Preset
 						</button>
@@ -362,45 +361,33 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 				</div>
 			</Show>
 
-			{/* Spin Duration Slider */}
+			{/* Spin Duration Slider Container for Centering */}
 			<Show when={props.enableSpinDurationSlider}>
 				<div
 					style={{
 						display: "flex",
-						"align-items": "center",
 						"justify-content": "center",
-						gap: "10px",
-						"margin-bottom": "20px",
+						"margin-bottom": "5px",
 					}}
 				>
-					<label
-						for="spinDurationSliderInternal"
-						style={{ color: "#fff", "font-size": "14px" }}
-					>
-						Roll Duration:
-					</label>
-					<input
-						id="spinDurationSliderInternal"
-						type="range"
-						min="1"
-						max="60"
-						step="0.5"
-						value={internalSpinDuration()}
-						onInput={(e) =>
-							setInternalSpinDuration(Number(e.currentTarget.value))
-						}
-						style={{ width: "150px" }}
-					/>
-					<span
-						style={{
-							color: "#fff",
-							"font-size": "14px",
-							width: "60px",
-							display: "inline-block",
-						}}
-					>
-						{internalSpinDuration().toFixed(1)}s
-					</span>
+					<div class="cs-slider">
+						<div class="value">
+							<p class="">{internalSpinDuration().toFixed(1)}s</p>
+						</div>
+						<div class="ruler" />
+						<input
+							id="spinDurationSliderInternal" // ID for the label to point to
+							type="range"
+							min="1"
+							max="60"
+							step="0.5"
+							value={internalSpinDuration()}
+							onInput={(e) =>
+								setInternalSpinDuration(Number(e.currentTarget.value))
+							}
+						/>
+						<label for="spinDurationSliderInternal"> Roll Duration</label>
+					</div>
 				</div>
 			</Show>
 
@@ -428,9 +415,14 @@ const CaseRoulette: Component<CSCaseRouletteProps> = (props) => {
 
 			<button
 				type="button"
-				class={styles.spinButton}
+				class="cs-btn"
 				onClick={() => handleSpin()}
 				disabled={isSpinning() || props.disabled || itemsToSpin().length === 0}
+				style={{
+					"font-size": "18px",
+					padding: "12px 20px",
+					"margin-top": "15px",
+				}}
 			>
 				{isSpinning() ? "Spinning..." : "Spin"}
 			</button>
