@@ -9,6 +9,7 @@ export interface WonItemsHistoryProps {
 	title: string;
 	itemWidth?: number;
 	onItemClick?: (item: CaseItem) => void;
+	onClearHistory?: () => void;
 }
 
 const WonItemsHistory: Component<WonItemsHistoryProps> = (props) => {
@@ -17,9 +18,24 @@ const WonItemsHistory: Component<WonItemsHistoryProps> = (props) => {
 	return (
 		<Show when={props.items.length > 0}>
 			<div class={styles.historyContainer}>
-				<h2 class={styles.historyTitle}>
-					{props.title} ({props.items.length})
-				</h2>
+				<div class={styles.historyHeader}>
+					<h2 class={styles.historyTitle}>
+						{props.title} ({props.items.length})
+					</h2>
+				</div>
+				<Show when={props.onClearHistory}>
+					<div class={styles.clearButtonContainer}>
+						{" "}
+						{/* New container for the button */}
+						<button
+							type="button"
+							onClick={() => props.onClearHistory?.()}
+							class="cs-btn"
+						>
+							Clear History
+						</button>
+					</div>
+				</Show>
 				<div class={styles.itemsGrid}>
 					<For each={props.items}>
 						{(item, index) => (

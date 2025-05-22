@@ -3,11 +3,6 @@
 	margin: 20px 0;
 }
 
-/* .historyTitle {
-	/* Add any specific title styles here if needed */
-/* Example: text-align: center; color: #eee; */
-/*} */
-
 .itemsGrid {
 	display: flex;
 	flex-wrap: wrap;

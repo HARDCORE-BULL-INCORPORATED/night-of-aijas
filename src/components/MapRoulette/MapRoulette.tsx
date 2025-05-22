@@ -13,6 +13,10 @@ const MapRoulette: Component = () => {
 		console.log(`Map selected: ${item.name} (${item.rarity})`);
 	};
 
+	const handleClearHistory = () => {
+		setWonItems([]);
+	};
+
 	return (
 		<div class="container">
 			<h1>CS:GO MAP ROULETTE</h1>
@@ -29,6 +33,7 @@ const MapRoulette: Component = () => {
 				presets={mapPresets} // Pass the presets here
 				showWonItemsHistory={true} // New prop to show history
 				wonItems={wonItems()} // Pass won items to CaseRoulette
+				onClearWonItemsHistory={handleClearHistory} // Add this line
 				historyTitle="Map History"
 				selectItemsButtonText="Select Maps"
 				itemWeightsButtonText="Map Weights"

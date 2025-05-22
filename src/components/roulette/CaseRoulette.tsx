@@ -12,7 +12,7 @@ import { generateRouletteItems, selectWeightedRandomItem } from "./utils";
 import styles from "./CaseRoulette.module.css";
 import MapManagementButtons from "./MapManagementButtons";
 import { mapCase as allPossibleMapsArray } from "../MapRoulette/mapCase";
-import RouletteControls from "./RouletteControls/RouletteControls"; // Import the new composite component
+import RouletteControls from "./RouletteControls/RouletteControls";
 import RouletteDisplay from "./RouletteDisplay/RouletteDisplay";
 import WonItemsHistory from "./WonItemsHistory/WonItemsHistory";
 import ResultModal from "./modals/ResultModal/ResultModal";
@@ -31,14 +31,14 @@ interface CaseRouletteProps {
 	initialActiveMaps?: CaseItem[]; // Initially selected maps
 	enableSpinDurationSlider?: boolean; // To control if spin duration slider is active
 	initialSpinDuration?: number; // Initial spin duration
-	presets?: RoulettePreset[]; // Optional array of presets
-	showWonItemsHistory?: boolean; // New prop
-	wonItems?: CaseItem[]; // New prop - list of items for history
-	historyTitle?: string; // New prop - title for history section
-	historyItemWidth?: number; // New prop - item width for history items
-	selectItemsButtonText?: string; // New prop
-	itemWeightsButtonText?: string; // New prop
-	// showResultModalToggle and onShowResultModalToggleChange are removed
+	presets?: RoulettePreset[];
+	showWonItemsHistory?: boolean;
+	wonItems?: CaseItem[];
+	onClearWonItemsHistory?: () => void;
+	historyTitle?: string;
+	historyItemWidth?: number;
+	selectItemsButtonText?: string;
+	itemWeightsButtonText?: string;
 }
 
 const CaseRoulette: Component<CaseRouletteProps> = (props) => {
@@ -316,6 +316,7 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 					title={props.historyTitle || "History"}
 					itemWidth={props.historyItemWidth}
 					onItemClick={handleHistoryItemClick} // Pass the handler
+					onClearHistory={props.onClearWonItemsHistory} // Pass the clear history handler
 				/>
 			</Show>
 

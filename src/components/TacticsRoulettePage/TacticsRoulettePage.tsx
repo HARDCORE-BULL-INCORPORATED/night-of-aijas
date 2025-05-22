@@ -13,6 +13,10 @@ const TacticsRoulettePage: Component = () => {
 		console.log(`Tactic selected: ${item.name} (${item.rarity})`);
 	};
 
+	const handleClearHistory = () => {
+		setWonItems([]);
+	};
+
 	return (
 		<div class="container">
 			<h1>TACTICS ROULETTE</h1>
@@ -30,6 +34,7 @@ const TacticsRoulettePage: Component = () => {
 				presets={tacticsPresets} // Pass the presets here
 				showWonItemsHistory={true} // New prop to show history
 				wonItems={wonItems()} // Pass won items to CaseRoulette
+				onClearWonItemsHistory={handleClearHistory} // Add this line
 				historyTitle="Tactic History" // Pass history title
 				selectItemsButtonText="Select Tactics"
 				itemWeightsButtonText="Tactic Weights"
