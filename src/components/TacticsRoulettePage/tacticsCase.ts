@@ -1,5 +1,6 @@
 import type { MapName } from "../MapRoulette/mapCase";
 import type { CaseItem } from "../roulette/types";
+import { agencyCase } from "./tacticsPerMap/agency";
 import { officeCase } from "./tacticsPerMap/office";
 
 export type TacticMapContext = MapName | "Defuse" | "Hostage" | "Shared";
@@ -39,6 +40,7 @@ export const tacticsCase = [
 		map: "Defuse",
 	},
 	...officeCase,
+	...agencyCase,
 ] as const satisfies readonly Tactic[];
 
 export type TacticName = (typeof tacticsCase)[number]["name"];
