@@ -7,5 +7,6 @@ export const trainCase = [
 		rarity: "Mil-spec",
 		weight: 1,
 		map: "Train",
+		side: "CT",
 	},
 ] as const satisfies readonly Tactic[];

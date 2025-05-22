@@ -7,6 +7,7 @@ export const officeCase = [
 		rarity: "Mil-spec",
 		weight: 1.2,
 		map: "Office",
+		side: "CT",
 	},
 	{
 		name: "LONK",
@@ -14,6 +15,7 @@ export const officeCase = [
 		rarity: "Restricted",
 		weight: 1,
 		map: "Office",
+		side: "T",
 	},
 	{
 		name: "EKSTRA PITKÄ",
@@ -21,5 +23,6 @@ export const officeCase = [
 		rarity: "Rare Special Item",
 		weight: 0.8,
 		map: "Office",
+		side: "CT",
 	},
 ] as const satisfies readonly Tactic[];

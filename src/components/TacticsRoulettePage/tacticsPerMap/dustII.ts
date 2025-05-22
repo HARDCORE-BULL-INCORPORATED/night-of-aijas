@@ -7,5 +7,6 @@ export const dustIICase = [
 		rarity: "Mil-spec",
 		weight: 1,
 		map: "Dust II",
+		side: "T",
 	},
 ] as const satisfies readonly Tactic[];
