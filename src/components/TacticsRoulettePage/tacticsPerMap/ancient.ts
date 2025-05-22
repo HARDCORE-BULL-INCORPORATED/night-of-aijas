@@ -1,4 +1,4 @@
-import type { Tactic } from "../tacticsCase";
+import type { Tactic } from "../types";
 
 export const ancientCase = [
 	// {

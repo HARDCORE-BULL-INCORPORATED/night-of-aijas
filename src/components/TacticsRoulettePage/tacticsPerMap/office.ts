@@ -1,4 +1,9 @@
-import type { Tactic } from "../tacticsCase";
+import type {
+	CommonTactic,
+	CounterterroristTactic,
+	Tactic,
+	TerroristTactic,
+} from "../types";
 
 export const ctTactics = [
 	{
@@ -12,7 +17,7 @@ export const ctTactics = [
 	{
 		name: "LONK",
 		image: "RUSH LONG",
-		rarity: "Restricted",
+		rarity: "Mil-spec",
 		weight: 1,
 		map: "Office",
 		side: "CT",
@@ -25,14 +30,32 @@ export const ctTactics = [
 		map: "Office",
 		side: "CT",
 	},
-] as const satisfies readonly Tactic[];
+] as const satisfies readonly CounterterroristTactic[];
 
-export const terroristTactics = [] as const satisfies readonly Tactic[];
+export const terroristTactics = [
+	{
+		name: "PIHAPUSKU",
+		image: "/tactics/vanha-käppänä.png",
+		rarity: "Mil-spec",
+		weight: 1,
+		map: "Office",
+		side: "T",
+	},
+] as const satisfies readonly TerroristTactic[];
 
-export const sharedTactics = [] as const satisfies readonly Tactic[];
+export const commonTactics = [
+	{
+		name: "PIHAPUSKU",
+		image: "/tactics/vanha-käppänä.png",
+		rarity: "Mil-spec",
+		weight: 1,
+		map: "Office",
+		side: "Both",
+	},
+] as const satisfies readonly CommonTactic[];
 
 export const officeCase = [
 	...ctTactics,
 	...terroristTactics,
-	...sharedTactics,
+	...commonTactics,
 ] as const satisfies readonly Tactic[];

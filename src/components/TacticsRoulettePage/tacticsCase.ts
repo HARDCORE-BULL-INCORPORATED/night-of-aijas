@@ -1,5 +1,3 @@
-import type { MapName } from "../MapRoulette/mapCase";
-import type { CaseItem } from "../roulette/types";
 import { commonTactics } from "./commonTactics";
 import { agencyCase } from "./tacticsPerMap/agency";
 import { ancientCase } from "./tacticsPerMap/ancient";
@@ -15,14 +13,7 @@ import { officeCase } from "./tacticsPerMap/office";
 import { overpassCase } from "./tacticsPerMap/overpass";
 import { trainCase } from "./tacticsPerMap/train";
 import { vertigoCase } from "./tacticsPerMap/vertigo";
-
-export type TacticMapContext = MapName | "Defuse" | "Hostage" | "Shared";
-export type Side = "CT" | "T" | "Both";
-
-export interface Tactic extends CaseItem {
-	map: TacticMapContext;
-	side: Side;
-}
+import type { Tactic } from "./types";
 
 export const tacticsCase = [
 	...commonTactics,
