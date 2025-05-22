@@ -24,7 +24,7 @@ export const ctTactics = [
 	},
 	{
 		name: "EKSTRA PITKÄ",
-		image: "/tactics/vanha-käppänä.png",
+		image: "EKSTRA PITKÄ",
 		rarity: "Rare Special Item",
 		weight: 0.5,
 		map: "Office",
@@ -35,7 +35,7 @@ export const ctTactics = [
 export const terroristTactics = [
 	{
 		name: "PIHAPUSKU",
-		image: "/tactics/vanha-käppänä.png",
+		image: "PIHAPUSKU",
 		rarity: "Mil-spec",
 		weight: 1,
 		map: "Office",
