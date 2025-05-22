@@ -30,6 +30,8 @@ const MapRoulette: Component = () => {
 				showWonItemsHistory={true} // New prop to show history
 				wonItems={wonItems()} // Pass won items to CaseRoulette
 				historyTitle="Map History"
+				selectItemsButtonText="Select Maps"
+				itemWeightsButtonText="Map Weights"
 			/>
 		</div>
 	);

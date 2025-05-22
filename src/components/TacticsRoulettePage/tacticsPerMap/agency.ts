@@ -7,6 +7,6 @@ export const agencyCase = [
 		rarity: "Mil-spec",
 		weight: 1,
 		map: "Agency",
-		side: "CT",
+		side: "Both",
 	},
 ] as const satisfies readonly Tactic[];

@@ -31,6 +31,8 @@ const TacticsRoulettePage: Component = () => {
 				showWonItemsHistory={true} // New prop to show history
 				wonItems={wonItems()} // Pass won items to CaseRoulette
 				historyTitle="Tactic History" // Pass history title
+				selectItemsButtonText="Select Tactics"
+				itemWeightsButtonText="Tactic Weights"
 				// showResultModalToggle and onShowResultModalToggleChange are removed
 			/>
 		</div>

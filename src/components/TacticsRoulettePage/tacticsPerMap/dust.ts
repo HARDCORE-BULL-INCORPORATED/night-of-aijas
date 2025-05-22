@@ -1,6 +1,6 @@
 import type { Tactic } from "../tacticsCase";
 
-export const dustIICase = [
+export const dustCase = [
 	{
 		name: "Default Dust II Tactic",
 		image: "",

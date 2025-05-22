@@ -3,7 +3,7 @@ import type { CaseItem } from "../roulette/types";
 import { agencyCase } from "./tacticsPerMap/agency";
 import { ancientCase } from "./tacticsPerMap/ancient";
 import { anubisCase } from "./tacticsPerMap/anubis";
-import { dustIICase } from "./tacticsPerMap/dustII";
+import { dustCase } from "./tacticsPerMap/dust";
 import { grailCase } from "./tacticsPerMap/grail";
 import { infernoCase } from "./tacticsPerMap/inferno";
 import { italyCase } from "./tacticsPerMap/italy";
@@ -60,7 +60,7 @@ export const tacticsCase = [
 	...agencyCase,
 	...ancientCase,
 	...anubisCase,
-	...dustIICase,
+	...dustCase,
 	...grailCase,
 	...infernoCase,
 	...italyCase,

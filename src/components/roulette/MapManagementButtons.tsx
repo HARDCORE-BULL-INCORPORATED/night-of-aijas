@@ -4,13 +4,15 @@ import PresetSelectionModal from "./modals/PresetSelectionModal/PresetSelectionM
 import MapWeightModal from "./modals/MapWeightModal/MapWeightModal";
 import MapSelectionModal from "./modals/MapSelectionModal/MapSelectionModal";
 
-interface MapManagementButtonsProps {
+export interface MapManagementButtonsProps {
 	enableMapManagement?: boolean;
 	presets?: RoulettePreset[];
 	activeMaps: CaseItem[];
 	allPossibleMaps: CaseItem[];
 	onActiveMapsChange: (maps: CaseItem[]) => void;
 	onPresetSelect: (preset: RoulettePreset) => void;
+	selectItemsButtonText?: string; // New prop
+	itemWeightsButtonText?: string; // New prop
 }
 
 const MapManagementButtons: Component<MapManagementButtonsProps> = (props) => {
@@ -67,7 +69,7 @@ const MapManagementButtons: Component<MapManagementButtonsProps> = (props) => {
 					class="cs-btn"
 					style={{ "font-size": "14px", padding: "10px 15px", margin: "0" }}
 				>
-					Select Items
+					{props.selectItemsButtonText || "Select Items"}
 				</button>
 				<button
 					type="button"
@@ -76,7 +78,7 @@ const MapManagementButtons: Component<MapManagementButtonsProps> = (props) => {
 					style={{ "font-size": "14px", padding: "10px 15px", margin: "0" }}
 					disabled={props.activeMaps.length === 0}
 				>
-					Item Weights
+					{props.itemWeightsButtonText || "Item Weights"}
 				</button>
 				<Show when={props.presets && props.presets.length > 0}>
 					<button

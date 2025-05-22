@@ -36,6 +36,8 @@ interface CaseRouletteProps {
 	wonItems?: CaseItem[]; // New prop - list of items for history
 	historyTitle?: string; // New prop - title for history section
 	historyItemWidth?: number; // New prop - item width for history items
+	selectItemsButtonText?: string; // New prop
+	itemWeightsButtonText?: string; // New prop
 	// showResultModalToggle and onShowResultModalToggleChange are removed
 }
 
@@ -216,7 +218,7 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 					if (event.propertyName === "left" && trackRef) {
 						trackRef.removeEventListener("transitionend", handleTransitionEnd);
 						setIsSpinning(false);
-						setShowResultModal(true); // Show result modal
+						setShowResultModal(true);
 						if (props.onItemWon) {
 							props.onItemWon(actualWinnerInArray);
 						}
@@ -258,6 +260,8 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 				allPossibleMaps={allPossibleMaps()}
 				onActiveMapsChange={setActiveMaps}
 				onPresetSelect={handlePresetSelect}
+				selectItemsButtonText={props.selectItemsButtonText}
+				itemWeightsButtonText={props.itemWeightsButtonText}
 			/>
 
 			<RouletteControls

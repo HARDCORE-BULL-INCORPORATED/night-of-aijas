@@ -3,9 +3,9 @@ import type { Tactic } from "../tacticsCase";
 export const officeCase = [
 	{
 		name: "PAPERI",
-		image: "",
+		image: "RUSH PAPER",
 		rarity: "Mil-spec",
-		weight: 1.2,
+		weight: 1,
 		map: "Office",
 		side: "CT",
 	},
@@ -15,13 +15,13 @@ export const officeCase = [
 		rarity: "Restricted",
 		weight: 1,
 		map: "Office",
-		side: "T",
+		side: "CT",
 	},
 	{
 		name: "EKSTRA PITKÄ",
 		image: "/tactics/vanha-käppänä.png",
 		rarity: "Rare Special Item",
-		weight: 0.8,
+		weight: 0.5,
 		map: "Office",
 		side: "CT",
 	},
