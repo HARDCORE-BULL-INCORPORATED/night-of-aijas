@@ -1,18 +1,18 @@
-// /Users/kristjan/Documents/github/äijä/src/components/roulette/WonItemsHistory.tsx
 import type { Component } from "solid-js";
 import { For, Show } from "solid-js";
-import type { CaseItem } from "../types"; // Adjusted path
-import RouletteItem from "../RouletteDisplay/RouletteItem"; // Adjusted path
-import styles from "./WonItemsHistory.module.css"; // Will be created
+import type { CaseItem } from "../types";
+import RouletteItem from "../RouletteDisplay/RouletteItem";
+import styles from "./WonItemsHistory.module.css";
 
 export interface WonItemsHistoryProps {
 	items: CaseItem[];
 	title: string;
 	itemWidth?: number;
+	onItemClick?: (item: CaseItem) => void;
 }
 
 const WonItemsHistory: Component<WonItemsHistoryProps> = (props) => {
-	const width = () => props.itemWidth || 140; // Default width if not provided
+	const width = () => props.itemWidth || 140;
 
 	return (
 		<Show when={props.items.length > 0}>
@@ -23,7 +23,21 @@ const WonItemsHistory: Component<WonItemsHistoryProps> = (props) => {
 				<div class={styles.itemsGrid}>
 					<For each={props.items}>
 						{(item, index) => (
-							<div class={styles.historyItemContainer}>
+							<div
+								class={styles.historyItemContainer}
+								onClick={() => props.onItemClick?.(item)}
+								onKeyUp={(e) => {
+									if (
+										(e.key === "Enter" || e.key === " ") &&
+										props.onItemClick
+									) {
+										props.onItemClick(item);
+									}
+								}}
+								tabIndex={props.onItemClick ? 0 : -1}
+								role={props.onItemClick ? "button" : undefined}
+								style={{ cursor: props.onItemClick ? "pointer" : "default" }}
+							>
 								<span class={styles.itemIndex}>#{index() + 1}</span>
 								<RouletteItem item={item} width={width()} />
 							</div>

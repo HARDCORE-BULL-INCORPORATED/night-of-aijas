@@ -251,6 +251,21 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 	const isSpinButtonDisabled = () =>
 		isSpinning() || props.disabled || itemsToSpin().length === 0;
 
+	// New state for selected history item and modal visibility
+	const [selectedHistoryItem, setSelectedHistoryItem] =
+		createSignal<CaseItem | null>(null);
+	const [showHistoryItemModal, setShowHistoryItemModal] = createSignal(false);
+
+	const handleHistoryItemClick = (item: CaseItem) => {
+		setSelectedHistoryItem(item);
+		setShowHistoryItemModal(true);
+	};
+
+	const handleCloseHistoryItemModal = () => {
+		setShowHistoryItemModal(false);
+		setSelectedHistoryItem(null);
+	};
+
 	return (
 		<div class={`${styles.rouletteContainer} ${props.customClassName || ""}`}>
 			<MapManagementButtons
@@ -300,8 +315,16 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 					items={props.wonItems || []}
 					title={props.historyTitle || "History"}
 					itemWidth={props.historyItemWidth}
+					onItemClick={handleHistoryItemClick} // Pass the handler
 				/>
 			</Show>
+
+			{/* Modal for displaying clicked history item */}
+			<ResultModal
+				isOpen={showHistoryItemModal()}
+				onClose={handleCloseHistoryItemModal}
+				item={selectedHistoryItem()}
+			/>
 		</div>
 	);
 };
