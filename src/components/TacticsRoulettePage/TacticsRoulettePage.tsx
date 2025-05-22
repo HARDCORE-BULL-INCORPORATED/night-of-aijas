@@ -1,18 +1,24 @@
 import type { Component } from "solid-js";
-import { createSignal, onMount } from "solid-js"; // Added onMount
+import { createSignal, onMount } from "solid-js";
 import CaseRoulette from "../roulette/CaseRoulette";
 import type { CaseItem } from "../roulette/types";
 import { tacticsCase as allPossibleTactics } from "./tacticsCase";
-import { tacticsPresets } from "./tacticsPresets"; // Import presets
-import TacticSelectionModal from "./modals/TacticSelectionModal/TacticSelectionModal"; // Import the new modal
+import { tacticsPresets } from "./tacticsPresets";
+import TacticSelectionModal from "./modals/TacticSelectionModal/TacticSelectionModal";
+import { mapCase } from "../MapRoulette/mapCase"; // Import mapCase for the modal
 
 const TacticsRoulettePage: Component = () => {
 	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
 	const [isTacticSelectionModalOpen, setIsTacticSelectionModalOpen] =
-		createSignal(false); // State for the modal
-	const [activeTactics, setActiveTactics] = createSignal<string[]>(
-		allPossibleTactics.map((t) => t.name),
-	); // Initialize with all tactic names
+		createSignal(false);
+	// const [activeTactics, setActiveTactics] = createSignal<string[]>(
+	// 	allPossibleTactics.map((t) => t.name),
+	// );
+	const [activeMapNamesForTactics, setActiveMapNamesForTactics] = createSignal<
+		string[]
+	>(
+		mapCase.map((m) => m.name), // Initialize with all map names for tactic filtering
+	);
 
 	// Open modal on component mount
 	onMount(() => {
@@ -28,17 +34,34 @@ const TacticsRoulettePage: Component = () => {
 		setWonItems([]);
 	};
 
-	const handleSaveTacticSelection = (selectedNames: string[]) => {
-		setActiveTactics(selectedNames);
-		// The CaseRoulette items will update reactively due to currentTacticsForRoulette
-		console.log("Selected tactics updated:", selectedNames);
+	// const handleSaveTacticSelection = (selectedNames: string[]) => {
+	// 	setActiveTactics(selectedNames);
+	// 	console.log("Selected tactics updated:", selectedNames);
+	// };
+
+	const handleSaveMapSelectionForTactics = (selectedMapNames: string[]) => {
+		setActiveMapNamesForTactics(selectedMapNames);
+		console.log("Selected maps for tactics updated:", selectedMapNames);
+		// Here you would typically filter allPossibleTactics based on the selected maps
+		// For example: setCurrentTacticsForRoulette(allPossibleTactics.filter(tactic => selectedMapNames.includes(tactic.mapContext))) // or similar logic
 	};
 
-	// Filter tactics for the roulette based on activeTactics
+	// Filter tactics for the roulette based on activeMapNamesForTactics
+	// This logic needs to be adjusted based on how tactics are associated with maps.
+	// Assuming tactics have a 'map' or 'mapContext' property matching names in mapCase.
 	const currentTacticsForRoulette = () =>
-		allPossibleTactics.filter((tactic) =>
-			activeTactics().includes(tactic.name),
-		);
+		allPossibleTactics.filter((tactic) => {
+			// Adjust this condition based on your Tactic type structure
+			// This is a placeholder: you might need to check tactic.map, tactic.mapName, etc.
+			// And ensure that activeMapNamesForTactics() contains that map identifier.
+			// For now, let's assume a Tactic has a `map: string` property that should match a name in activeMapNamesForTactics
+			// This will likely need adjustment based on the actual structure of your Tactic objects in tacticsCase.ts
+			if (tactic.map) {
+				// Check if tactic has a map property
+				return activeMapNamesForTactics().includes(tactic.map as string);
+			}
+			return false; // Or true if tactics without a map should always be included
+		});
 
 	return (
 		<div class="container">
@@ -50,7 +73,7 @@ const TacticsRoulettePage: Component = () => {
 				allMaps={[...allPossibleTactics]} // Pass all for modal/management, spread to make mutable
 				initialActiveMaps={[
 					...allPossibleTactics.filter((tactic) =>
-						activeTactics().includes(tactic.name),
+						activeMapNamesForTactics().includes(tactic.name),
 					),
 				]} // Pass filtered active tactics, spread
 				onItemWon={handleItemWon}
@@ -70,9 +93,12 @@ const TacticsRoulettePage: Component = () => {
 			<TacticSelectionModal
 				isOpen={isTacticSelectionModalOpen()}
 				onClose={() => setIsTacticSelectionModalOpen(false)}
-				allTactics={[...allPossibleTactics]}
-				activeTacticNames={activeTactics()}
-				onSave={handleSaveTacticSelection}
+				// allTactics={[...allPossibleTactics]}
+				allMaps={[...mapCase]} // Pass mapCase to the modal
+				// activeTacticNames={activeTactics()}
+				activeMapNames={activeMapNamesForTactics()} // Pass active map names
+				// onSave={handleSaveTacticSelection}
+				onSave={handleSaveMapSelectionForTactics} // Use the new save handler
 			/>
 		</div>
 	);

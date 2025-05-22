@@ -1,14 +1,14 @@
 import type { Component } from "solid-js";
 import { createSignal, For, Show, createEffect } from "solid-js";
 import styles from "./TacticSelectionModal.module.css";
-import type { Tactic } from "../../types";
+import type { CaseItem } from "../../../roulette/types"; // Import CaseItem for map structure
 
 interface TacticSelectionModalProps {
 	isOpen: boolean;
 	onClose: () => void;
-	allTactics: Tactic[];
-	activeTacticNames: string[];
-	onSave: (selectedTacticNames: string[]) => void;
+	allMaps: CaseItem[]; // Changed to use CaseItem for maps
+	activeMapNames: string[]; // Changed to reflect map names
+	onSave: (selectedMapNames: string[]) => void; // Changed to reflect map names
 }
 
 const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
@@ -16,15 +16,15 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 
 	createEffect(() => {
 		if (props.isOpen) {
-			setSelectedNames([...props.activeTacticNames]);
+			setSelectedNames([...props.activeMapNames]);
 		}
 	});
 
-	const handleCheckboxChange = (tacticName: string, checked: boolean) => {
+	const handleCheckboxChange = (mapName: string, checked: boolean) => {
 		if (checked) {
-			setSelectedNames([...selectedNames(), tacticName]);
+			setSelectedNames([...selectedNames(), mapName]);
 		} else {
-			setSelectedNames(selectedNames().filter((name) => name !== tacticName));
+			setSelectedNames(selectedNames().filter((name) => name !== mapName));
 		}
 	};
 
@@ -40,8 +40,8 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 	};
 
 	const handleSelectAll = () => {
-		const allTacticNames = props.allTactics.map((tactic) => tactic.name);
-		setSelectedNames(allTacticNames);
+		const allMapNames = props.allMaps.map((map) => map.name);
+		setSelectedNames(allMapNames);
 	};
 
 	const handleDeselectAll = () => {
@@ -49,8 +49,8 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 	};
 
 	// Adjust row slicing if needed, for now, keeps the 7-item rows
-	const firstRowTactics = () => props.allTactics.slice(0, 7);
-	const secondRowTactics = () => props.allTactics.slice(7, 14);
+	const firstRowMaps = () => props.allMaps.slice(0, 7);
+	const secondRowMaps = () => props.allMaps.slice(7, 14);
 
 	return (
 		<Show when={props.isOpen}>
@@ -74,7 +74,7 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 				>
 					<div class={styles.modalHeader}>
 						<h2 id="modalTitle" class={styles.modalTitle}>
-							Select Tactic Pool
+							Select Map Pool for Tactics
 						</h2>
 						<button
 							type="button"
@@ -87,57 +87,56 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 					</div>
 
 					<div class={styles.itemRowsContainer}>
-						{" "}
-						{/* Changed from mapRowsContainer */}
 						<ul class={styles.itemListRow}>
-							{" "}
-							{/* Changed from mapListRow */}
-							<For each={firstRowTactics()}>
-								{(tactic) => (
+							<For each={firstRowMaps()}>
+								{(map) => (
 									<li class={styles.itemListItem}>
-										{" "}
-										{/* Changed from mapItem */}
 										<label>
 											<input
 												type="checkbox"
-												checked={selectedNames().includes(tactic.name)}
+												checked={selectedNames().includes(map.name)}
 												onChange={(e) =>
 													handleCheckboxChange(
-														tactic.name,
+														map.name,
 														e.currentTarget.checked,
 													)
 												}
 											/>
-											{/* Assuming Tactic type might not have an image, or a generic one */}
-											{/* <img src={tactic.image} alt={tactic.name} class={styles.itemItemImage} /> */}
-											<span class={styles.itemItemName}>{tactic.name}</span>
+											{/* Display map image */}
+											<img
+												src={map.image}
+												alt={map.name}
+												class={styles.itemItemImage}
+											/>
+											<span class={styles.itemItemName}>{map.name}</span>
 										</label>
 									</li>
 								)}
 							</For>
 						</ul>
-						<Show when={secondRowTactics().length > 0}>
+						<Show when={secondRowMaps().length > 0}>
 							<ul class={styles.itemListRow}>
-								{" "}
-								{/* Changed from mapListRow */}
-								<For each={secondRowTactics()}>
-									{(tactic) => (
+								<For each={secondRowMaps()}>
+									{(map) => (
 										<li class={styles.itemListItem}>
-											{" "}
-											{/* Changed from mapItem */}
 											<label>
 												<input
 													type="checkbox"
-													checked={selectedNames().includes(tactic.name)}
+													checked={selectedNames().includes(map.name)}
 													onChange={(e) =>
 														handleCheckboxChange(
-															tactic.name,
+															map.name,
 															e.currentTarget.checked,
 														)
 													}
 												/>
-												{/* <img src={tactic.image} alt={tactic.name} class={styles.itemItemImage} /> */}
-												<span class={styles.itemItemName}>{tactic.name}</span>
+												{/* Display map image */}
+												<img
+													src={map.image}
+													alt={map.name}
+													class={styles.itemItemImage}
+												/>
+												<span class={styles.itemItemName}>{map.name}</span>
 											</label>
 										</li>
 									)}
