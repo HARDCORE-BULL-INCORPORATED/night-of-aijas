@@ -1,36 +1,22 @@
 import type { Component } from "solid-js";
-import { createSignal, For, Show, createEffect } from "solid-js";
+import { For, Show } from "solid-js";
 import styles from "./TacticSelectionModal.module.css";
-import type { CaseItem } from "../../../roulette/types"; // Import CaseItem for map structure
+import type { CaseItem } from "../../../roulette/types";
 
 interface TacticSelectionModalProps {
 	isOpen: boolean;
 	onClose: () => void;
-	allMaps: CaseItem[]; // Changed to use CaseItem for maps
-	activeMapNames: string[]; // Changed to reflect map names
-	onSave: (selectedMapNames: string[]) => void; // Changed to reflect map names
+	allMaps: CaseItem[];
+	activeMapNames: string[]; // This prop is kept in the interface but not used for selection state anymore
+	onSave: (selectedMapNames: string[]) => void;
 }
 
 const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
-	const [selectedNames, setSelectedNames] = createSignal<string[]>([]);
+	// selectedNames state and related handlers (handleCheckboxChange, handleSelectAll, handleDeselectAll, createEffect) are removed.
 
-	createEffect(() => {
-		if (props.isOpen) {
-			setSelectedNames([...props.activeMapNames]);
-		}
-	});
-
-	const handleCheckboxChange = (mapName: string, checked: boolean) => {
-		if (checked) {
-			setSelectedNames([...selectedNames(), mapName]);
-		} else {
-			setSelectedNames(selectedNames().filter((name) => name !== mapName));
-		}
-	};
-
-	const handleSave = () => {
-		props.onSave(selectedNames());
-		props.onClose();
+	const handleMapButtonClick = (mapName: string) => {
+		props.onSave([mapName]); // Save the single selected map
+		props.onClose(); // Close the modal
 	};
 
 	const handleBackdropClick = (e: MouseEvent) => {
@@ -39,16 +25,6 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 		}
 	};
 
-	const handleSelectAll = () => {
-		const allMapNames = props.allMaps.map((map) => map.name);
-		setSelectedNames(allMapNames);
-	};
-
-	const handleDeselectAll = () => {
-		setSelectedNames([]);
-	};
-
-	// Adjust row slicing if needed, for now, keeps the 7-item rows
 	const firstRowMaps = () => props.allMaps.slice(0, 7);
 	const secondRowMaps = () => props.allMaps.slice(7, 14);
 
@@ -74,7 +50,7 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 				>
 					<div class={styles.modalHeader}>
 						<h2 id="modalTitle" class={styles.modalTitle}>
-							Select Map Pool for Tactics
+							Select Map for Tactics
 						</h2>
 						<button
 							type="button"
@@ -91,25 +67,18 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 							<For each={firstRowMaps()}>
 								{(map) => (
 									<li class={styles.itemListItem}>
-										<label>
-											<input
-												type="checkbox"
-												checked={selectedNames().includes(map.name)}
-												onChange={(e) =>
-													handleCheckboxChange(
-														map.name,
-														e.currentTarget.checked,
-													)
-												}
-											/>
-											{/* Display map image */}
+										<button
+											type="button"
+											class={styles.mapButton}
+											onClick={() => handleMapButtonClick(map.name)}
+										>
 											<img
 												src={map.image}
 												alt={map.name}
 												class={styles.itemItemImage}
 											/>
 											<span class={styles.itemItemName}>{map.name}</span>
-										</label>
+										</button>
 									</li>
 								)}
 							</For>
@@ -119,25 +88,18 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 								<For each={secondRowMaps()}>
 									{(map) => (
 										<li class={styles.itemListItem}>
-											<label>
-												<input
-													type="checkbox"
-													checked={selectedNames().includes(map.name)}
-													onChange={(e) =>
-														handleCheckboxChange(
-															map.name,
-															e.currentTarget.checked,
-														)
-													}
-												/>
-												{/* Display map image */}
+											<button
+												type="button"
+												class={styles.mapButton}
+												onClick={() => handleMapButtonClick(map.name)}
+											>
 												<img
 													src={map.image}
 													alt={map.name}
 													class={styles.itemItemImage}
 												/>
 												<span class={styles.itemItemName}>{map.name}</span>
-											</label>
+											</button>
 										</li>
 									)}
 								</For>
@@ -146,33 +108,13 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 					</div>
 
 					<div class={styles.modalActions}>
-						<button
-							type="button"
-							class={`${styles.actionButton} ${styles.secondaryButton}`}
-							onClick={handleDeselectAll}
-						>
-							Deselect All
-						</button>
-						<button
-							type="button"
-							class={`${styles.actionButton} ${styles.secondaryButton}`}
-							onClick={handleSelectAll}
-						>
-							Select All
-						</button>
+						{/* "Deselect All", "Select All", and "Save Changes" buttons are removed */}
 						<button
 							type="button"
 							class={`${styles.actionButton} ${styles.cancelButton}`}
 							onClick={props.onClose}
 						>
 							Cancel
-						</button>
-						<button
-							type="button"
-							class={`${styles.actionButton} ${styles.saveButton}`}
-							onClick={handleSave}
-						>
-							Save Changes
 						</button>
 					</div>
 				</dialog>

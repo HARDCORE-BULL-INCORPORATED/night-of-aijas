@@ -99,10 +99,27 @@
 	transform: translateY(-2px);
 }
 
-.itemListItem input[type="checkbox"] {
-	/* Renamed from mapItem */
-	margin-bottom: 8px;
-	transform: scale(1.2);
+.mapButton {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	cursor: pointer;
+	padding: 10px;
+	border: 1px solid #4a5568;
+	border-radius: 6px;
+	background-color: #2d3748;
+	color: #e2e8f0; /* Ensure text is visible */
+	transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+	width: 120px; /* Or 100% of li if preferred */
+	box-sizing: border-box;
+	font-family: inherit; /* Inherit font from body/parent */
+	font-size: inherit; /* Inherit font size */
+}
+
+.mapButton:hover {
+	background-color: #4a5568;
+	transform: translateY(-2px);
 }
 
 .itemItemImage {
