@@ -23,9 +23,10 @@ const MapManagementButtons: Component<MapManagementButtonsProps> = (props) => {
 	// Handlers for MapSelectionModal
 	const handleOpenMapSelectionModal = () => setIsMapSelectionModalOpen(true);
 	const handleCloseMapSelectionModal = () => setIsMapSelectionModalOpen(false);
-	const handleSaveMapSelection = (selectedMapIds: (string | number)[]) => {
-		const newActiveMaps = props.allPossibleMaps.filter((map) =>
-			selectedMapIds.includes(map.id),
+	// Changed selectedMapIds to selectedMapNames, and type to string[]
+	const handleSaveMapSelection = (selectedMapNames: string[]) => {
+		const newActiveMaps = props.allPossibleMaps.filter(
+			(map) => selectedMapNames.includes(map.name), // Use map.name
 		);
 		props.onActiveMapsChange(newActiveMaps);
 		setIsMapSelectionModalOpen(false); // Close modal after saving
@@ -93,7 +94,8 @@ const MapManagementButtons: Component<MapManagementButtonsProps> = (props) => {
 				isOpen={isMapSelectionModalOpen()}
 				onClose={handleCloseMapSelectionModal}
 				allMaps={props.allPossibleMaps}
-				activeMapIds={props.activeMaps.map((map) => map.id)}
+				activeMapIds={props.activeMaps.map((map) => map.name)} // Use map.name
+				// onSave will now correctly align with the updated handleSaveMapSelection
 				onSave={handleSaveMapSelection}
 			/>
 

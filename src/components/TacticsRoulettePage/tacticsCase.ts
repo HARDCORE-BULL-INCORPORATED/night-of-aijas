@@ -1,15 +1,16 @@
 import type { MapName } from "../MapRoulette/mapCase";
 import type { CaseItem } from "../roulette/types";
+import { officeCase } from "./tacticsPerMap/office";
 
-export type TacticMapContext = MapName | "Shared";
+export type TacticMapContext = MapName | "Defuse" | "Hostage" | "Shared";
 
 export interface Tactic extends CaseItem {
 	map: TacticMapContext;
 }
 
-export const tacticsCase: readonly Tactic[] = [
+// Shared tactics (these will get IDs 0, 1, 2...)
+export const tacticsCase: Tactic[] = [
 	{
-		id: 1,
 		name: "RELLU KOURAA",
 		image: "/tactics/vanha-käppänä.png",
 		rarity: "Rare Special Item",
@@ -17,29 +18,27 @@ export const tacticsCase: readonly Tactic[] = [
 		map: "Shared",
 	},
 	{
-		id: 2,
 		name: "RUSH A",
 		image: "/tactics/bruhpepe.jpg",
 		rarity: "Mil-spec",
 		weight: 1,
-		map: "Shared",
+		map: "Defuse",
 	},
 	{
-		id: 3,
 		name: "RUSH B",
 		image: "/tactics/trollface.png",
 		rarity: "Restricted",
 		weight: 1,
-		map: "Shared",
+		map: "Defuse",
 	},
 	{
-		id: 4,
 		name: "RUSH MID",
 		image: "123",
 		rarity: "Mil-spec",
 		weight: 1,
-		map: "Shared",
+		map: "Defuse",
 	},
+	...officeCase,
 ];
 
 export type TacticName = (typeof tacticsCase)[number]["name"];

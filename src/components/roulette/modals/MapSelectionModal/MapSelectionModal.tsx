@@ -7,30 +7,31 @@ interface MapSelectionModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	allMaps: CaseItem[];
-	activeMapIds: (string | number)[];
-	onSave: (selectedMapIds: (string | number)[]) => void;
+	activeMapIds: string[]; // Changed from (string | number)[] to string[]
+	onSave: (selectedMapNames: string[]) => void; // Changed parameter name and type
 }
 
 const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
-	const [selectedIds, setSelectedIds] = createSignal<(string | number)[]>([]);
+	const [selectedNames, setSelectedNames] = createSignal<string[]>([]); // Changed from selectedIds
 
-	// Initialize selectedIds when the modal opens or activeMapIds change
+	// Initialize selectedNames when the modal opens or activeMapIds change
 	createEffect(() => {
 		if (props.isOpen) {
-			setSelectedIds([...props.activeMapIds]);
+			setSelectedNames([...props.activeMapIds]); // Now expects string[]
 		}
 	});
 
-	const handleCheckboxChange = (mapId: string | number, checked: boolean) => {
+	const handleCheckboxChange = (mapName: string, checked: boolean) => {
+		// Changed mapId to mapName
 		if (checked) {
-			setSelectedIds([...selectedIds(), mapId]);
+			setSelectedNames([...selectedNames(), mapName]);
 		} else {
-			setSelectedIds(selectedIds().filter((id) => id !== mapId));
+			setSelectedNames(selectedNames().filter((name) => name !== mapName));
 		}
 	};
 
 	const handleSave = () => {
-		props.onSave(selectedIds());
+		props.onSave(selectedNames()); // Passes string[]
 		props.onClose();
 	};
 
@@ -41,12 +42,12 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 	};
 
 	const handleSelectAll = () => {
-		const allMapIds = props.allMaps.map((map) => map.id);
-		setSelectedIds(allMapIds);
+		const allMapNames = props.allMaps.map((map) => map.name); // Changed to map.name
+		setSelectedNames(allMapNames);
 	};
 
 	const handleDeselectAll = () => {
-		setSelectedIds([]);
+		setSelectedNames([]);
 	};
 
 	const firstRowMaps = () => props.allMaps.slice(0, 7);
@@ -87,9 +88,13 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 										<label>
 											<input
 												type="checkbox"
-												checked={selectedIds().includes(map.id)}
-												onChange={(e) =>
-													handleCheckboxChange(map.id, e.currentTarget.checked)
+												checked={selectedNames().includes(map.name)} // Changed to map.name
+												onChange={
+													(e) =>
+														handleCheckboxChange(
+															map.name,
+															e.currentTarget.checked,
+														) // Changed to map.name
 												}
 											/>
 											<img
@@ -111,12 +116,13 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 											<label>
 												<input
 													type="checkbox"
-													checked={selectedIds().includes(map.id)}
-													onChange={(e) =>
-														handleCheckboxChange(
-															map.id,
-															e.currentTarget.checked,
-														)
+													checked={selectedNames().includes(map.name)} // Changed to map.name
+													onChange={
+														(e) =>
+															handleCheckboxChange(
+																map.name,
+																e.currentTarget.checked,
+															) // Changed to map.name
 													}
 												/>
 												<img

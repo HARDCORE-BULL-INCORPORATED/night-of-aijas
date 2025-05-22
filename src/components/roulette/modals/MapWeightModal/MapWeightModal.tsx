@@ -26,9 +26,9 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
 		return editableMapConfigs.reduce((sum, map) => sum + (map.weight || 0), 0);
 	});
 
-	const handleWeightChange = (mapId: string | number, newWeight: string) => {
+	const handleWeightChange = (mapName: string, newWeight: string) => {
 		if (newWeight === "") {
-			setEditableMapConfigs((map) => map.id === mapId, "weight", 0);
+			setEditableMapConfigs((map) => map.name === mapName, "weight", 0);
 			return;
 		}
 
@@ -38,7 +38,7 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
 			return;
 		}
 
-		setEditableMapConfigs((map) => map.id === mapId, "weight", weightValue);
+		setEditableMapConfigs((map) => map.name === mapName, "weight", weightValue);
 	};
 
 	const handleSave = () => {
@@ -117,7 +117,7 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
 											type="number"
 											value={map.weight.toString()}
 											onInput={(e) =>
-												handleWeightChange(map.id, e.currentTarget.value)
+												handleWeightChange(map.name, e.currentTarget.value)
 											}
 											class={styles.weightInput}
 											min="0"

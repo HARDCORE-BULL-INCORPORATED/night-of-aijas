@@ -2,7 +2,6 @@ import type { MapName } from "../MapRoulette/mapCase";
 import type { TacticName } from "../TacticsRoulettePage/tacticsCase"; // Import TacticName
 
 export interface CaseItem {
-	id: string | number;
 	name: string;
 	image: string;
 	rarity: keyof typeof RARITY_COLORS;
