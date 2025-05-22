@@ -134,11 +134,22 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 		window.removeEventListener("resize", updateDimensions);
 	});
 
-	// Effect to update activeMaps if props.items changes and map management is not enabled
+	// Effect to update activeMaps if props.items changes.
+	// When props.items changes, it means the parent has a new list of items
+	// that should be reflected in the roulette. This is crucial when the parent
+	// component (like TacticsRoulettePage) filters items and passes the new set.
 	createEffect(() => {
-		if (!props.enableMapManagement) {
-			setActiveMaps(props.items);
-		}
+		console.log(
+			"[CaseRoulette] props.items changed, updating activeMaps. New items count:",
+			props.items.length,
+			"Map Management Enabled:",
+			props.enableMapManagement,
+		);
+		// We always want activeMaps to reflect the latest props.items from the parent
+		// when the parent is the one driving the filtering (as in TacticsRoulettePage).
+		// The MapManagementButtons component inside CaseRoulette might have its own independent
+		// map selection logic if used, but for parent-driven filtering, props.items is king.
+		setActiveMaps(props.items);
 	});
 
 	// Regenerate roulette items when the source items, spin duration, or view configuration changes

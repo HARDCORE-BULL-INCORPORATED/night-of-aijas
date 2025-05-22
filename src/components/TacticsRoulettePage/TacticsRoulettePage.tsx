@@ -1,5 +1,5 @@
 import type { Component } from "solid-js";
-import { createSignal, onMount } from "solid-js";
+import { createSignal, onMount, createMemo } from "solid-js"; // Import createMemo
 import CaseRoulette from "../roulette/CaseRoulette";
 import type { CaseItem } from "../roulette/types";
 import { tacticsCase as allPossibleTactics } from "./tacticsCase";
@@ -28,7 +28,7 @@ const TacticsRoulettePage: Component = () => {
 
 	const handleItemWon = (item: CaseItem): void => {
 		setWonItems([item, ...wonItems()]);
-		console.log(`Tactic selected: ${item.name} (${item.rarity})`);
+		console.log("Won item:", item);
 	};
 
 	const handleClearHistory = () => {
@@ -55,11 +55,22 @@ const TacticsRoulettePage: Component = () => {
 	};
 
 	// Filter tactics for the roulette based on activeMapNamesForTactics
-	const currentTacticsForRoulette = () => {
+	const currentTacticsForRoulette = createMemo(() => {
 		const selectedMaps = activeMapNamesForTactics();
 		const currentSide = selectedSide();
+		console.log(
+			"[currentTacticsForRoulette] Memo re-evaluated. Selected Maps:", // Updated log
+			selectedMaps,
+			"Current Side:",
+			currentSide,
+		);
 
 		let filteredTactics = [...allPossibleTactics];
+		console.log(
+			"[currentTacticsForRoulette] Initial tactics count:",
+			filteredTactics.length,
+			// JSON.stringify(filteredTactics.map(t => ({ name: t.name, map: t.map, side: t.side }))),
+		);
 
 		// Filter by map if a specific map is selected
 		if (selectedMaps.length > 0) {
@@ -67,17 +78,53 @@ const TacticsRoulettePage: Component = () => {
 			filteredTactics = filteredTactics.filter(
 				(tactic) => tactic.map === "Shared" || tactic.map === selectedMap,
 			);
-		}
-
-		// Filter by side if a side is selected
-		if (currentSide) {
-			filteredTactics = filteredTactics.filter(
-				(tactic) => tactic.side === "Both" || tactic.side === currentSide,
+			console.log(
+				`[currentTacticsForRoulette] Tactics count after map filter ('${
+					selectedMap || "All Maps"
+				}'):`,
+				filteredTactics.length,
+				// JSON.stringify(filteredTactics.map(t => ({ name: t.name, map: t.map, side: t.side }))),
 			);
 		}
 
+		// Filter by side
+		if (currentSide && currentSide !== "Both") {
+			console.log(
+				`[currentTacticsForRoulette] Applying side filter for: ${currentSide}`,
+			);
+			const tacticsBeforeSideFilter = [...filteredTactics];
+			filteredTactics = filteredTactics.filter(
+				(tactic) => tactic.side === currentSide || tactic.side === "Both",
+			);
+			console.log(
+				`[currentTacticsForRoulette] Tactics count after side filter ('${currentSide}'):`,
+				filteredTactics.length,
+			);
+			if (tacticsBeforeSideFilter.length !== filteredTactics.length) {
+				const removed = tacticsBeforeSideFilter.filter(
+					(t) => !filteredTactics.some((ft) => ft.name === t.name), // Simple check by name for logging
+				);
+				console.log(
+					"[currentTacticsForRoulette] Tactics removed by side filter (example):",
+					removed.map((t) => ({ name: t.name, side: t.side, map: t.map })),
+				);
+			}
+		} else if (currentSide === "Both") {
+			console.log(
+				"[currentTacticsForRoulette] Side is 'Both', no specific side filtering applied to map-filtered tactics.",
+			);
+		} else {
+			console.log(
+				"[currentTacticsForRoulette] No side selected (null) or 'Both', so no specific (CT/T) side filtering applied.",
+			);
+		}
+
+		console.log(
+			"[currentTacticsForRoulette] Final tactics for roulette (names, sides, maps):",
+			filteredTactics.map((t) => ({ name: t.name, side: t.side, map: t.map })),
+		);
 		return filteredTactics;
-	};
+	});
 
 	return (
 		<div class="container">
