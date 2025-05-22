@@ -44,14 +44,14 @@ export const terroristTactics = [
 ] as const satisfies readonly TerroristTactic[];
 
 export const commonTactics = [
-	{
-		name: "PIHAPUSKU",
-		image: "/tactics/vanha-käppänä.png",
-		rarity: "Mil-spec",
-		weight: 1,
-		map: "Office",
-		side: "Both",
-	},
+	// {
+	// 	name: "PIHAPUSKU",
+	// 	image: "/tactics/vanha-käppänä.png",
+	// 	rarity: "Mil-spec",
+	// 	weight: 1,
+	// 	map: "Office",
+	// 	side: "Both",
+	// },
 ] as const satisfies readonly CommonTactic[];
 
 export const officeCase = [
