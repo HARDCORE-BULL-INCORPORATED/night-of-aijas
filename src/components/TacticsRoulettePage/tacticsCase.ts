@@ -3,13 +3,13 @@ import type { CaseItem } from "../roulette/types";
 import { officeCase } from "./tacticsPerMap/office";
 
 export type TacticMapContext = MapName | "Defuse" | "Hostage" | "Shared";
+export type Side = "CT" | "T" | "Shared";
 
 export interface Tactic extends CaseItem {
 	map: TacticMapContext;
 }
 
-// Shared tactics (these will get IDs 0, 1, 2...)
-export const tacticsCase: Tactic[] = [
+export const tacticsCase = [
 	{
 		name: "RELLU KOURAA",
 		image: "/tactics/vanha-käppänä.png",
@@ -39,6 +39,6 @@ export const tacticsCase: Tactic[] = [
 		map: "Defuse",
 	},
 	...officeCase,
-];
+] as const satisfies readonly Tactic[];
 
 export type TacticName = (typeof tacticsCase)[number]["name"];

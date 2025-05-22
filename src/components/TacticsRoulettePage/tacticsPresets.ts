@@ -12,6 +12,6 @@ export const tacticsPresets: RoulettePreset<TacticName>[] = [
 	},
 	{
 		name: "Special Tactics",
-		items: [{ name: "RELLU KOURAA", weight: 1 }],
+		items: [{ name: "LONK", weight: 1 }],
 	},
 ];

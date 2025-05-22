@@ -1,25 +1,25 @@
 import type { Tactic } from "../tacticsCase";
 
-export const officeCase: readonly Tactic[] = [
+export const officeCase = [
 	{
-		name: "Office: T Side Main Hall Push",
-		image: "/tactics/office_main_hall_push.png",
+		name: "PAPERI",
+		image: "",
 		rarity: "Mil-spec",
 		weight: 1.2,
 		map: "Office",
 	},
 	{
-		name: "Office: CT Connector Hold",
-		image: "/tactics/office_ct_connector_hold.png",
+		name: "LONK",
+		image: "RUSH LONG",
 		rarity: "Restricted",
 		weight: 1,
 		map: "Office",
 	},
 	{
-		name: "Office: Paper Shredder Room Ambush",
-		image: "/tactics/office_shredder_ambush.png",
-		rarity: "Industrial",
+		name: "EKSTRA PITKÄ",
+		image: "/tactics/vanha-käppänä.png",
+		rarity: "Rare Special Item",
 		weight: 0.8,
 		map: "Office",
 	},
-];
+] as const satisfies readonly Tactic[];
