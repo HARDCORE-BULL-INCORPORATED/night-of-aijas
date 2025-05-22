@@ -108,6 +108,16 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 					</div>
 
 					<div class={styles.modalActions}>
+						<button
+							type="button"
+							class={`${styles.actionButton} ${styles.secondaryButton}`}
+							onClick={() => {
+								props.onSave([]); // Pass empty array to signify all tactics
+								props.onClose();
+							}}
+						>
+							Show All Tactics
+						</button>
 						{/* "Deselect All", "Select All", and "Save Changes" buttons are removed */}
 						<button
 							type="button"

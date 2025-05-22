@@ -17,7 +17,8 @@ const TacticsRoulettePage: Component = () => {
 	const [activeMapNamesForTactics, setActiveMapNamesForTactics] = createSignal<
 		string[]
 	>(
-		mapCase.map((m) => m.name), // Initialize with all map names for tactic filtering
+		// mapCase.map((m) => m.name), // Initialize with all map names for tactic filtering
+		[], // Initialize with no maps selected, modal will force selection
 	);
 
 	// Open modal on component mount
@@ -42,26 +43,27 @@ const TacticsRoulettePage: Component = () => {
 	const handleSaveMapSelectionForTactics = (selectedMapNames: string[]) => {
 		setActiveMapNamesForTactics(selectedMapNames);
 		console.log("Selected maps for tactics updated:", selectedMapNames);
-		// Here you would typically filter allPossibleTactics based on the selected maps
-		// For example: setCurrentTacticsForRoulette(allPossibleTactics.filter(tactic => selectedMapNames.includes(tactic.mapContext))) // or similar logic
 	};
 
 	// Filter tactics for the roulette based on activeMapNamesForTactics
-	// This logic needs to be adjusted based on how tactics are associated with maps.
-	// Assuming tactics have a 'map' or 'mapContext' property matching names in mapCase.
-	const currentTacticsForRoulette = () =>
-		allPossibleTactics.filter((tactic) => {
-			// Adjust this condition based on your Tactic type structure
-			// This is a placeholder: you might need to check tactic.map, tactic.mapName, etc.
-			// And ensure that activeMapNamesForTactics() contains that map identifier.
-			// For now, let's assume a Tactic has a `map: string` property that should match a name in activeMapNamesForTactics
-			// This will likely need adjustment based on the actual structure of your Tactic objects in tacticsCase.ts
-			if (tactic.map) {
-				// Check if tactic has a map property
-				return activeMapNamesForTactics().includes(tactic.map as string);
-			}
-			return false; // Or true if tactics without a map should always be included
-		});
+	const currentTacticsForRoulette = () => {
+		const selectedMaps = activeMapNamesForTactics();
+
+		// If no specific map is selected (e.g., initial state or "Show All Tactics" clicked),
+		// return all possible tactics.
+		if (selectedMaps.length === 0) {
+			return [...allPossibleTactics]; // Spread to create a mutable copy
+		}
+
+		// If a specific map is selected (current behavior after clicking a map button in the modal)
+		const selectedMap = selectedMaps[0]; // Assuming the array will contain at most one map name
+		return [
+			...allPossibleTactics.filter((tactic) => {
+				// Include tactic if its map context is 'Shared' or matches the selected map name.
+				return tactic.map === "Shared" || tactic.map === selectedMap;
+			}),
+		]; // Spread to create a mutable copy
+	};
 
 	return (
 		<div class="container">
@@ -71,11 +73,7 @@ const TacticsRoulettePage: Component = () => {
 			<CaseRoulette
 				items={currentTacticsForRoulette()} // Use filtered tactics
 				allMaps={[...allPossibleTactics]} // Pass all for modal/management, spread to make mutable
-				initialActiveMaps={[
-					...allPossibleTactics.filter((tactic) =>
-						activeMapNamesForTactics().includes(tactic.name),
-					),
-				]} // Pass filtered active tactics, spread
+				initialActiveMaps={currentTacticsForRoulette()} // All items in the current pool are initially active
 				onItemWon={handleItemWon}
 				enableMapManagement={true} // Keep this true for now, assuming it might control other features
 				enableSpinDurationSlider={true}
