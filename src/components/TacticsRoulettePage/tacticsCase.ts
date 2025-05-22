@@ -1,5 +1,6 @@
 import type { MapName } from "../MapRoulette/mapCase";
 import type { CaseItem } from "../roulette/types";
+import { commonTactics } from "./commonTactics";
 import { agencyCase } from "./tacticsPerMap/agency";
 import { ancientCase } from "./tacticsPerMap/ancient";
 import { anubisCase } from "./tacticsPerMap/anubis";
@@ -24,38 +25,7 @@ export interface Tactic extends CaseItem {
 }
 
 export const tacticsCase = [
-	{
-		name: "RELLU KOURAA",
-		image: "/tactics/vanha-käppänä.png",
-		rarity: "Rare Special Item",
-		weight: 1,
-		map: "Shared",
-		side: "Both",
-	},
-	{
-		name: "RUSH A",
-		image: "/tactics/bruhpepe.jpg",
-		rarity: "Mil-spec",
-		weight: 1,
-		map: "Defuse",
-		side: "T",
-	},
-	{
-		name: "RUSH B",
-		image: "/tactics/trollface.png",
-		rarity: "Restricted",
-		weight: 1,
-		map: "Defuse",
-		side: "T",
-	},
-	{
-		name: "RUSH MID",
-		image: "123",
-		rarity: "Mil-spec",
-		weight: 1,
-		map: "Defuse",
-		side: "T",
-	},
+	...commonTactics,
 	...officeCase,
 	...agencyCase,
 	...ancientCase,

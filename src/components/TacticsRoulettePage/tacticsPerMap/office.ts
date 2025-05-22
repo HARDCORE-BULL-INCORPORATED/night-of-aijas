@@ -1,6 +1,6 @@
 import type { Tactic } from "../tacticsCase";
 
-export const officeCase = [
+export const ctTactics = [
 	{
 		name: "PAPERI",
 		image: "RUSH PAPER",
@@ -25,4 +25,14 @@ export const officeCase = [
 		map: "Office",
 		side: "CT",
 	},
+] as const satisfies readonly Tactic[];
+
+export const terroristTactics = [] as const satisfies readonly Tactic[];
+
+export const sharedTactics = [] as const satisfies readonly Tactic[];
+
+export const officeCase = [
+	...ctTactics,
+	...terroristTactics,
+	...sharedTactics,
 ] as const satisfies readonly Tactic[];
