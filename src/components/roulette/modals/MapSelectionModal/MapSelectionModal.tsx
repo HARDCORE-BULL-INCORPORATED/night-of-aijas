@@ -7,8 +7,8 @@ interface MapSelectionModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	allMaps: CaseItem[];
-	activeMapIds: string[]; // Changed from (string | number)[] to string[]
-	onSave: (selectedMapNames: string[]) => void; // Changed parameter name and type
+	activeMapIds: string[];
+	onSave: (selectedMapNames: string[]) => void;
 }
 
 const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
@@ -55,10 +55,17 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 
 	return (
 		<Show when={props.isOpen}>
-			{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 			<div
 				class={styles.modalBackdrop}
 				onClick={handleBackdropClick}
+				onKeyUp={(e) => {
+					if (
+						e.target === e.currentTarget &&
+						(e.key === "Enter" || e.key === " ")
+					) {
+						props.onClose();
+					}
+				}}
 				role="presentation"
 			>
 				<dialog
