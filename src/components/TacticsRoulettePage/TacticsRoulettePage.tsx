@@ -5,25 +5,25 @@ import type { CaseItem } from "../roulette/types";
 import { tacticsCase as allPossibleTactics } from "./tacticsCase";
 import { tacticsPresets } from "./tacticsPresets";
 import TacticSelectionModal from "./modals/TacticSelectionModal/TacticSelectionModal";
-import { mapCase } from "../MapRoulette/mapCase"; // Import mapCase for the modal
+import SideSelectionModal from "./modals/SideSelectionModal/SideSelectionModal"; // Import SideSelectionModal
+import { mapCase } from "../MapRoulette/mapCase";
+import type { Side } from "./types"; // Import Side type
 
 const TacticsRoulettePage: Component = () => {
 	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
-	const [isTacticSelectionModalOpen, setIsTacticSelectionModalOpen] =
+	const [isMapSelectionModalOpen, setIsMapSelectionModalOpen] = // Renamed for clarity
 		createSignal(false);
-	// const [activeTactics, setActiveTactics] = createSignal<string[]>(
-	// 	allPossibleTactics.map((t) => t.name),
-	// );
+	const [isSideSelectionModalOpen, setIsSideSelectionModalOpen] =
+		createSignal(false);
 	const [activeMapNamesForTactics, setActiveMapNamesForTactics] = createSignal<
 		string[]
 	>(
-		// mapCase.map((m) => m.name), // Initialize with all map names for tactic filtering
-		[], // Initialize with no maps selected, modal will force selection
+		[], // Initialize with no maps selected
 	);
+	const [selectedSide, setSelectedSide] = createSignal<Side | null>(null); // State for selected side
 
-	// Open modal on component mount
 	onMount(() => {
-		setIsTacticSelectionModalOpen(true);
+		setIsMapSelectionModalOpen(true); // Open map selection modal first
 	});
 
 	const handleItemWon = (item: CaseItem): void => {
@@ -35,34 +35,48 @@ const TacticsRoulettePage: Component = () => {
 		setWonItems([]);
 	};
 
-	// const handleSaveTacticSelection = (selectedNames: string[]) => {
-	// 	setActiveTactics(selectedNames);
-	// 	console.log("Selected tactics updated:", selectedNames);
-	// };
-
 	const handleSaveMapSelectionForTactics = (selectedMapNames: string[]) => {
 		setActiveMapNamesForTactics(selectedMapNames);
 		console.log("Selected maps for tactics updated:", selectedMapNames);
+		setIsMapSelectionModalOpen(false); // Close map modal
+
+		// Reset side selection before opening the side modal to ensure a fresh choice
+		// or a default of 'all sides' if the side modal is cancelled.
+		setSelectedSide(null);
+
+		// Always open side selection modal after a choice is made in the map modal.
+		setIsSideSelectionModalOpen(true);
+	};
+
+	const handleSideSelected = (side: Side) => {
+		setSelectedSide(side);
+		console.log("Selected side:", side);
+		setIsSideSelectionModalOpen(false); // Close side modal
 	};
 
 	// Filter tactics for the roulette based on activeMapNamesForTactics
 	const currentTacticsForRoulette = () => {
 		const selectedMaps = activeMapNamesForTactics();
+		const currentSide = selectedSide();
 
-		// If no specific map is selected (e.g., initial state or "Show All Tactics" clicked),
-		// return all possible tactics.
-		if (selectedMaps.length === 0) {
-			return [...allPossibleTactics]; // Spread to create a mutable copy
+		let filteredTactics = [...allPossibleTactics];
+
+		// Filter by map if a specific map is selected
+		if (selectedMaps.length > 0) {
+			const selectedMap = selectedMaps[0]; // Assuming one map or "Show All" (empty array)
+			filteredTactics = filteredTactics.filter(
+				(tactic) => tactic.map === "Shared" || tactic.map === selectedMap,
+			);
 		}
 
-		// If a specific map is selected (current behavior after clicking a map button in the modal)
-		const selectedMap = selectedMaps[0]; // Assuming the array will contain at most one map name
-		return [
-			...allPossibleTactics.filter((tactic) => {
-				// Include tactic if its map context is 'Shared' or matches the selected map name.
-				return tactic.map === "Shared" || tactic.map === selectedMap;
-			}),
-		]; // Spread to create a mutable copy
+		// Filter by side if a side is selected
+		if (currentSide) {
+			filteredTactics = filteredTactics.filter(
+				(tactic) => tactic.side === "Both" || tactic.side === currentSide,
+			);
+		}
+
+		return filteredTactics;
 	};
 
 	return (
@@ -89,14 +103,21 @@ const TacticsRoulettePage: Component = () => {
 			/>
 
 			<TacticSelectionModal
-				isOpen={isTacticSelectionModalOpen()}
-				onClose={() => setIsTacticSelectionModalOpen(false)}
-				// allTactics={[...allPossibleTactics]}
-				allMaps={[...mapCase]} // Pass mapCase to the modal
-				// activeTacticNames={activeTactics()}
-				activeMapNames={activeMapNamesForTactics()} // Pass active map names
-				// onSave={handleSaveTacticSelection}
-				onSave={handleSaveMapSelectionForTactics} // Use the new save handler
+				isOpen={isMapSelectionModalOpen()} // Use renamed state
+				onClose={() => {
+					setIsMapSelectionModalOpen(false);
+					// If map modal is closed without saving (e.g. backdrop click, cancel), decide if side modal should open
+					// For now, it won't. It only opens on successful map save.
+				}}
+				allMaps={[...mapCase]}
+				activeMapNames={activeMapNamesForTactics()}
+				onSave={handleSaveMapSelectionForTactics}
+			/>
+
+			<SideSelectionModal
+				isOpen={isSideSelectionModalOpen()}
+				onClose={() => setIsSideSelectionModalOpen(false)}
+				onSelectSide={handleSideSelected}
 			/>
 		</div>
 	);
