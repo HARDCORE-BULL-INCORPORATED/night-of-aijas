@@ -8,7 +8,6 @@ import type {
 export const ctTactics = [
 	{
 		name: "PAPERI",
-		image: "RUSH PAPER",
 		rarity: "Mil-spec",
 		weight: 1,
 		map: "Office",
@@ -16,7 +15,6 @@ export const ctTactics = [
 	},
 	{
 		name: "LONK",
-		image: "RUSH LONG",
 		rarity: "Mil-spec",
 		weight: 1,
 		map: "Office",
@@ -24,7 +22,6 @@ export const ctTactics = [
 	},
 	{
 		name: "EKSTRA PITKÄ",
-		image: "EKSTRA PITKÄ",
 		rarity: "Rare Special Item",
 		weight: 0.5,
 		map: "Office",
@@ -35,9 +32,9 @@ export const ctTactics = [
 export const terroristTactics = [
 	{
 		name: "PIHAPUSKU",
-		image: "PIHAPUSKU",
 		rarity: "Mil-spec",
 		weight: 1,
+		description: "PIHALLE LÄÄLÄÄ HEI",
 		map: "Office",
 		side: "T",
 	},

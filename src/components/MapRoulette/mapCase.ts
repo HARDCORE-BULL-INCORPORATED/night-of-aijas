@@ -1,9 +1,11 @@
+import type { CaseItem } from "../roulette/types";
+
 export const mapCase = [
 	{
 		name: "Dust II",
-		image: "/maps/de_dust2.png",
 		rarity: "Consumer",
 		weight: 0.5,
+		image: "/maps/de_dust2.png",
 	},
 	{
 		name: "Mirage",
@@ -28,12 +30,14 @@ export const mapCase = [
 		image: "/maps/de_train.png",
 		rarity: "Mil-spec",
 		weight: 1,
+		description: "Kun juna kulkee vaan :D",
 	},
 	{
 		name: "Anubis",
 		image: "/maps/de_anubis.png",
 		rarity: "Classified",
 		weight: 1,
+		description: "A ryysi LÄÄLÄÄ HEI",
 	},
 	{
 		name: "Ancient",
@@ -58,6 +62,7 @@ export const mapCase = [
 		image: "/maps/de_jura.png",
 		rarity: "Classified",
 		weight: 1,
+		description: "Kumpi tuplaovi pusketaan !??!",
 	},
 	{
 		name: "Grail",
@@ -76,6 +81,7 @@ export const mapCase = [
 		image: "/maps/cs_office.png",
 		rarity: "Rare Special Item",
 		weight: 1.5,
+		description: "OFFICEEN OFFICEEN",
 	},
 	{
 		name: "Italy",
@@ -83,6 +89,6 @@ export const mapCase = [
 		rarity: "Classified",
 		weight: 1,
 	},
-] as const;
+] as const satisfies CaseItem[];
 
 export type MapName = (typeof mapCase)[number]["name"];

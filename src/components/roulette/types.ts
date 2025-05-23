@@ -3,10 +3,10 @@ import type { TacticName } from "../TacticsRoulettePage/tacticsCase";
 
 export interface CaseItem {
 	name: string;
-	image?: string;
-	description?: string;
 	rarity: keyof typeof RARITY_COLORS;
 	weight: number;
+	image?: string;
+	description?: string;
 }
 
 export const RARITY_COLORS = {
