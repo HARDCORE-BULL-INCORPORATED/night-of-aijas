@@ -60,6 +60,7 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 		internalDisplayResultModalToggle,
 		setInternalDisplayResultModalToggle,
 	] = createSignal(true); // Internal state for the checkbox
+	const [filterOutRolledItems, setFilterOutRolledItems] = createSignal(false); // New state for the filter checkbox
 
 	let trackRef: HTMLDivElement | undefined;
 	const assignTrackRef = (el: HTMLDivElement) => {
@@ -233,6 +234,18 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 						if (props.onItemWon) {
 							props.onItemWon(actualWinnerInArray);
 						}
+
+						// If filterOutRolledItems is checked, update activeMaps
+						if (filterOutRolledItems()) {
+							const currentActiveMaps = activeMaps();
+							const newActiveMaps = currentActiveMaps.filter(
+								(map) => map.name !== actualWinnerInArray.name,
+							);
+							setActiveMaps(newActiveMaps);
+							// Optionally, if using a MapSelectionModal that takes activeMapIds (strings),
+							// you might need to inform the parent or manage that state here too.
+							// This depends on how MapSelectionModal is integrated and how its state is managed.
+						}
 					}
 				};
 				trackRef.addEventListener("transitionend", handleTransitionEnd);
@@ -293,6 +306,8 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 			<RouletteControls
 				showResultModalToggle={internalDisplayResultModalToggle}
 				onShowResultModalToggleChange={setInternalDisplayResultModalToggle}
+				filterOutRolledItemsToggle={filterOutRolledItems} // Pass the new state
+				onFilterOutRolledItemsChange={setFilterOutRolledItems} // Pass the setter
 				enableSpinDurationSlider={() => props.enableSpinDurationSlider}
 				internalSpinDuration={internalSpinDuration}
 				setInternalSpinDuration={setInternalSpinDuration}
