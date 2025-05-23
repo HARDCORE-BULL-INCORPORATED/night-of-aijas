@@ -1,17 +1,16 @@
 import type { Component } from "solid-js";
-import { createSignal, onMount, createMemo } from "solid-js"; // Import createMemo
+import { createSignal, onMount, createMemo } from "solid-js";
 import CaseRoulette from "../roulette/CaseRoulette";
 import type { CaseItem } from "../roulette/types";
 import { tacticsCase } from "./tacticsCase";
 import { tacticsPresets } from "./tacticsPresets";
 import TacticSelectionModal from "./modals/TacticSelectionModal/TacticSelectionModal";
-import SideSelectionModal from "./modals/SideSelectionModal/SideSelectionModal"; // Import SideSelectionModal
+import SideSelectionModal from "./modals/SideSelectionModal/SideSelectionModal";
 import { mapCase } from "../MapRoulette/mapCase";
-import type { Side } from "./types"; // Import Side type
-
+import type { Side } from "./types";
 const TacticsRoulettePage: Component = () => {
 	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
-	const [isMapSelectionModalOpen, setIsMapSelectionModalOpen] = // Renamed for clarity
+	const [isMapSelectionModalOpen, setIsMapSelectionModalOpen] =
 		createSignal(false);
 	const [isSideSelectionModalOpen, setIsSideSelectionModalOpen] =
 		createSignal(false);
@@ -59,7 +58,7 @@ const TacticsRoulettePage: Component = () => {
 		const selectedMaps = activeMapNamesForTactics();
 		const currentSide = selectedSide();
 		console.log(
-			"[currentTacticsForRoulette] Memo re-evaluated. Selected Maps:", // Updated log
+			"[currentTacticsForRoulette] Memo re-evaluated. Selected Maps:",
 			selectedMaps,
 			"Current Side:",
 			currentSide,
@@ -72,7 +71,6 @@ const TacticsRoulettePage: Component = () => {
 			// JSON.stringify(filteredTactics.map(t => ({ name: t.name, map: t.map, side: t.side }))),
 		);
 
-		// Filter by map if a specific map is selected
 		if (selectedMaps.length > 0) {
 			const selectedMap = selectedMaps[0]; // Assuming one map or "Show All" (empty array)
 			filteredTactics = filteredTactics.filter(

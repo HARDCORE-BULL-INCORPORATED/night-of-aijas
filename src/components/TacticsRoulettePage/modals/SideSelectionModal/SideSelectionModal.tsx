@@ -60,7 +60,7 @@ const SideSelectionModal: Component<SideSelectionModalProps> = (props) => {
 						<button
 							type="button"
 							class="cs-btn"
-							style={{"padding": "15px 25px", "font-size": "18px"}}
+							style={{ padding: "15px 25px", "font-size": "18px" }}
 							onClick={() => handleSideSelect("CT")}
 						>
 							Counter-Terrorist
@@ -68,7 +68,7 @@ const SideSelectionModal: Component<SideSelectionModalProps> = (props) => {
 						<button
 							type="button"
 							class="cs-btn"
-							style={{"padding": "15px 25px", "font-size": "18px"}}
+							style={{ padding: "15px 25px", "font-size": "18px" }}
 							onClick={() => handleSideSelect("T")}
 						>
 							Terrorist
@@ -76,18 +76,12 @@ const SideSelectionModal: Component<SideSelectionModalProps> = (props) => {
 						<button
 							type="button"
 							class="cs-btn"
-							style={{"padding": "15px 25px", "font-size": "18px"}}
+							style={{ padding: "15px 25px", "font-size": "18px" }}
 							onClick={() => handleSideSelect("Both")}
 						>
 							Both Sides
 						</button>
 					</div>
-					{/* Optional: Add a cancel button if direct side selection is the only way to close */}
-					{/* <div class={styles.modalActions}>
-						<button type="button" class={`${styles.actionButton} ${styles.cancelButton}`} onClick={props.onClose}>
-							Cancel
-						</button>
-					</div> */}
 				</dialog>
 			</div>
 		</Show>
