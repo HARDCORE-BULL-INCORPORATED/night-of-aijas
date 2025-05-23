@@ -23,6 +23,7 @@ const RouletteControls: Component<RouletteControlsProps> = (props) => {
 				isChecked={props.showResultModalToggle}
 				onChange={props.onShowResultModalToggleChange}
 			/>
+			{/* Spin Duration Slider Container */}
 			<SpinDurationSliderContainer
 				enableSlider={props.enableSpinDurationSlider}
 				value={props.internalSpinDuration}
