@@ -60,17 +60,12 @@
 .mapRowsContainer {
 	display: flex;
 	flex-direction: column;
-	/* Stack rows vertically */
-	gap: 16px;
-	/* Gap between the two rows */
+	gap: 8px;
 	margin-bottom: 20px;
-	/* Space before modal actions */
 	max-height: 60vh;
-	/* Max height for the rows area */
 	overflow-y: auto;
 	/* Allow vertical scrolling if content overflows */
 	padding: 5px;
-	/* Small padding for scrollbar */
 }
 
 .mapListRow {
@@ -78,7 +73,7 @@
 	/* Lay out items horizontally within a row */
 	flex-wrap: wrap;
 	/* Allow items to wrap if row is too narrow */
-	gap: 16px;
+	gap: 4px;
 	/* Gap between items in a row */
 	padding: 0;
 	list-style-type: none;
@@ -124,10 +119,8 @@
 }
 
 .mapItemImage {
-	width: 80px;
-	/* Changed from 100px */
-	height: 60px;
-	/* Changed from 75px */
+	width: 110px;
+	height: 110px;
 	object-fit: cover;
 	border-radius: 4px;
 	/* Rounded corners for the image */
