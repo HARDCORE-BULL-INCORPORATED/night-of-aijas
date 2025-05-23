@@ -1,9 +1,10 @@
 import type { MapName } from "../MapRoulette/mapCase";
-import type { TacticName } from "../TacticsRoulettePage/tacticsCase"; // Import TacticName
+import type { TacticName } from "../TacticsRoulettePage/tacticsCase";
 
 export interface CaseItem {
 	name: string;
-	image: string;
+	image?: string;
+	description?: string;
 	rarity: keyof typeof RARITY_COLORS;
 	weight: number;
 }

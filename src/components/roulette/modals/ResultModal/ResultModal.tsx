@@ -40,11 +40,17 @@ const ResultModal: Component<ResultModalProps> = (props) => {
 					<h2 class={styles.resultTitle}>You Won!</h2>
 
 					<div class={styles.resultItem}>
-						<img
-							src={props.item?.image}
-							alt={props.item?.name}
-							class={styles.resultImage}
-						/>
+						{props.item?.image ? (
+							<img
+								src={props.item.image}
+								alt={props.item.name}
+								class={styles.resultImage}
+							/>
+						) : (
+							<div class={styles.resultNameOnlyContainer}>
+								<span class={styles.resultNameOnly}>{props.item?.name}</span>
+							</div>
+						)}
 						<h3
 							class={styles.resultName}
 							style={{
@@ -61,6 +67,9 @@ const ResultModal: Component<ResultModalProps> = (props) => {
 						>
 							{props.item?.rarity}
 						</p>
+						{props.item?.description && (
+							<p class={styles.resultDescription}>{props.item.description}</p>
+						)}
 					</div>
 				</div>
 			</div>

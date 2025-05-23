@@ -11,7 +11,6 @@ interface RouletteDisplayProps {
 	rouletteItems: Accessor<CaseItem[]>;
 	itemWidth: Accessor<number>;
 	assignTrackRef: (el: HTMLDivElement) => void;
-	// Props for SpinButton
 	onSpinClick: () => void;
 	isSpinButtonDisabled: Accessor<boolean>;
 }
@@ -35,7 +34,7 @@ const RouletteDisplay: Component<RouletteDisplayProps> = (props) => {
 			</div>
 			<SpinButton
 				onClick={props.onSpinClick}
-				isSpinning={props.isSpinning} // Already available
+				isSpinning={props.isSpinning}
 				isDisabled={props.isSpinButtonDisabled}
 			/>
 		</>

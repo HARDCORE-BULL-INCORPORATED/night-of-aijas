@@ -72,6 +72,25 @@
 	margin-bottom: 15px;
 }
 
+.resultNameOnlyContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 150px; /* Match resultImage max-width */
+	height: 150px; /* Match resultImage max-height */
+	margin-bottom: 15px;
+	background-color: rgba(0, 0, 0, 0.2); /* Optional: add a background */
+	border-radius: 4px; /* Optional: match image border-radius if any */
+}
+
+.resultNameOnly {
+	color: white;
+	font-size: 20px; /* Match resultName font-size */
+	font-weight: bold;
+	text-align: center;
+	padding: 10px;
+}
+
 .resultName {
 	color: white;
 	font-size: 20px;
@@ -91,6 +110,13 @@
 	font-size: 14px;
 	text-transform: uppercase;
 	margin: 5px 0 0;
+}
+
+.resultDescription {
+	font-size: 12px;
+	color: #ccc;
+	margin-top: 10px;
+	white-space: pre-wrap; /* Allows newlines and preserves spaces */
 }
 
 /* Media queries for responsiveness */

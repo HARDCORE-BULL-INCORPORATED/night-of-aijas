@@ -24,20 +24,20 @@ const RouletteItem: Component<RouletteItemProps> = (props) => {
 		>
 			<div class={styles.itemContent}>
 				<div class={styles.itemImageContainer}>
-					<img
-						src={props.item.image}
-						alt={props.item.name}
-						class={styles.itemImage}
-					/>
+					{props.item.image ? (
+						<img
+							src={props.item.image}
+							alt={props.item.name}
+							class={styles.itemImage}
+						/>
+					) : (
+						<span class={styles.itemNameOnly}>{props.item.name}</span>
+					)}
 				</div>
 				<div class={styles.itemInfo}>
 					<div class={styles.itemName} title={props.item.name}>
 						{props.item.name}
 					</div>
-					{/* This is the rarity name inside the roulette */}
-					{/* <div class={styles.itemRarity} style={{ color: rarityColor }}>
-            {props.item.rarity}
-          </div> */}
 				</div>
 			</div>
 		</div>

@@ -2,7 +2,7 @@ import type { Component } from "solid-js";
 import { createSignal, onMount, createMemo } from "solid-js"; // Import createMemo
 import CaseRoulette from "../roulette/CaseRoulette";
 import type { CaseItem } from "../roulette/types";
-import { tacticsCase as allPossibleTactics } from "./tacticsCase";
+import { tacticsCase } from "./tacticsCase";
 import { tacticsPresets } from "./tacticsPresets";
 import TacticSelectionModal from "./modals/TacticSelectionModal/TacticSelectionModal";
 import SideSelectionModal from "./modals/SideSelectionModal/SideSelectionModal"; // Import SideSelectionModal
@@ -65,7 +65,7 @@ const TacticsRoulettePage: Component = () => {
 			currentSide,
 		);
 
-		let filteredTactics = [...allPossibleTactics];
+		let filteredTactics = [...tacticsCase];
 		console.log(
 			"[currentTacticsForRoulette] Initial tactics count:",
 			filteredTactics.length,
@@ -133,7 +133,7 @@ const TacticsRoulettePage: Component = () => {
 
 			<CaseRoulette
 				items={currentTacticsForRoulette()} // Use filtered tactics
-				allMaps={[...allPossibleTactics]} // Pass all for modal/management, spread to make mutable
+				allMaps={[...tacticsCase]} // Pass all for modal/management, spread to make mutable
 				initialActiveMaps={currentTacticsForRoulette()} // All items in the current pool are initially active
 				onItemWon={handleItemWon}
 				enableMapManagement={true} // Keep this true for now, assuming it might control other features
