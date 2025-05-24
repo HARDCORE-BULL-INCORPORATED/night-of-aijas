@@ -23,6 +23,21 @@ export const commonTactics = [
 		side: "Both",
 	},
 	{
+		name: "KYMMENEN KYYKKYÄ SPAWNISSA",
+		rarity: "Industrial",
+		weight: 0.7,
+		map: "Shared",
+		side: "Both",
+	},
+	{
+		name: "TAPETAAN OMA",
+		image: "/tactics/trollface.png",
+		rarity: "Industrial",
+		weight: 0.1,
+		map: "Shared",
+		side: "Both",
+	},
+	{
 		name: "RELLUT KOURAA",
 		rarity: "Rare Special Item",
 		weight: 0.4,
