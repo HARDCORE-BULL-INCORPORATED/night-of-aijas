@@ -16,29 +16,37 @@ export const ctTactics = [
 	},
 	{
 		name: "TALO",
-		rarity: "Rare Special Item",
-		weight: 0.5,
+		rarity: "Mil-spec",
+		weight: 1,
 		map: "Italy",
 		side: "CT",
 	},
 	{
-		name: "KESKIPITKÄ",
-		rarity: "Rare Special Item",
+		name: "MIDIRYYSI",
+		rarity: "Mil-spec",
+		weight: 1,
+		map: "Italy",
+		side: "CT",
+	},
+	{
+		name: "RAKSILASSA KOLME KIERROSTA",
+		rarity: "Covert",
 		weight: 0.5,
+		description: "MARKETEILLE LÄÄLÄÄ",
 		map: "Italy",
 		side: "CT",
 	},
 ] as const satisfies readonly CounterterroristTactic[];
 
 export const terroristTactics = [
-	{
-		name: "PIHAPUSKU",
-		rarity: "Mil-spec",
-		weight: 1,
-		description: "PIHALLE LÄÄLÄÄ HEI",
-		map: "Italy",
-		side: "T",
-	},
+	// {
+	// 	name: "PIHAPUSKU",
+	// 	rarity: "Mil-spec",
+	// 	weight: 1,
+	// 	description: "PIHALLE LÄÄLÄÄ HEI",
+	// 	map: "Italy",
+	// 	side: "T",
+	// },
 ] as const satisfies readonly TerroristTactic[];
 
 export const commonTactics = [
@@ -46,6 +54,15 @@ export const commonTactics = [
 		name: "RAKSILA",
 		rarity: "Mil-spec",
 		weight: 1,
+		description: "MARKETEILLE",
+		map: "Italy",
+		side: "Both",
+	},
+	{
+		name: "KUJA",
+		rarity: "Mil-spec",
+		weight: 1,
+		description: "Iha kujal äiät :D",
 		map: "Italy",
 		side: "Both",
 	},

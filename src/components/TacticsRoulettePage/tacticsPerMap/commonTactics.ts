@@ -1,13 +1,20 @@
 import type { CounterterroristTactic, Tactic, TerroristTactic } from "../types";
 
 export const ctTactics = [
-	// {
-	// 	name: "PLACEHOLDER CT TACTIC 1",
-	// 	rarity: "Mil-spec",
-	// 	weight: 1,
-	// 	map: "Anubis",
-	// 	side: "CT",
-	// },
+	{
+		name: "STACK A",
+		rarity: "Consumer",
+		weight: 1,
+		map: "Defuse",
+		side: "CT",
+	},
+	{
+		name: "STACK B",
+		rarity: "Consumer",
+		weight: 1,
+		map: "Defuse",
+		side: "CT",
+	},
 ] as const satisfies readonly CounterterroristTactic[];
 
 export const terroristTactics = [
@@ -30,7 +37,7 @@ export const commonTactics = [
 	},
 	{
 		name: "RUSH B",
-		rarity: "Restricted",
+		rarity: "Mil-spec",
 		weight: 1,
 		map: "Defuse",
 		side: "Both",
@@ -52,7 +59,7 @@ export const commonTactics = [
 	{
 		name: "PROTECT HOSTAGES",
 		rarity: "Restricted",
-		weight: 1,
+		weight: 0.01,
 		map: "Hostage",
 		side: "Both",
 	},
@@ -68,6 +75,7 @@ export const commonTactics = [
 		image: "/tactics/trollface.png",
 		rarity: "Industrial",
 		weight: 0.1,
+		description: "PROBLEM ?",
 		map: "Shared",
 		side: "Both",
 	},
@@ -85,6 +93,22 @@ export const commonTactics = [
 		rarity: "Covert",
 		weight: 0.5,
 		description: "Scoutit läälää hei :D",
+		map: "Shared",
+		side: "Both",
+	},
+	{
+		name: "KAIKKI OSTAA ZEUS",
+		rarity: "Industrial",
+		weight: 0.7,
+		description: "",
+		map: "Shared",
+		side: "Both",
+	},
+	{
+		name: "HAULIKOT KOURAA",
+		rarity: "Mil-spec",
+		weight: 0.8,
+		description: "",
 		map: "Shared",
 		side: "Both",
 	},

@@ -6,37 +6,23 @@ import type {
 } from "../types";
 
 export const ctTactics = [
-	{
-		name: "PLACEHOLDER CT TACTIC 1",
-		rarity: "Mil-spec",
-		weight: 1,
-		map: "Nuke",
-		side: "CT",
-	},
-	{
-		name: "PLACEHOLDER CT TACTIC 2",
-		rarity: "Mil-spec",
-		weight: 1,
-		map: "Nuke",
-		side: "CT",
-	},
+	// {
+	// 	name: "PLACEHOLDER CT TACTIC 1",
+	// 	rarity: "Mil-spec",
+	// 	weight: 1,
+	// 	map: "Nuke",
+	// 	side: "CT",
+	// },
 ] as const satisfies readonly CounterterroristTactic[];
 
 export const terroristTactics = [
-	{
-		name: "PLACEHOLDER T TACTIC 1",
-		rarity: "Mil-spec",
-		weight: 1,
-		map: "Nuke",
-		side: "T",
-	},
-	{
-		name: "PLACEHOLDER T TACTIC 2",
-		rarity: "Mil-spec",
-		weight: 1,
-		map: "Nuke",
-		side: "T",
-	},
+	// {
+	// 	name: "PLACEHOLDER T TACTIC 1",
+	// 	rarity: "Mil-spec",
+	// 	weight: 1,
+	// 	map: "Nuke",
+	// 	side: "T",
+	// },
 ] as const satisfies readonly TerroristTactic[];
 
 export const commonTactics = [

@@ -22,6 +22,13 @@ export const ctTactics = [
 		side: "CT",
 	},
 	{
+		name: "PIIRAKKAPUSKU",
+		rarity: "Mil-spec",
+		weight: 1,
+		map: "Office",
+		side: "CT",
+	},
+	{
 		name: "EKSTRA PITKÄ",
 		rarity: "Rare Special Item",
 		weight: 0.5,
