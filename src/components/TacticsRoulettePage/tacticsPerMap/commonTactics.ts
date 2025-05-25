@@ -1,4 +1,24 @@
-import type { Tactic } from "./types";
+import type { CounterterroristTactic, Tactic, TerroristTactic } from "../types";
+
+export const ctTactics = [
+	// {
+	// 	name: "PLACEHOLDER CT TACTIC 1",
+	// 	rarity: "Mil-spec",
+	// 	weight: 1,
+	// 	map: "Anubis",
+	// 	side: "CT",
+	// },
+] as const satisfies readonly CounterterroristTactic[];
+
+export const terroristTactics = [
+	// {
+	// 	name: "PLACEHOLDER T TACTIC 1",
+	// 	rarity: "Mil-spec",
+	// 	weight: 1,
+	// 	map: "Anubis",
+	// 	side: "T",
+	// },
+] as const satisfies readonly TerroristTactic[];
 
 export const commonTactics = [
 	{
@@ -54,4 +74,10 @@ export const commonTactics = [
 		map: "Shared",
 		side: "Both",
 	},
+] as const satisfies readonly Tactic[];
+
+export const commonTacticsCase = [
+	...ctTactics,
+	...terroristTactics,
+	...commonTactics,
 ] as const satisfies readonly Tactic[];

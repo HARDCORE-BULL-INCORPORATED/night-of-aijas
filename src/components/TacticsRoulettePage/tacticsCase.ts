@@ -1,7 +1,7 @@
-import { commonTactics } from "./commonTactics";
 import { agencyCase } from "./tacticsPerMap/agency";
 import { ancientCase } from "./tacticsPerMap/ancient";
 import { anubisCase } from "./tacticsPerMap/anubis";
+import { commonTacticsCase } from "./tacticsPerMap/commonTactics";
 import { dustCase } from "./tacticsPerMap/dust";
 import { grailCase } from "./tacticsPerMap/grail";
 import { infernoCase } from "./tacticsPerMap/inferno";
@@ -16,7 +16,7 @@ import { vertigoCase } from "./tacticsPerMap/vertigo";
 import type { Tactic } from "./types";
 
 export const tacticsCase = [
-	...commonTactics,
+	...commonTacticsCase,
 	...officeCase,
 	...agencyCase,
 	...ancientCase,
