@@ -2,12 +2,13 @@ import type { Component } from "solid-js";
 import { createSignal, onMount, createMemo } from "solid-js";
 import CaseRoulette from "../roulette/CaseRoulette";
 import type { CaseItem } from "../roulette/types";
-import { tacticsCase } from "./tacticsCase";
+import { tacticsCase, getCachedTacticsForMap } from "./tacticsCase";
 import { tacticsPresets } from "./tacticsPresets";
 import TacticSelectionModal from "./modals/TacticSelectionModal/TacticSelectionModal";
 import SideSelectionModal from "./modals/SideSelectionModal/SideSelectionModal";
 import { mapCase } from "../MapRoulette/mapCase";
 import type { Side } from "./types";
+import type { MapName } from "../MapRoulette/mapCase";
 const TacticsRoulettePage: Component = () => {
 	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
 	const [isMapSelectionModalOpen, setIsMapSelectionModalOpen] =
@@ -68,20 +69,18 @@ const TacticsRoulettePage: Component = () => {
 		console.log(
 			"[currentTacticsForRoulette] Initial tactics count:",
 			filteredTactics.length,
-			// JSON.stringify(filteredTactics.map(t => ({ name: t.name, map: t.map, side: t.side }))),
 		);
 
 		if (selectedMaps.length > 0) {
-			const selectedMap = selectedMaps[0]; // Assuming one map or "Show All" (empty array)
-			filteredTactics = filteredTactics.filter(
-				(tactic) => tactic.map === "Shared" || tactic.map === selectedMap,
+			const selectedMap = selectedMaps[0] as MapName; // Assuming one map selected
+			// Use the new map validation function that properly handles "Defuse" and "Hostage" contexts
+			const validTactics = getCachedTacticsForMap(selectedMap);
+			filteredTactics = filteredTactics.filter(tactic => 
+				validTactics.some(validTactic => validTactic.name === tactic.name)
 			);
 			console.log(
-				`[currentTacticsForRoulette] Tactics count after map filter ('${
-					selectedMap || "All Maps"
-				}'):`,
+				`[currentTacticsForRoulette] Tactics count after map filter with validation ('${selectedMap}'):`,
 				filteredTactics.length,
-				// JSON.stringify(filteredTactics.map(t => ({ name: t.name, map: t.map, side: t.side }))),
 			);
 		}
 

@@ -43,6 +43,20 @@ export const commonTactics = [
 		side: "Both",
 	},
 	{
+		name: "HOSTAGE RESCUE",
+		rarity: "Mil-spec",
+		weight: 1,
+		map: "Hostage",
+		side: "Both",
+	},
+	{
+		name: "PROTECT HOSTAGES",
+		rarity: "Restricted",
+		weight: 1,
+		map: "Hostage",
+		side: "Both",
+	},
+	{
 		name: "KYMMENEN KYYKKYÄ SPAWNISSA",
 		rarity: "Industrial",
 		weight: 0.7,
