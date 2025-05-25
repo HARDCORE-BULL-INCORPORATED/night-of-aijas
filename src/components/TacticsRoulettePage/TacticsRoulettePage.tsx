@@ -75,8 +75,8 @@ const TacticsRoulettePage: Component = () => {
 			const selectedMap = selectedMaps[0] as MapName; // Assuming one map selected
 			// Use the new map validation function that properly handles "Defuse" and "Hostage" contexts
 			const validTactics = getCachedTacticsForMap(selectedMap);
-			filteredTactics = filteredTactics.filter(tactic => 
-				validTactics.some(validTactic => validTactic.name === tactic.name)
+			filteredTactics = filteredTactics.filter((tactic) =>
+				validTactics.some((validTactic) => validTactic.name === tactic.name),
 			);
 			console.log(
 				`[currentTacticsForRoulette] Tactics count after map filter with validation ('${selectedMap}'):`,

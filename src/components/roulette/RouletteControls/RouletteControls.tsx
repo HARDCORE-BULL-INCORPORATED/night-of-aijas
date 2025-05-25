@@ -32,7 +32,6 @@ const RouletteControls: Component<RouletteControlsProps> = (props) => {
 				onChange={props.setInternalSpinDuration}
 				disabled={props.isSpinning}
 				min={1}
-				max={180}
 				step={1}
 				label="Spin Duration (seconds):"
 			/>

@@ -34,7 +34,7 @@ const SpinDurationSlider: Component<SpinDurationSliderProps> = (props) => {
 	return (
 		<div class="cs-slider">
 			<div class="value">
-				<p class="">{props.min}s</p>
+				{/* <p class="">{props.min}s</p> */}
 				<p class="">{liveValue().toFixed(1)}s</p>
 			</div>
 			<div class="ruler" />
@@ -46,7 +46,7 @@ const SpinDurationSlider: Component<SpinDurationSliderProps> = (props) => {
 				step={props.step}
 				value={liveValue()}
 				onInput={handleInput}
-				onChange={handleChange} // Standard HTML onchange fires when value is committed
+				onChange={handleChange}
 				disabled={props.disabled ? props.disabled() : false}
 			/>
 			<label for="range">{label}</label>
