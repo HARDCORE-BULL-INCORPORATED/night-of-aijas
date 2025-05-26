@@ -8,6 +8,7 @@ interface RouletteControlsProps {
 	showResultModalToggle: Accessor<boolean>;
 	onShowResultModalToggleChange: (checked: boolean) => void;
 	filterOutRolledItemsToggle: Accessor<boolean>;
+	onFilterOutRolledItemsChange: (checked: boolean) => void;
 	// Props for SpinDurationSliderContainer
 	enableSpinDurationSlider?: Accessor<boolean | undefined>;
 	internalSpinDuration: Accessor<number>;
@@ -31,6 +32,7 @@ const RouletteControls: Component<RouletteControlsProps> = (props) => {
 				onChange={props.setInternalSpinDuration}
 				disabled={props.isSpinning}
 				min={1}
+				max={30}
 				step={1}
 				label="Spin Duration (seconds):"
 			/>
