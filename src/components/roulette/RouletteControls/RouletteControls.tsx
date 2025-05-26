@@ -7,8 +7,7 @@ interface RouletteControlsProps {
 	// Props for CheckboxControl
 	showResultModalToggle: Accessor<boolean>;
 	onShowResultModalToggleChange: (checked: boolean) => void;
-	filterOutRolledItemsToggle: Accessor<boolean>; // New prop
-	onFilterOutRolledItemsChange: (checked: boolean) => void; // New prop
+	filterOutRolledItemsToggle: Accessor<boolean>;
 	// Props for SpinDurationSliderContainer
 	enableSpinDurationSlider?: Accessor<boolean | undefined>;
 	internalSpinDuration: Accessor<number>;

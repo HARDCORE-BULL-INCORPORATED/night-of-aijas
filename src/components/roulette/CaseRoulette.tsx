@@ -60,8 +60,7 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 		internalDisplayResultModalToggle,
 		setInternalDisplayResultModalToggle,
 	] = createSignal(true); // Internal state for the checkbox
-	const [filterOutRolledItems, setFilterOutRolledItems] = createSignal(false); // New state for the filter checkbox
-
+	const [filterOutRolledItems, setFilterOutRolledItems] = createSignal(true);
 	let trackRef: HTMLDivElement | undefined;
 	const assignTrackRef = (el: HTMLDivElement) => {
 		trackRef = el;
