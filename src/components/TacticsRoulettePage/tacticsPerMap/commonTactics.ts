@@ -99,9 +99,9 @@ export const commonTactics = [
 	},
 	{
 		name: "HAULIKOT KOURAA",
-		rarity: "Mil-spec",
-		weight: 0.8,
-		description: "",
+		rarity: "Industrial",
+		weight: 1,
+		description: "JOONALLE KATKAISTU",
 		map: "Shared",
 		side: "Both",
 	},

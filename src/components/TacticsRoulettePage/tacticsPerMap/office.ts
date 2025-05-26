@@ -42,6 +42,13 @@ export const ctTactics = [
 		map: "Office",
 		side: "CT",
 	},
+	{
+		name: "KAIKKI SNIPU HUONEESEE",
+		rarity: "Classified",
+		weight: 0.5,
+		map: "Office",
+		side: "CT",
+	},
 ] as const satisfies readonly CounterterroristTactic[];
 
 export const terroristTactics = [
