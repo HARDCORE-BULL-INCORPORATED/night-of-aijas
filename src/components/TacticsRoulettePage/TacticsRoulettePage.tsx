@@ -250,12 +250,14 @@ const TacticsRoulettePage: Component = () => {
                             type="button"
                             class="cs-btn"
                             onClick={() => handleSideSwitch("CT")}
-                            style={{
+                            style={{ 
                                 "margin-right": "5px",
-                                padding: "15px 25px",
+                                "padding": "15px 25px",
                                 "font-size": "18px",
-                                "background-color":
-                                    selectedSide() === "CT" ? "#5a8de6" : undefined,
+                                "border-color": selectedSide() === "CT" 
+                                    ? "var(--border-dark) var(--border-light) var(--border-light) var(--border-dark)"
+                                    : undefined,
+                                "color": selectedSide() === "CT" ? "var(--accent)" : undefined
                             }}
                         >
                             CT
@@ -264,13 +266,14 @@ const TacticsRoulettePage: Component = () => {
                             type="button"
                             class="cs-btn"
                             onClick={() => handleSideSwitch("T")}
-                            style={{
+                            style={{ 
                                 "margin-right": "10px",
-                                padding: "15px 25px",
+                                "padding": "15px 25px",
                                 "font-size": "18px",
-                                "background-color":
-                                    selectedSide() === "T" ? "#f0c14b" : undefined,
-                                color: selectedSide() === "T" ? "#111" : undefined,
+                                "border-color": selectedSide() === "T" 
+                                    ? "var(--border-dark) var(--border-light) var(--border-light) var(--border-dark)"
+                                    : undefined,
+                                "color": selectedSide() === "T" ? "var(--accent)" : undefined
                             }}
                         >
                             T
