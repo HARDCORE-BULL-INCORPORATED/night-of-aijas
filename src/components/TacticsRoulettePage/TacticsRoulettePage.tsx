@@ -242,7 +242,7 @@ const TacticsRoulettePage: Component = () => {
                         onClick={handleChangeSelection}
                         style={{ "margin-right": "10px" }}
                     >
-                        Change Selection
+                        Change Map
                     </button>
                     <button
                         type="button"
