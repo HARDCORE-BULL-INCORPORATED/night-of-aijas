@@ -1,4 +1,5 @@
-import { createSignal, Show, onMount } from "solid-js";
+import { Router, Route } from "@solidjs/router";
+import type { ParentComponent } from "solid-js";
 import Docs from "./components/docs/Docs";
 import Home from "./components/Home";
 import Navigation from "./components/Navigation";
@@ -7,67 +8,28 @@ import MapRoulette from "./components/MapRoulette/MapRoulette";
 import TacticsRoulettePage from "./components/TacticsRoulettePage/TacticsRoulettePage";
 import PIEPINATOR from "./components/PIEPINATOR/PIEPINATOR";
 
+const Layout: ParentComponent = (props) => {
+    return (
+        <div class="app-container">
+            <header class="header">
+                <Navigation />
+            </header>
+            <main>{props.children}</main>
+        </div>
+    );
+};
+
 function App() {
-  const [currentPage, setCurrentPage] = createSignal("home");
-
-  const handlePageChange = (page: string) => {
-    setCurrentPage(page);
-    const url = new URL(window.location.toString());
-    url.searchParams.set("page", page);
-    window.history.pushState({}, "", url.toString());
-  };
-
-  onMount(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const pageFromUrl = urlParams.get("page");
-    if (pageFromUrl) {
-      setCurrentPage(pageFromUrl);
-    } else {
-      // If no page in URL, set default and update URL
-      const defaultPage = "home";
-      setCurrentPage(defaultPage);
-      const url = new URL(window.location.toString());
-      url.searchParams.set("page", defaultPage);
-      window.history.replaceState({}, "", url.toString()); // Use replaceState to avoid polluting history
-    }
-
-    // Listen for browser back/forward navigation
-    window.addEventListener("popstate", () => {
-      const params = new URLSearchParams(window.location.search);
-      const newPage = params.get("page");
-      if (newPage) {
-        setCurrentPage(newPage);
-      } else {
-        // Fallback if page param is somehow removed
-        setCurrentPage("home");
-      }
-    });
-  });
-
-  return (
-    <div class="app-container">
-      <header class="header">
-        <Navigation activePage={currentPage()} onNavigate={handlePageChange} />
-      </header>
-      <main>
-        <Show when={currentPage() === "home"}>
-          <Home />
-        </Show>
-        <Show when={currentPage() === "docs"}>
-          <Docs />
-        </Show>
-        <Show when={currentPage() === "PIEP-I-NATOR"}>
-          <PIEPINATOR />
-        </Show>
-        <Show when={currentPage() === "roulette"}>
-          <MapRoulette />
-        </Show>
-        <Show when={currentPage() === "tactics"}>
-          <TacticsRoulettePage />
-        </Show>
-      </main>
-    </div>
-  );
+    return (
+        <Router root={Layout}>
+            <Route path="/" component={Home} />
+            <Route path="/docs" component={Docs} />
+            <Route path="/tactics" component={TacticsRoulettePage} />
+            <Route path="/tactics/:map/:side" component={TacticsRoulettePage} />
+            <Route path="/roulette" component={MapRoulette} />
+            <Route path="/PIEP-I-NATOR" component={PIEPINATOR} />
+        </Router>
+    );
 }
 
 export default App;
