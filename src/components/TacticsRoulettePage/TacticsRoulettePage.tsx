@@ -208,6 +208,18 @@ const TacticsRoulettePage: Component = () => {
         setIsMapSelectionModalOpen(true);
     };
 
+    const handleSideSwitch = (newSide: "CT" | "T") => {
+        setSelectedSide(newSide);
+
+        // Update route params
+        const mapName = activeMapNamesForTactics()[0];
+        if (mapName) {
+            const mapParam = mapNameToUrl(mapName);
+            const sideParam = sideToParam(newSide);
+            navigate(`/tactics/${mapParam}/${sideParam}`);
+        }
+    };
+
     const hasRouteParams = () => params.map && params.side;
 
     return (
@@ -231,6 +243,29 @@ const TacticsRoulettePage: Component = () => {
                         style={{ "margin-right": "10px" }}
                     >
                         Change Selection
+                    </button>
+                    <button
+                        type="button"
+                        class="cs-btn"
+                        onClick={() => handleSideSwitch("CT")}
+                        style={{ 
+                            "margin-right": "5px",
+                            "background-color": selectedSide() === "CT" ? "#5a8de6" : undefined
+                        }}
+                    >
+                        CT
+                    </button>
+                    <button
+                        type="button"
+                        class="cs-btn"
+                        onClick={() => handleSideSwitch("T")}
+                        style={{ 
+                            "margin-right": "10px",
+                            "background-color": selectedSide() === "T" ? "#f0c14b" : undefined,
+                            "color": selectedSide() === "T" ? "#111" : undefined
+                        }}
+                    >
+                        T
                     </button>
                     <button
                         type="button"
