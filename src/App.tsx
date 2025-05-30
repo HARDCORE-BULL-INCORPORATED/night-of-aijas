@@ -9,27 +9,27 @@ import TacticsRoulettePage from "./components/TacticsRoulettePage/TacticsRoulett
 import PIEPINATOR from "./components/PIEPINATOR/PIEPINATOR";
 
 const Layout: ParentComponent = (props) => {
-    return (
-        <div class="app-container">
-            <header class="header">
-                <Navigation />
-            </header>
-            <main>{props.children}</main>
-        </div>
-    );
+	return (
+		<div class="app-container">
+			<header class="header">
+				<Navigation />
+			</header>
+			<main>{props.children}</main>
+		</div>
+	);
 };
 
 function App() {
-    return (
-        <Router root={Layout}>
-            <Route path="/" component={Home} />
-            <Route path="/docs" component={Docs} />
-            <Route path="/tactics" component={TacticsRoulettePage} />
-            <Route path="/tactics/:map/:side" component={TacticsRoulettePage} />
-            <Route path="/roulette" component={MapRoulette} />
-            <Route path="/PIEP-I-NATOR" component={PIEPINATOR} />
-        </Router>
-    );
+	return (
+		<Router root={Layout}>
+			<Route path="/" component={Home} />
+			<Route path="/docs" component={Docs} />
+			<Route path="/tactics" component={TacticsRoulettePage} />
+			<Route path="/tactics/:map/:side" component={TacticsRoulettePage} />
+			<Route path="/roulette" component={MapRoulette} />
+			<Route path="/PIEP-I-NATOR" component={PIEPINATOR} />
+		</Router>
+	);
 }
 
 export default App;
