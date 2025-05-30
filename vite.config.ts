@@ -11,6 +11,12 @@ export default defineConfig({
 			},
 		},
 	},
+	server: {
+		// For development - handle SPA routing
+		fs: {
+			strict: false,
+		},
+	},
 	preview: {
 		// This helps with SPA routing when using `npm run preview`
 		cors: true,
