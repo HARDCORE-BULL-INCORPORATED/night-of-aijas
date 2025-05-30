@@ -28,6 +28,7 @@ function App() {
 			<Route path="/tactics/:map/:side" component={TacticsRoulettePage} />
 			<Route path="/roulette" component={MapRoulette} />
 			<Route path="/PIEP-I-NATOR" component={PIEPINATOR} />
+			<Route path="*" component={() => <div class="container"><h1>Page Not Found</h1><p>The page you're looking for doesn't exist.</p></div>} />
 		</Router>
 	);
 }
