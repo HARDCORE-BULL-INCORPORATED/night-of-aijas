@@ -240,17 +240,24 @@ const TacticsRoulettePage: Component = () => {
                         type="button"
                         class="cs-btn"
                         onClick={handleChangeSelection}
-                        style={{ "margin-right": "10px" }}
+                        style={{
+                            "margin-right": "10px",
+                            padding: "15px 25px",
+                            "font-size": "18px",
+                        }}
                     >
-                        Change Map
+                        CHOOSE MAP
                     </button>
                     <button
                         type="button"
                         class="cs-btn"
                         onClick={() => handleSideSwitch("CT")}
-                        style={{ 
+                        style={{
                             "margin-right": "5px",
-                            "background-color": selectedSide() === "CT" ? "#5a8de6" : undefined
+                            padding: "15px 25px",
+                            "font-size": "18px",
+                            "background-color":
+                                selectedSide() === "CT" ? "#5a8de6" : undefined,
                         }}
                     >
                         CT
@@ -259,20 +266,16 @@ const TacticsRoulettePage: Component = () => {
                         type="button"
                         class="cs-btn"
                         onClick={() => handleSideSwitch("T")}
-                        style={{ 
+                        style={{
                             "margin-right": "10px",
-                            "background-color": selectedSide() === "T" ? "#f0c14b" : undefined,
-                            "color": selectedSide() === "T" ? "#111" : undefined
+                            padding: "15px 25px",
+                            "font-size": "18px",
+                            "background-color":
+                                selectedSide() === "T" ? "#f0c14b" : undefined,
+                            color: selectedSide() === "T" ? "#111" : undefined,
                         }}
                     >
                         T
-                    </button>
-                    <button
-                        type="button"
-                        class="cs-btn"
-                        onClick={() => navigate("/tactics")}
-                    >
-                        Back to Tactics
                     </button>
                 </div>
             ) : (
