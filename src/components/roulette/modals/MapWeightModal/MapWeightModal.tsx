@@ -95,41 +95,80 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
 						1. Weights are relative to each other.
 					</p>
 
-					<ul class={styles.mapWeightList}>
-						<For each={editableMapConfigs}>
-							{(map) => {
-								const probability = createMemo(() => {
-									const currentTotalWeight = totalWeight();
-									return currentTotalWeight > 0
-										? ((map.weight || 0) / currentTotalWeight) * 100
-										: 0;
-								});
+					<div class={styles.mapRowsContainer}>
+						<ul class={styles.mapListRow}>
+							<For each={editableMapConfigs.slice(0, 7)}>
+								{(map) => {
+									const probability = createMemo(() => {
+										const currentTotalWeight = totalWeight();
+										return currentTotalWeight > 0
+											? ((map.weight || 0) / currentTotalWeight) * 100
+											: 0;
+									});
 
-								return (
-									<li class={styles.mapWeightItem}>
-										<img
-											src={map.image}
-											alt={map.name}
-											class={styles.mapImage}
-										/>
-										<span class={styles.mapName}>{map.name}</span>
-										<input
-											type="number"
-											value={map.weight.toString()}
-											onInput={(e) =>
-												handleWeightChange(map.name, e.currentTarget.value)
-											}
-											class={styles.weightInput}
-											min="0"
-										/>
-										<span class={styles.mapProbability}>
-											({probability().toFixed(1)}%)
-										</span>
-									</li>
-								);
-							}}
-						</For>
-					</ul>
+									return (
+										<li class={styles.mapWeightItem}>
+											<img
+												src={map.image}
+												alt={map.name}
+												class={styles.mapImage}
+											/>
+											<span class={styles.mapName}>{map.name}</span>
+											<input
+												type="number"
+												value={map.weight.toString()}
+												onInput={(e) =>
+													handleWeightChange(map.name, e.currentTarget.value)
+												}
+												class={styles.weightInput}
+												min="0"
+											/>
+											<span class={styles.mapProbability}>
+												({probability().toFixed(1)}%)
+											</span>
+										</li>
+									);
+								}}
+							</For>
+						</ul>
+						<Show when={editableMapConfigs.length > 7}>
+							<ul class={styles.mapListRow}>
+								<For each={editableMapConfigs.slice(7, 14)}>
+									{(map) => {
+										const probability = createMemo(() => {
+											const currentTotalWeight = totalWeight();
+											return currentTotalWeight > 0
+												? ((map.weight || 0) / currentTotalWeight) * 100
+												: 0;
+										});
+
+										return (
+											<li class={styles.mapWeightItem}>
+												<img
+													src={map.image}
+													alt={map.name}
+													class={styles.mapImage}
+												/>
+												<span class={styles.mapName}>{map.name}</span>
+												<input
+													type="number"
+													value={map.weight.toString()}
+													onInput={(e) =>
+														handleWeightChange(map.name, e.currentTarget.value)
+													}
+													class={styles.weightInput}
+													min="0"
+												/>
+												<span class={styles.mapProbability}>
+													({probability().toFixed(1)}%)
+												</span>
+											</li>
+										);
+									}}
+								</For>
+							</ul>
+						</Show>
+					</div>
 
 					<div class={styles.modalActions}>
 						<button
