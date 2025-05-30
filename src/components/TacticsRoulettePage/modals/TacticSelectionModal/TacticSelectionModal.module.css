@@ -125,6 +125,12 @@
 	width: 120px;
 	box-sizing: border-box;
 	user-select: none;
+	transition: background-color 0.1s ease;
+}
+
+.mapButton:hover {
+	background-color: var(--secondary-bg);
+	color: var(--accent);
 }
 
 .mapButton:active {
@@ -172,6 +178,12 @@
 	text-align: left;
 	width: 72px;
 	cursor: pointer;
+	transition: background-color 0.1s ease;
+}
+
+.actionButton:hover {
+	background-color: var(--secondary-bg);
+	color: var(--accent);
 }
 
 .actionButton:active {

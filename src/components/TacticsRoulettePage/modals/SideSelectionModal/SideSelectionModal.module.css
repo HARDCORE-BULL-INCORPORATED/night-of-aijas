@@ -85,6 +85,12 @@
 	user-select: none;
 	cursor: pointer;
 	text-transform: uppercase;
+	transition: background-color 0.1s ease;
+}
+
+.sideButton:hover {
+	background-color: var(--secondary-bg);
+	color: var(--accent);
 }
 
 .sideButton:active {
@@ -92,28 +98,15 @@
 }
 
 .ctButton {
-	background-color: #5a8de6;
-}
-
-.ctButton:active {
-	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+	/* Uses default cs-btn styling */
 }
 
 .tButton {
-	background-color: #f0c14b;
-	color: #111;
-}
-
-.tButton:active {
-	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+	/* Uses default cs-btn styling */
 }
 
 .bothButton {
-	background-color: #6c757d;
-}
-
-.bothButton:active {
-	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+	/* Uses default cs-btn styling */
 }
 
 .modalActions {
