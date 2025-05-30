@@ -69,10 +69,7 @@ const TacticsRoulettePage: Component = () => {
                 navigate("/tactics", { replace: true });
             }
         } else if (!mapParam && !sideParam) {
-            // No route parameters, show selection modals if not already selected
-            if (activeMapNamesForTactics().length === 0) {
-                setIsMapSelectionModalOpen(true);
-            }
+            // No route parameters - do nothing, wait for user to click Change Map
         }
     });
 
@@ -229,88 +226,94 @@ const TacticsRoulettePage: Component = () => {
             {hasRouteParams() &&
             activeMapNamesForTactics().length > 0 &&
             selectedSide() ? (
-                <div
-                    style={{ "margin-bottom": "20px", "text-align": "center" }}
-                >
-                    <p style={{ "margin-bottom": "10px" }}>
-                        Map: <strong>{activeMapNamesForTactics()[0]}</strong> |
-                        Side: <strong>{selectedSide()}</strong>
-                    </p>
+                <>
+                    <div
+                        style={{ "margin-bottom": "20px", "text-align": "center" }}
+                    >
+                        <p style={{ "margin-bottom": "10px" }}>
+                            Map: <strong>{activeMapNamesForTactics()[0]}</strong> |
+                            Side: <strong>{selectedSide()}</strong>
+                        </p>
+                        <button
+                            type="button"
+                            class="cs-btn"
+                            onClick={handleChangeSelection}
+                            style={{
+                                "margin-right": "10px",
+                                padding: "15px 25px",
+                                "font-size": "18px",
+                            }}
+                        >
+                            Change Map
+                        </button>
+                        <button
+                            type="button"
+                            class="cs-btn"
+                            onClick={() => handleSideSwitch("CT")}
+                            style={{
+                                "margin-right": "5px",
+                                padding: "15px 25px",
+                                "font-size": "18px",
+                                "background-color":
+                                    selectedSide() === "CT" ? "#5a8de6" : undefined,
+                            }}
+                        >
+                            CT
+                        </button>
+                        <button
+                            type="button"
+                            class="cs-btn"
+                            onClick={() => handleSideSwitch("T")}
+                            style={{
+                                "margin-right": "10px",
+                                padding: "15px 25px",
+                                "font-size": "18px",
+                                "background-color":
+                                    selectedSide() === "T" ? "#f0c14b" : undefined,
+                                color: selectedSide() === "T" ? "#111" : undefined,
+                            }}
+                        >
+                            T
+                        </button>
+                    </div>
+
+                    <CaseRoulette
+                        items={currentTacticsForRoulette()}
+                        allMaps={[...tacticsCase]}
+                        initialActiveMaps={currentTacticsForRoulette()}
+                        onItemWon={handleItemWon}
+                        enableMapManagement={true}
+                        enableSpinDurationSlider={true}
+                        initialSpinDuration={8}
+                        presets={tacticsPresets}
+                        showWonItemsHistory={true}
+                        wonItems={wonItems()}
+                        onClearWonItemsHistory={handleClearHistory}
+                        historyTitle="Tactic History"
+                        selectItemsButtonText="Select Tactics"
+                        itemWeightsButtonText="Tactic Weights"
+                    />
+                </>
+            ) : (
+                <div style={{ "text-align": "center", "margin-top": "40px" }}>
+                    <p style={{ "margin-bottom": "20px" }}>Choose a map to start spinning tactics!</p>
                     <button
                         type="button"
                         class="cs-btn"
                         onClick={handleChangeSelection}
                         style={{
-                            "margin-right": "10px",
-                            padding: "15px 25px",
-                            "font-size": "18px",
+                            padding: "20px 30px",
+                            "font-size": "20px",
                         }}
                     >
-                        CHOOSE MAP
-                    </button>
-                    <button
-                        type="button"
-                        class="cs-btn"
-                        onClick={() => handleSideSwitch("CT")}
-                        style={{
-                            "margin-right": "5px",
-                            padding: "15px 25px",
-                            "font-size": "18px",
-                            "background-color":
-                                selectedSide() === "CT" ? "#5a8de6" : undefined,
-                        }}
-                    >
-                        CT
-                    </button>
-                    <button
-                        type="button"
-                        class="cs-btn"
-                        onClick={() => handleSideSwitch("T")}
-                        style={{
-                            "margin-right": "10px",
-                            padding: "15px 25px",
-                            "font-size": "18px",
-                            "background-color":
-                                selectedSide() === "T" ? "#f0c14b" : undefined,
-                            color: selectedSide() === "T" ? "#111" : undefined,
-                        }}
-                    >
-                        T
+                        Choose Map
                     </button>
                 </div>
-            ) : (
-                <p>SPIN THE WHEEL AND LET FATE DECIDE YOUR NEXT STRATEGY!</p>
             )}
-
-            <CaseRoulette
-                items={currentTacticsForRoulette()}
-                allMaps={[...tacticsCase]}
-                initialActiveMaps={currentTacticsForRoulette()}
-                onItemWon={handleItemWon}
-                enableMapManagement={true}
-                enableSpinDurationSlider={true}
-                initialSpinDuration={8}
-                presets={tacticsPresets}
-                showWonItemsHistory={true}
-                wonItems={wonItems()}
-                onClearWonItemsHistory={handleClearHistory}
-                historyTitle="Tactic History"
-                selectItemsButtonText="Select Tactics"
-                itemWeightsButtonText="Tactic Weights"
-            />
 
             <TacticSelectionModal
                 isOpen={isMapSelectionModalOpen()}
-                onClose={() => {
-                    setIsMapSelectionModalOpen(false);
-                    // If on base route and modal is closed without selection, navigate home
-                    if (
-                        !hasRouteParams() &&
-                        activeMapNamesForTactics().length === 0
-                    ) {
-                        navigate("/");
-                    }
-                }}
+                onClose={() => setIsMapSelectionModalOpen(false)}
                 allMaps={[...mapCase]}
                 activeMapNames={activeMapNamesForTactics()}
                 onSave={handleSaveMapSelectionForTactics}
