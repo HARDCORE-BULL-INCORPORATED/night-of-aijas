@@ -56,26 +56,19 @@ const TacticsRoulettePage: Component = () => {
         const mapParam = params.map;
         const sideParam = params.side;
 
-        console.log("Route effect - mapParam:", mapParam, "sideParam:", sideParam);
-
         if (mapParam && sideParam) {
             // We have route parameters, validate and use them
             const mapName = urlToMapName(mapParam);
             const side = sideParamToSide(sideParam);
 
-            console.log("Parsed - mapName:", mapName, "side:", side);
-
             if (mapName && side) {
                 setActiveMapNamesForTactics([mapName]);
                 setSelectedSide(side);
-                console.log("Valid parameters set successfully");
             } else {
-                console.log("Invalid parameters, redirecting to /tactics");
                 // Invalid parameters, redirect to tactics selection
                 navigate("/tactics", { replace: true });
             }
         } else if (!mapParam && !sideParam) {
-            console.log("No route parameters present");
             // No route parameters - do nothing, wait for user to click Change Map
         }
     });
