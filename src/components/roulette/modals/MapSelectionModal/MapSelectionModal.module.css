@@ -12,7 +12,7 @@
 }
 
 .modalContent {
-	background-color: var(--bg);
+	background-color: #2c2c2c;
 	border: 1px solid;
 	border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
 	color: var(--text);
