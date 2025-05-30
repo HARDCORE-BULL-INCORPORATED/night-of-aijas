@@ -196,10 +196,10 @@ const TacticsRoulettePage: Component = () => {
         const side = selectedSide();
 
         if (mapName && side) {
-            return `TACTICS ROULETTE - ${mapName.toUpperCase()} (${side})`;
+            return `${mapName.toUpperCase()} (${side})`;
         }
         if (mapName) {
-            return `TACTICS ROULETTE - ${mapName.toUpperCase()}`;
+            return `${mapName.toUpperCase()}`;
         }
         return "TACTICS ROULETTE";
     });
@@ -224,7 +224,7 @@ const TacticsRoulettePage: Component = () => {
 
     return (
         <div class="container">
-            <h1>{pageTitle()}</h1>
+            <h1 style={{ "font-size": "3.5rem" }}>{pageTitle()}</h1>
 
             {hasRouteParams() &&
             activeMapNamesForTactics().length > 0 &&
