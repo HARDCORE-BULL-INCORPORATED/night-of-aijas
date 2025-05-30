@@ -1,5 +1,4 @@
-/* filepath: /Users/kristjan/Documents/github/äijä/src/components/roulette/MapWeightModal.module.css */
-/* General Modal Styles (can be shared or adapted from MapSelectionModal) */
+/* CS16.css styled modal */
 .modalBackdrop {
 	position: fixed;
 	top: 0;
@@ -7,72 +6,70 @@
 	right: 0;
 	bottom: 0;
 	background-color: rgba(0, 0, 0, 0.85);
-	/* Slightly darker for focus */
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	z-index: 1050;
-	/* Ensure it's above other modals if any */
 }
 
 .modalContent {
-	background: linear-gradient(to bottom, #1a2e3d, #0f171f);
-	/* Darker gradient */
-	border-radius: 8px;
-	padding: 25px;
+	background-color: var(--bg);
+	border: 1px solid;
+	border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+	color: var(--text);
+	margin: auto;
 	max-width: 600px;
-	/* Adjusted for content */
 	width: 90%;
 	max-height: 85vh;
 	display: flex;
 	flex-direction: column;
-	/* Allow header, list, actions to stack */
-	box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
-	margin: auto;
+	padding: 4px;
+	user-select: none;
 }
 
 .modalHeader {
+	align-items: center;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	margin-top: 3px;
+	padding-left: 2px;
 	margin-bottom: 20px;
-	padding-bottom: 15px;
-	border-bottom: 1px solid #334a5e;
-	/* Adjusted border color */
 }
 
 .modalTitle {
-	font-size: 22px;
-	/* Slightly larger title */
-	color: #f0c14b;
-	/* Consistent title color */
+	color: #fff;
+	font-size: 16px;
+	line-height: 15px;
 	margin: 0;
 }
 
 .closeButton {
-	background: none;
-	border: none;
-	color: #b0bec5;
-	/* Softer close button color */
-	font-size: 30px;
+	background: no-repeat 50%;
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%238c9284' d='M3 3h1v1H3m1-1h1v1H4M3 4h1v1H3m1-1h1v1H4m0 0h1v1H4m1-1h1v1H5m0-2h1v1H5m0 1h1v1H5m1-1h1v1H6m0-2h1v1H6m0 1h1v1H6m0 0h1v1H6m1-1h1v1H7m0-2h1v1H7m0-2h1v1H7m1-1h1v1H8m0 0h1v1H8m0 0h1v1H8m0-4h1v1H8m1-1h1v1H9m0 0h1v1H9m0-3h1v1H9m1-1h1v1h-1m0 0h1v1h-1m0-3h1v1h-1m1-1h1v1h-1m0 0h1v1h-1M9 8h1v1H9m0 0h1v1H9M8 9h1v1H8m2-1h1v1h-1m0 0h1v1h-1m-1-1h1v1H9m2-1h1v1h-1m0 0h1v1h-1m-1-1h1v1h-1M5 8h1v1H5m0 0h1v1H5m1-1h1v1H6M4 9h1v1H4m0 0h1v1H4m1-1h1v1H5m-2-1h1v1H3m0 0h1v1H3m1-1h1v1H4'/%3E%3C/svg%3E");
+	background-color: var(--bg);
+	border: 1px solid;
+	border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+	color: #fff;
+	font-size: 16px;
+	line-height: 15px;
+	height: 18px;
+	padding: 0;
+	width: 18px;
+	user-select: none;
 	cursor: pointer;
-	line-height: 1;
-	padding: 0 5px;
-	/* Easier to click */
 }
 
-.closeButton:hover {
-	color: #eceff1;
+.closeButton:active {
+	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
 }
 
 .explanationText {
-	font-size: 0.9em;
-	color: #b0bec5;
-	/* Softer color for explanation text */
+	font-size: 16px;
+	color: var(--secondary-text);
 	margin-bottom: 15px;
-	/* Space before the list starts */
-	line-height: 1.4;
+	line-height: 15px;
 	text-align: left;
+	padding: 10px;
 }
 
 /* Map Weight Specific Styles */
@@ -94,88 +91,82 @@
 	display: flex;
 	align-items: center;
 	margin-bottom: 15px;
-	padding: 10px;
-	background-color: rgba(255, 255, 255, 0.05);
-	border-radius: 4px;
+	padding: 4px 5px 3px;
+	background-color: var(--secondary-bg);
+	border: 1px solid;
+	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
 }
 
 .mapImage {
 	width: 80px;
 	height: auto;
 	margin-right: 15px;
-	border-radius: 3px;
+	border: 1px solid;
+	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
 }
 
 .mapName {
 	flex-grow: 1;
-	color: #e0e0e0;
+	color: var(--text);
 	font-size: 16px;
+	line-height: 15px;
 }
 
 .weightInput {
 	width: 70px;
-	padding: 8px;
-	border: 1px solid #334a5e;
-	background-color: #0f171f;
-	color: #e0e0e0;
-	border-radius: 4px;
-	text-align: right;
+	background-color: var(--secondary-bg);
+	border: 1px solid;
+	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+	color: var(--secondary-text);
 	font-size: 16px;
+	line-height: 15px;
+	outline: 0;
+	padding: 3px 2px 2px;
+	text-align: right;
 	margin-right: 10px;
-	/* Add some space before the probability */
 }
 
 .mapProbability {
-	color: #a0a0a0;
-	/* Lighter grey for probability text */
-	font-size: 14px;
+	color: var(--text-3);
+	font-size: 16px;
+	line-height: 15px;
 	min-width: 60px;
-	/* Ensure space for text like (100.0%) */
 	text-align: right;
 }
 
 /* Modal Actions */
 .modalActions {
+	float: right;
+	margin: 4px 8px 8px 0;
 	display: flex;
-	justify-content: flex-end;
-	gap: 12px;
+	gap: 4px;
 	margin-top: auto;
-	/* Push actions to the bottom if content is short */
-	padding-top: 20px;
-	border-top: 1px solid #334a5e;
 }
 
 .actionButton {
-	padding: 10px 20px;
-	border: none;
-	border-radius: 5px;
-	font-weight: bold;
-	text-transform: uppercase;
-	font-size: 14px;
+	background-color: var(--bg);
+	border: 1px solid;
+	border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+	color: #fff;
+	font-size: 16px;
+	line-height: 15px;
+	padding: 4px 5px 3px;
+	user-select: none;
+	text-align: left;
+	width: 72px;
 	cursor: pointer;
-	transition: background-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.actionButton.saveButton {
-	/* More specific selector for save */
-	background: linear-gradient(to bottom, #f0c14b, #c7a140);
-	color: #111;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.actionButton.saveButton:hover {
-	background: linear-gradient(to bottom, #f4ca58, #d6ae4a);
-	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-}
-
-.actionButton {
-	/* Default/Cancel button style */
-	background-color: #4b5563;
-	/* Neutral button color */
-	color: white;
+	transition: background-color 0.1s ease;
 }
 
 .actionButton:hover {
-	background-color: #5a6675;
-	/* Slightly lighter on hover */
+	background-color: var(--secondary-bg);
+	color: var(--accent);
+}
+
+.actionButton:active {
+	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+}
+
+.saveButton {
+	/* Uses default cs-btn styling */
 }
