@@ -66,109 +66,111 @@ const SpinDurationSliderContainer: Component<
 					/>
 				</div>
 
-				{/* Custom max controls */}
-				<div
-					style={{
-						display: "flex",
-						"align-items": "center",
-						gap: "8px",
-						"font-size": "12px",
-					}}
-				>
-					<Show when={!showCustomMaxInput()}>
-						<span>Max: {customMax()}s</span>
-						<button
-							class="cs-btn"
-							type="button"
-							onClick={() => setShowCustomMaxInput(true)}
-							style={{
-								border: "1px solid #666",
-								"border-radius": "4px",
-								padding: "6px 8px",
-								"font-size": "11px",
-								cursor: "pointer",
-							}}
-						>
-							Custom Max
-						</button>
-						<Show when={customMax() !== 30}>
+				{/* Custom max controls - only show in development mode */}
+				<Show when={import.meta.env.DEV}>
+					<div
+						style={{
+							display: "flex",
+							"align-items": "center",
+							gap: "8px",
+							"font-size": "12px",
+						}}
+					>
+						<Show when={!showCustomMaxInput()}>
+							<span>Max: {customMax()}s</span>
 							<button
 								class="cs-btn"
 								type="button"
-								onClick={handleResetToDefault}
+								onClick={() => setShowCustomMaxInput(true)}
 								style={{
-									border: "1px solid #888",
+									border: "1px solid #666",
+									"border-radius": "4px",
+									padding: "6px 8px",
+									"font-size": "11px",
+									cursor: "pointer",
+								}}
+							>
+								Custom Max
+							</button>
+							<Show when={customMax() !== 30}>
+								<button
+									class="cs-btn"
+									type="button"
+									onClick={handleResetToDefault}
+									style={{
+										border: "1px solid #888",
+										"border-radius": "4px",
+										padding: "2px 6px",
+										"font-size": "11px",
+										cursor: "pointer",
+									}}
+								>
+									Reset (30s)
+								</button>
+							</Show>
+						</Show>
+
+						<Show when={showCustomMaxInput()}>
+							<input
+								type="number"
+								placeholder="Max seconds"
+								value={customMaxInput()}
+								onInput={(e) => setCustomMaxInput(e.currentTarget.value)}
+								onKeyDown={(e) => {
+									if (e.key === "Enter") handleSetCustomMax();
+									if (e.key === "Escape") {
+										setShowCustomMaxInput(false);
+										setCustomMaxInput("");
+									}
+								}}
+								style={{
+									width: "80px",
+									padding: "2px 4px",
+									border: "1px solid #666",
+									"border-radius": "4px",
+									background: "#333",
+									color: "white",
+									"font-size": "11px",
+								}}
+								min="1"
+								max="1000"
+							/>
+							<button
+								type="button"
+								onClick={handleSetCustomMax}
+								style={{
+									background: "#4CAF50",
+									color: "white",
+									border: "1px solid #45a049",
 									"border-radius": "4px",
 									padding: "2px 6px",
 									"font-size": "11px",
 									cursor: "pointer",
 								}}
 							>
-								Reset (30s)
+								Set
 							</button>
-						</Show>
-					</Show>
-
-					<Show when={showCustomMaxInput()}>
-						<input
-							type="number"
-							placeholder="Max seconds"
-							value={customMaxInput()}
-							onInput={(e) => setCustomMaxInput(e.currentTarget.value)}
-							onKeyDown={(e) => {
-								if (e.key === "Enter") handleSetCustomMax();
-								if (e.key === "Escape") {
+							<button
+								type="button"
+								onClick={() => {
 									setShowCustomMaxInput(false);
 									setCustomMaxInput("");
-								}
-							}}
-							style={{
-								width: "80px",
-								padding: "2px 4px",
-								border: "1px solid #666",
-								"border-radius": "4px",
-								background: "#333",
-								color: "white",
-								"font-size": "11px",
-							}}
-							min="1"
-							max="1000"
-						/>
-						<button
-							type="button"
-							onClick={handleSetCustomMax}
-							style={{
-								background: "#4CAF50",
-								color: "white",
-								border: "1px solid #45a049",
-								"border-radius": "4px",
-								padding: "2px 6px",
-								"font-size": "11px",
-								cursor: "pointer",
-							}}
-						>
-							Set
-						</button>
-						<button
-							type="button"
-							onClick={() => {
-								setShowCustomMaxInput(false);
-								setCustomMaxInput("");
-							}}
-							style={{
-								background: "#f44336",
-								color: "white",
-								border: "1px solid #da190b",
-								"border-radius": "4px",
-								padding: "2px 6px",
-								"font-size": "11px",
-								cursor: "pointer",
-							}}
-						>
-							Cancel
-						</button>
-					</Show>
-				</div>
+								}}
+								style={{
+									background: "#f44336",
+									color: "white",
+									border: "1px solid #da190b",
+									"border-radius": "4px",
+									padding: "2px 6px",
+									"font-size": "11px",
+									cursor: "pointer",
+								}}
+							>
+								Cancel
+							</button>
+						</Show>
+					</div>
+				</Show>
 			</div>
 		</Show>
 	);
