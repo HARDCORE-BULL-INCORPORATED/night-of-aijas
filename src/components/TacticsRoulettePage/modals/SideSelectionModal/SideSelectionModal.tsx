@@ -59,24 +59,21 @@ const SideSelectionModal: Component<SideSelectionModalProps> = (props) => {
 					<div class={styles.sideButtonsContainer}>
 						<button
 							type="button"
-							class="cs-btn"
-							style={{ padding: "15px 25px", "font-size": "18px" }}
+							class={`cs-btn ${styles.sideButton} ${styles.ctButton}`}
 							onClick={() => handleSideSelect("CT")}
 						>
 							Counter-Terrorist
 						</button>
 						<button
 							type="button"
-							class="cs-btn"
-							style={{ padding: "15px 25px", "font-size": "18px" }}
+							class={`cs-btn ${styles.sideButton} ${styles.tButton}`}
 							onClick={() => handleSideSelect("T")}
 						>
 							Terrorist
 						</button>
 						<button
 							type="button"
-							class="cs-btn"
-							style={{ padding: "15px 25px", "font-size": "18px" }}
+							class={`cs-btn ${styles.sideButton} ${styles.bothButton}`}
 							onClick={() => handleSideSelect("Both")}
 						>
 							Both Sides

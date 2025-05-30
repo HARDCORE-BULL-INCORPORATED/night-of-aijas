@@ -1,4 +1,4 @@
-/* Styles for SideSelectionModal */
+/* CS16.css styled modal */
 .modalBackdrop {
 	position: fixed;
 	top: 0;
@@ -9,123 +9,135 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 1050; /* Higher than map selection modal */
+	z-index: 1050;
 }
 
 .modalContent {
-	background: linear-gradient(to bottom, #1a2a38, #101820);
-	border-radius: 8px;
-	padding: 20px;
+	background-color: var(--bg);
+	border: 1px solid;
+	border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+	color: var(--text);
+	margin: auto;
 	max-width: 500px;
 	width: 90%;
 	text-align: center;
-	box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+	padding: 4px;
 	position: relative;
 	z-index: 1051;
+	user-select: none;
 }
 
 .modalHeader {
+	align-items: center;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	margin-top: 3px;
+	padding-left: 2px;
 	margin-bottom: 20px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #3a4f62;
 }
 
 .modalTitle {
-	font-size: 20px;
-	color: #f0c14b;
-	margin: 0 auto; /* Center title */
+	color: #fff;
+	font-size: 16px;
+	line-height: 15px;
+	margin: 0 auto;
 }
 
 .closeButton {
-	background: none;
-	border: none;
-	color: #ccc;
-	font-size: 28px;
+	background: no-repeat 50%;
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%238c9284' d='M3 3h1v1H3m1-1h1v1H4M3 4h1v1H3m1-1h1v1H4m0 0h1v1H4m1-1h1v1H5m0-2h1v1H5m0 1h1v1H5m1-1h1v1H6m0-2h1v1H6m0 1h1v1H6m0 0h1v1H6m1-1h1v1H7m0-2h1v1H7m0-2h1v1H7m1-1h1v1H8m0 0h1v1H8m0 0h1v1H8m0-4h1v1H8m1-1h1v1H9m0 0h1v1H9m0-3h1v1H9m1-1h1v1h-1m0 0h1v1h-1m0-3h1v1h-1m1-1h1v1h-1m0 0h1v1h-1M9 8h1v1H9m0 0h1v1H9M8 9h1v1H8m2-1h1v1h-1m0 0h1v1h-1m-1-1h1v1H9m2-1h1v1h-1m0 0h1v1h-1m-1-1h1v1h-1M5 8h1v1H5m0 0h1v1H5m1-1h1v1H6M4 9h1v1H4m0 0h1v1H4m1-1h1v1H5m-2-1h1v1H3m0 0h1v1H3m1-1h1v1H4'/%3E%3C/svg%3E");
+	background-color: var(--bg);
+	border: 1px solid;
+	border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+	color: #fff;
+	font-size: 16px;
+	line-height: 15px;
+	height: 18px;
+	padding: 0;
+	width: 18px;
+	user-select: none;
 	cursor: pointer;
-	line-height: 1;
 	position: absolute;
 	top: 10px;
 	right: 15px;
 }
 
-.closeButton:hover {
-	color: white;
+.closeButton:active {
+	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
 }
 
 .sideButtonsContainer {
 	display: flex;
-	flex-direction: column; /* Stack buttons vertically */
-	gap: 15px; /* Space between buttons */
+	flex-direction: column;
+	gap: 15px;
 	margin-top: 10px;
+	padding: 10px;
 }
 
 .sideButton {
-	padding: 12px 20px;
-	border: none;
-	border-radius: 5px;
-	font-weight: bold;
-	text-transform: uppercase;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+	background-color: var(--bg);
+	border: 1px solid;
+	border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
 	color: #fff;
+	font-size: 16px;
+	line-height: 15px;
+	padding: 12px 20px;
+	user-select: none;
+	cursor: pointer;
+	text-transform: uppercase;
 }
 
-.sideButton:hover {
-	transform: translateY(-2px);
+.sideButton:active {
+	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
 }
 
 .ctButton {
-	background-color: #5a8de6; /* CS:GO CT Blue */
+	background-color: #5a8de6;
 }
 
-.ctButton:hover {
-	background-color: #4a7bd0;
+.ctButton:active {
+	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
 }
 
 .tButton {
-	background-color: #f0c14b; /* CS:GO T Yellow/Gold */
-	color: #111; /* Darker text for better contrast on yellow */
+	background-color: #f0c14b;
+	color: #111;
 }
 
-.tButton:hover {
-	background-color: #e0b03a;
+.tButton:active {
+	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
 }
 
 .bothButton {
-	background-color: #6c757d; /* Neutral/Gray */
+	background-color: #6c757d;
 }
 
-.bothButton:hover {
-	background-color: #5a6268;
+.bothButton:active {
+	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
 }
 
-/* Optional styles for modalActions if a separate cancel button is desired */
 .modalActions {
 	margin-top: 25px;
 	display: flex;
-	justify-content: flex-end; /* Or center, depending on design */
+	justify-content: flex-end;
 }
 
 .actionButton {
-	padding: 10px 15px;
-	border: none;
-	border-radius: 4px;
-	font-weight: bold;
-	text-transform: uppercase;
-	font-size: 13px;
+	background-color: var(--bg);
+	border: 1px solid;
+	border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+	color: #fff;
+	font-size: 16px;
+	line-height: 15px;
+	padding: 4px 5px 3px;
+	user-select: none;
 	cursor: pointer;
-	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.actionButton:active {
+	border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
 }
 
 .cancelButton {
-	background-color: #4a5568;
-	color: white;
-}
-
-.cancelButton:hover {
-	background-color: #2d3748;
+	/* Uses default cs-btn styling */
 }
