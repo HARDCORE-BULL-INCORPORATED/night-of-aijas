@@ -34,12 +34,25 @@ const MapManagementButtons: Component<MapManagementButtonsProps> = (props) => {
 		setIsMapSelectionModalOpen(false); // Close modal after saving
 	};
 
+	// Real-time map selection handler
+	const handleMapSelectionChange = (selectedMapNames: string[]) => {
+		const newActiveMaps = props.allPossibleMaps.filter((map) =>
+			selectedMapNames.includes(map.name),
+		);
+		props.onActiveMapsChange(newActiveMaps);
+	};
+
 	// Handlers for MapWeightModal
 	const handleOpenMapWeightModal = () => setIsMapWeightModalOpen(true);
 	const handleCloseMapWeightModal = () => setIsMapWeightModalOpen(false);
 	const handleSaveMapWeights = (updatedMapConfigs: CaseItem[]) => {
 		props.onActiveMapsChange(updatedMapConfigs);
 		setIsMapWeightModalOpen(false); // Close modal after saving
+	};
+
+	// Real-time weight change handler
+	const handleMapWeightChange = (updatedMapConfigs: CaseItem[]) => {
+		props.onActiveMapsChange(updatedMapConfigs);
 	};
 
 	// Handlers for PresetSelectionModal
@@ -99,6 +112,7 @@ const MapManagementButtons: Component<MapManagementButtonsProps> = (props) => {
 				activeMapIds={props.activeMaps.map((map) => map.name)} // Use map.name
 				// onSave will now correctly align with the updated handleSaveMapSelection
 				onSave={handleSaveMapSelection}
+				onSelectionChange={handleMapSelectionChange}
 			/>
 
 			<MapWeightModal
@@ -106,6 +120,7 @@ const MapManagementButtons: Component<MapManagementButtonsProps> = (props) => {
 				onClose={handleCloseMapWeightModal}
 				currentMapConfigs={props.activeMaps}
 				onSave={handleSaveMapWeights}
+				onWeightChange={handleMapWeightChange}
 			/>
 
 			<Show when={props.presets && props.presets.length > 0}>

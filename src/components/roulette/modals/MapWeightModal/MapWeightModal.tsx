@@ -9,6 +9,7 @@ interface MapWeightModalProps {
 	onClose: () => void;
 	currentMapConfigs: CaseItem[];
 	onSave: (updatedMapConfigs: CaseItem[]) => void;
+	onWeightChange?: (updatedMapConfigs: CaseItem[]) => void; // New callback for real-time updates
 }
 
 const MapWeightModal: Component<MapWeightModalProps> = (props) => {
@@ -29,16 +30,33 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
 	const handleWeightChange = (mapName: string, newWeight: string) => {
 		if (newWeight === "") {
 			setEditableMapConfigs((map) => map.name === mapName, "weight", 0);
-			return;
+		} else {
+			const weightValue = Number.parseFloat(newWeight);
+
+			if (Number.isNaN(weightValue) || weightValue < 0) {
+				return;
+			}
+
+			setEditableMapConfigs(
+				(map) => map.name === mapName,
+				"weight",
+				weightValue,
+			);
 		}
 
-		const weightValue = Number.parseFloat(newWeight);
-
-		if (Number.isNaN(weightValue) || weightValue < 0) {
-			return;
+		// Call the real-time callback if provided
+		if (props.onWeightChange) {
+			// Create a copy of the current state with the updated weight
+			const updatedConfigs = editableMapConfigs.map((map) =>
+				map.name === mapName
+					? {
+							...map,
+							weight: newWeight === "" ? 0 : Number.parseFloat(newWeight) || 0,
+						}
+					: { ...map },
+			);
+			props.onWeightChange(updatedConfigs);
 		}
-
-		setEditableMapConfigs((map) => map.name === mapName, "weight", weightValue);
 	};
 
 	const handleSave = () => {

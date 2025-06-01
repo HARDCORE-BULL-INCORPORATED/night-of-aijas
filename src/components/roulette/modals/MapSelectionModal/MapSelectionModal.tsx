@@ -9,6 +9,7 @@ interface MapSelectionModalProps {
 	allMaps: CaseItem[];
 	activeMapIds: string[];
 	onSave: (selectedMapNames: string[]) => void;
+	onSelectionChange?: (selectedMapNames: string[]) => void; // New callback for real-time updates
 }
 
 const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
@@ -23,11 +24,14 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 
 	const handleCheckboxChange = (mapName: string, checked: boolean) => {
 		// Changed mapId to mapName
-		if (checked) {
-			setSelectedNames([...selectedNames(), mapName]);
-		} else {
-			setSelectedNames(selectedNames().filter((name) => name !== mapName));
-		}
+		const newSelection = checked
+			? [...selectedNames(), mapName]
+			: selectedNames().filter((name) => name !== mapName);
+
+		setSelectedNames(newSelection);
+
+		// Call the real-time callback if provided
+		props.onSelectionChange?.(newSelection);
 	};
 
 	const handleSave = () => {
@@ -44,10 +48,14 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 	const handleSelectAll = () => {
 		const allMapNames = props.allMaps.map((map) => map.name); // Changed to map.name
 		setSelectedNames(allMapNames);
+		// Call the real-time callback if provided
+		props.onSelectionChange?.(allMapNames);
 	};
 
 	const handleDeselectAll = () => {
 		setSelectedNames([]);
+		// Call the real-time callback if provided
+		props.onSelectionChange?.([]);
 	};
 
 	const firstRowMaps = () => props.allMaps.slice(0, 7);
