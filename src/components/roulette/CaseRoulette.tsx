@@ -249,9 +249,12 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 								(map) => map.name !== actualWinnerInArray.name,
 							);
 							setActiveMaps(newActiveMaps);
-							// Optionally, if using a MapSelectionModal that takes activeMapIds (strings),
-							// you might need to inform the parent or manage that state here too.
-							// This depends on how MapSelectionModal is integrated and how its state is managed.
+
+							// Notify parent component about the active maps change
+							// This will trigger URL update in the state management system
+							if (props.onActiveMapsChange) {
+								props.onActiveMapsChange(newActiveMaps);
+							}
 						}
 					}
 				};
