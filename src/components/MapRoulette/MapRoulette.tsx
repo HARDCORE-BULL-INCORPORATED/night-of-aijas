@@ -1,20 +1,25 @@
 import type { Component } from "solid-js";
-import { createSignal } from "solid-js";
 import CaseRoulette from "../roulette/CaseRoulette";
 import type { CaseItem } from "../roulette/types";
 import { mapCase as allPossibleMapsData } from "./mapCase";
-import { mapPresets } from "./mapPresets"; // Import presets from the new file
+import { mapPresets } from "./mapPresets";
+import { useRouletteState } from "../../hooks/useRouletteState";
 
 const MapRoulette: Component = () => {
-	const [wonItems, setWonItems] = createSignal<CaseItem[]>([]);
+	const { activeMaps, wonItems, addWonItem, clearWonItems, setActiveMaps } =
+		useRouletteState("mapRoulette", [...allPossibleMapsData]);
 
 	const handleItemWon = (item: CaseItem): void => {
-		setWonItems([item, ...wonItems()]);
+		addWonItem(item);
 		console.log(`Map selected: ${item.name} (${item.rarity})`);
 	};
 
 	const handleClearHistory = () => {
-		setWonItems([]);
+		clearWonItems();
+	};
+
+	const handleActiveMapsChange = (maps: CaseItem[]) => {
+		setActiveMaps(maps);
 	};
 
 	return (
@@ -23,17 +28,19 @@ const MapRoulette: Component = () => {
 			<p>SPIN THE WHEEL AND LET THE GAME DECIDE YOUR NEXT MAP!</p>
 
 			<CaseRoulette
-				items={[...allPossibleMapsData]} // Provide initial items, CSGOCaseRoulette will manage activeMaps from this if enabled
+				items={
+					activeMaps().length > 0 ? activeMaps() : [...allPossibleMapsData]
+				}
 				allMaps={[...allPossibleMapsData]}
-				initialActiveMaps={[...allPossibleMapsData]} // Start with all maps active
+				initialActiveMaps={activeMaps()}
 				onItemWon={handleItemWon}
-				enableMapManagement={true} // Enable map selection and weight modals
-				enableSpinDurationSlider={true} // Enable the internal spin duration slider
-				initialSpinDuration={8} // Set initial spin duration for the slider
-				presets={mapPresets} // Pass the presets here
-				showWonItemsHistory={true} // New prop to show history
-				wonItems={wonItems()} // Pass won items to CaseRoulette
-				onClearWonItemsHistory={handleClearHistory} // Add this line
+				onActiveMapsChange={handleActiveMapsChange}
+				enableMapManagement={true}
+				enableSpinDurationSlider={true}
+				presets={mapPresets}
+				showWonItemsHistory={true}
+				wonItems={wonItems()}
+				onClearWonItemsHistory={handleClearHistory}
 				historyTitle="Map History"
 				selectItemsButtonText="Select Maps"
 				itemWeightsButtonText="Map Weights"

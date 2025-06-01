@@ -29,6 +29,7 @@ interface CaseRouletteProps {
 	enableMapManagement?: boolean; // To control if map modals are active
 	allMaps?: CaseItem[]; // All available maps for selection
 	initialActiveMaps?: CaseItem[]; // Initially selected maps
+	onActiveMapsChange?: (maps: CaseItem[]) => void; // Callback when active maps change
 	enableSpinDurationSlider?: boolean; // To control if spin duration slider is active
 	initialSpinDuration?: number; // Initial spin duration
 	presets?: RoulettePreset[];
@@ -93,6 +94,13 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 			.filter((map): map is CaseItem => map !== null);
 
 		setActiveMaps(newActiveMaps);
+		props.onActiveMapsChange?.(newActiveMaps);
+	};
+
+	// Wrapper function to handle active maps changes
+	const handleActiveMapsChange = (maps: CaseItem[]) => {
+		setActiveMaps(maps);
+		props.onActiveMapsChange?.(maps);
 	};
 
 	// Function to update dimensions based on window size
@@ -296,7 +304,7 @@ const CaseRoulette: Component<CaseRouletteProps> = (props) => {
 				presets={props.presets}
 				activeMaps={activeMaps()}
 				allPossibleMaps={allPossibleMaps()}
-				onActiveMapsChange={setActiveMaps}
+				onActiveMapsChange={handleActiveMapsChange}
 				onPresetSelect={handlePresetSelect}
 				selectItemsButtonText={props.selectItemsButtonText}
 				itemWeightsButtonText={props.itemWeightsButtonText}
