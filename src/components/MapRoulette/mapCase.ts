@@ -4,14 +4,14 @@ export const mapCase = [
 	{
 		name: "Dust II",
 		rarity: "Consumer",
-		weight: 0.5,
+		weight: 1,
 		image: "/maps/de_dust2.png",
 	},
 	{
 		name: "Mirage",
 		image: "/maps/de_mirage.png",
 		rarity: "Consumer",
-		weight: 0.5,
+		weight: 1,
 	},
 	{
 		name: "Inferno",
@@ -80,7 +80,7 @@ export const mapCase = [
 		name: "Office",
 		image: "/maps/cs_office.png",
 		rarity: "Rare Special Item",
-		weight: 1.5,
+		weight: 1,
 		description: "OFFICEEN OFFICEEN",
 	},
 	{
