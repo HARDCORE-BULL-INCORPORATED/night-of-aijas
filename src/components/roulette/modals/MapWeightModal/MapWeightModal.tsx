@@ -113,6 +113,19 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
 						1. Weights are relative to each other.
 					</p>
 
+					<p
+						class={styles.warningText || styles.explanationText}
+						style={{
+							color: "#f39c12",
+							"font-size": "14px",
+							"margin-top": "10px",
+							"font-style": "italic",
+						}}
+					>
+						⚠️ Note: Updating the map pool (adding/removing maps) will reset all
+						weights to 1 for now.
+					</p>
+
 					<div class={styles.mapRowsContainer}>
 						<ul class={styles.mapListRow}>
 							<For each={editableMapConfigs.slice(0, 7)}>

@@ -95,6 +95,19 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 						</button>
 					</div>
 
+					<p
+						class={styles.warningText || styles.explanationText}
+						style={{
+							color: "#f39c12",
+							"font-size": "14px",
+							"margin": "15px 20px",
+							"font-style": "italic",
+							"text-align": "center"
+						}}
+					>
+						⚠️ Note: Changing the map selection will reset all custom map weights to 1.
+					</p>
+
 					<div class={styles.mapRowsContainer}>
 						<ul class={styles.mapListRow}>
 							<For each={firstRowMaps()}>
