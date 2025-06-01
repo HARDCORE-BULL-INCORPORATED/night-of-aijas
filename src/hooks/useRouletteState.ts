@@ -61,7 +61,6 @@ export function useRouletteState(
 
 	const getCurrentState = (): Partial<RouletteState> => ({
 		activeMaps: activeMaps().map((m) => m.name),
-		mapWeights: Object.fromEntries(activeMaps().map((m) => [m.name, m.weight])),
 		showResultModal: showResultModal(),
 		filterOutRolledItems: filterOutRolledItems(),
 		spinDuration: spinDuration(),
@@ -73,16 +72,7 @@ export function useRouletteState(
 			const maps = allMaps.filter((map) =>
 				state.activeMaps?.includes(map.name),
 			);
-			if (state.mapWeights) {
-				// Apply custom weights
-				const mapsWithWeights = maps.map((map) => ({
-					...map,
-					weight: state.mapWeights?.[map.name] ?? map.weight,
-				}));
-				setActiveMaps(mapsWithWeights);
-			} else {
-				setActiveMaps(maps);
-			}
+			setActiveMaps(maps);
 		}
 
 		if (state.showResultModal !== undefined)

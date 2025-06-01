@@ -2,7 +2,6 @@ import type { RouletteState } from "./rouletteState";
 
 export interface UrlParams {
 	maps?: string;
-	weights?: string;
 	duration?: string;
 	modal?: string;
 	filter?: string;
@@ -13,10 +12,6 @@ export function encodeStateToUrl(state: Partial<RouletteState>): UrlParams {
 
 	if (state.activeMaps && state.activeMaps.length > 0) {
 		params.maps = state.activeMaps.join(",");
-	}
-
-	if (state.mapWeights && Object.keys(state.mapWeights).length > 0) {
-		params.weights = btoa(JSON.stringify(state.mapWeights));
 	}
 
 	if (state.spinDuration !== undefined && state.spinDuration !== 8) {
@@ -44,15 +39,6 @@ export function decodeStateFromUrl(searchParams: {
 		state.activeMaps = maps.split(",").filter(Boolean);
 	}
 
-	const weights = searchParams.get("weights");
-	if (weights) {
-		try {
-			state.mapWeights = JSON.parse(atob(weights));
-		} catch (error) {
-			console.warn("Failed to decode weights from URL:", error);
-		}
-	}
-
 	const duration = searchParams.get("duration");
 	if (duration) {
 		const parsed = Number.parseFloat(duration);
@@ -78,7 +64,7 @@ export function updateUrlParams(params: UrlParams, replace = true): void {
 	const url = new URL(window.location.href);
 
 	// Clear existing roulette-related params
-	for (const key of ["maps", "weights", "duration", "modal", "filter"]) {
+	for (const key of ["maps", "duration", "modal", "filter"]) {
 		url.searchParams.delete(key);
 	}
 
