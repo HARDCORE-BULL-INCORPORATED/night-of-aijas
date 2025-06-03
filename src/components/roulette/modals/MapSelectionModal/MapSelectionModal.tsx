@@ -100,12 +100,13 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 						style={{
 							color: "#f39c12",
 							"font-size": "14px",
-							"margin": "15px 20px",
+							margin: "15px 20px",
 							"font-style": "italic",
-							"text-align": "center"
+							"text-align": "center",
 						}}
 					>
-						⚠️ Note: Changing the map selection will reset all custom map weights to 1.
+						⚠️ Note: Changing the map selection will reset all custom map weights
+						to 1.
 					</p>
 
 					<div class={styles.mapRowsContainer}>
