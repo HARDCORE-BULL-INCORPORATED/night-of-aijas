@@ -178,12 +178,12 @@
 	border-color: var(--border-light) var(--border-dark) var(--border-dark)
 		var(--border-light);
 	color: #fff;
-	font-size: 16px;
-	line-height: 15px;
-	padding: 4px 5px 3px;
+	font-size: 18px;
+	line-height: 17px;
+	padding: 8px 12px 7px;
 	user-select: none;
-	text-align: left;
-	width: 72px;
+	text-align: center;
+	min-width: 120px;
 	cursor: pointer;
 	transition: background-color 0.1s ease;
 }

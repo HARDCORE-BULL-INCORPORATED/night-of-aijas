@@ -96,6 +96,50 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
         }
     };
 
+    const handleUpdateProbabilities = () => {
+        // Process all current input values and update the numeric weights
+        for (const map of editableMapConfigs) {
+            const inputValue = weightInputs[map.name] || map.weight.toString();
+            if (inputValue === "") {
+                setEditableMapConfigs((m) => m.name === map.name, "weight", 0);
+            } else {
+                const normalizedWeight = inputValue.replace(",", ".");
+                const weightValue = Number.parseFloat(normalizedWeight);
+
+                if (!Number.isNaN(weightValue) && weightValue >= 0) {
+                    setEditableMapConfigs(
+                        (m) => m.name === map.name,
+                        "weight",
+                        weightValue,
+                    );
+                } else {
+                    // Reset invalid inputs to current weight
+                    setWeightInputs(map.name, map.weight.toString());
+                }
+            }
+        }
+
+        // Call the callback if provided
+        if (props.onWeightChange) {
+            const updatedConfigs = editableMapConfigs.map((map) => {
+                const inputValue =
+                    weightInputs[map.name] || map.weight.toString();
+                const normalizedWeight = inputValue.replace(",", ".");
+                const parsedWeight = Number.parseFloat(normalizedWeight);
+                const validWeight =
+                    !Number.isNaN(parsedWeight) && parsedWeight >= 0
+                        ? parsedWeight
+                        : map.weight;
+
+                return {
+                    ...map,
+                    weight: inputValue === "" ? 0 : validWeight,
+                };
+            });
+            props.onWeightChange(updatedConfigs);
+        }
+    };
+
     const handleSave = () => {
         const configsWithEnsuredWeights = editableMapConfigs.map((map) => ({
             ...map,
@@ -280,6 +324,21 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
                                 </For>
                             </ul>
                         </Show>
+                    </div>
+
+                    <div
+                        style={{
+                            "text-align": "center",
+                            margin: "20px 0",
+                        }}
+                    >
+                        <button
+                            type="button"
+                            class={styles.actionButton}
+                            onClick={handleUpdateProbabilities}
+                        >
+                            Update Probabilities
+                        </button>
                     </div>
 
                     <div class={styles.modalActions}>
