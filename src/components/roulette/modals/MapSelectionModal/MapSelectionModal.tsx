@@ -63,6 +63,7 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 
 	return (
 		<Show when={props.isOpen}>
+			{/** biome-ignore lint/a11y/noStaticElementInteractions: <explanation> */}
 			<div
 				class={styles.modalBackdrop}
 				onClick={handleBackdropClick}

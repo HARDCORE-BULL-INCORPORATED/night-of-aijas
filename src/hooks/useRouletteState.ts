@@ -4,7 +4,7 @@ import type { CaseItem } from "../components/roulette/types";
 import {
 	rouletteStateManager,
 	type RouletteState,
-	RouletteStates,
+	type RouletteStates,
 } from "../utils/rouletteState";
 import {
 	decodeStateFromUrl,

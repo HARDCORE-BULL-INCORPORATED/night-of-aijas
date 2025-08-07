@@ -1,14 +1,12 @@
 import type { CaseItem } from "./types";
-import { RARITY_COLORS } from "./types"; // Import RARITY_COLORS
+import { RARITY_COLORS } from "./types"; 
 
-// Get the color for an item based on its rarity
 export const getItemColor = (item: CaseItem): string => {
 	return RARITY_COLORS[item.rarity] || RARITY_COLORS.Consumer;
 };
 
 // Select a weighted random item from the array
 export const selectWeightedRandomItem = (items: CaseItem[]): CaseItem => {
-	// Calculate total weight
 	const totalWeight = items.reduce((sum, item) => sum + (item.weight || 1), 0);
 
 	const randomValue = Math.random() * totalWeight;
@@ -27,7 +25,7 @@ export const selectWeightedRandomItem = (items: CaseItem[]): CaseItem => {
 
 export const generateRouletteItems = (
 	currentItems: CaseItem[],
-	spinDuration: number, // Parameter name matches usage
+	spinDuration: number, 
 	itemsInViewCount: number,
 ) => {
 	if (!currentItems || !currentItems.length) return [];

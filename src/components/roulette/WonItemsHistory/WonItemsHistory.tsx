@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: <explanation> */
 import type { Component } from "solid-js";
 import { For, Show } from "solid-js";
 import type { CaseItem } from "../types";

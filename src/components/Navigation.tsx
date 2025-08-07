@@ -3,7 +3,7 @@ import { A, useLocation } from "@solidjs/router";
 
 const Navigation: Component = () => {
 	const location = useLocation();
-	
+
 	const isActive = (path: string) => {
 		if (path === "/" || path === "/home") {
 			return location.pathname === "/" || location.pathname === "/home";

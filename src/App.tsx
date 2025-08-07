@@ -10,37 +10,37 @@ import TacticsRoulettePage from "./components/TacticsRoulettePage/TacticsRoulett
 import ViinatRoulette from "./components/ViinatRoulette";
 
 const Layout: ParentComponent = (props) => {
-  return (
-    <div class="app-container">
-      <header class="header">
-        <Navigation />
-      </header>
-      <main>{props.children}</main>
-    </div>
-  );
+	return (
+		<div class="app-container">
+			<header class="header">
+				<Navigation />
+			</header>
+			<main>{props.children}</main>
+		</div>
+	);
 };
 
 function App() {
-  return (
-    <Router root={Layout}>
-      <Route path="/" component={Home} />
-      <Route path="/docs" component={Docs} />
-      <Route path="/tactics" component={TacticsRoulettePage} />
-      <Route path="/tactics/:map/:side" component={TacticsRoulettePage} />
-      <Route path="/roulette" component={MapRoulette} />
-      {/* <Route path="/PIEP-I-NATOR" component={PIEPINATOR} /> */}
-      <Route path="/viinat" component={ViinatRoulette} />
-      <Route
-        path="*"
-        component={() => (
-          <div class="container">
-            <h1>Page Not Found</h1>
-            <p>The page you're looking for doesn't exist.</p>
-          </div>
-        )}
-      />
-    </Router>
-  );
+	return (
+		<Router root={Layout}>
+			<Route path="/" component={Home} />
+			<Route path="/docs" component={Docs} />
+			<Route path="/tactics" component={TacticsRoulettePage} />
+			<Route path="/tactics/:map/:side" component={TacticsRoulettePage} />
+			<Route path="/roulette" component={MapRoulette} />
+			{/* <Route path="/PIEP-I-NATOR" component={PIEPINATOR} /> */}
+			<Route path="/viinat" component={ViinatRoulette} />
+			<Route
+				path="*"
+				component={() => (
+					<div class="container">
+						<h1>Page Not Found</h1>
+						<p>The page you're looking for doesn't exist.</p>
+					</div>
+				)}
+			/>
+		</Router>
+	);
 }
 
 export default App;
