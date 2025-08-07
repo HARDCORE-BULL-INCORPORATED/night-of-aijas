@@ -23,13 +23,6 @@ const consumerGradeItems: ConsumerItem[] = [
 
 const industrialGradeItems: IndustrialItem[] = [
 	{
-		name: "Kyrö",
-		rarity: "Industrial",
-		weight: 1,
-		image: "viinat/kyro.jpg",
-		description: "",
-	},
-	{
 		name: "Finlandia",
 		rarity: "Industrial",
 		weight: 1,
@@ -88,13 +81,6 @@ const restrictedItems: RestrictedItem[] = [
 
 const classifiedItems: ClassifiedItem[] = [
 	{
-		name: "Sisuviina",
-		rarity: "Classified",
-		weight: 1,
-		image: "viinat/sisuviina.jpg",
-		description: "",
-	},
-	{
 		name: "Saaremaa",
 		rarity: "Classified",
 		weight: 1,
@@ -132,7 +118,7 @@ const rareSpecialItems: RareSpecialItem[] = [
 	{
 		name: "Koskenkorva Vodka 60%",
 		rarity: "Rare Special Item",
-		weight: 1,
+		weight: 0.5,
 		image: "/viinat/kossu-60.jpg",
 		description: "",
 	},
