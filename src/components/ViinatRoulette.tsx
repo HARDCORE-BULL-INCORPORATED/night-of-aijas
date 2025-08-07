@@ -6,12 +6,26 @@ import { useRouletteState } from "../hooks/useRouletteState";
 // Placeholder Finnish booze list
 export const boozeCase: CaseItem[] = [
 	{
-		name: "Koskenkorva Vodka 60% muovipullo",
+		name: "Koskenkorva Vodka 60%",
 		rarity: "Rare Special Item",
 		weight: 1,
 		image: "/viinat/kossu-60.jpg",
 		description:
 			"https://www.alko.fi/tuotteet/946328/Koskenkorva-Vodka-60-muovipullo/",
+	},
+	{
+		name: "Koskenkorva 38%",
+		rarity: "Restricted",
+		weight: 1,
+		image: "viinat/koskenkorva-38.jpg",
+		description: "",
+	},
+	{
+		name: "Koskenkorva 40%",
+		rarity: "Covert",
+		weight: 1,
+		image: "viinat/koskenkorva-40.jpg",
+		description: "",
 	},
 	{
 		name: "Tapio",
@@ -41,13 +55,7 @@ export const boozeCase: CaseItem[] = [
 		image: "viinat/saunalahden-viina.jpg",
 		description: "",
 	},
-	{
-		name: "Koskenkorva",
-		rarity: "Restricted",
-		weight: 1,
-		image: "viinat/kossu.jpg",
-		description: "",
-	},
+
 	{
 		name: "Leijona",
 		rarity: "Restricted",
@@ -70,17 +78,59 @@ export const boozeCase: CaseItem[] = [
 		description: "",
 	},
 	{
-		name: "Kaatoryyppy",
-		rarity: "Restricted",
-		weight: 1,
-		image: "viinat/kaatoryyppy.jpg",
-		description: "",
-	},
-	{
 		name: "Törni Viina",
 		rarity: "Restricted",
 		weight: 1,
 		image: "viinat/torni-viina.jpg",
+		description: "",
+	},
+	{
+		name: "762 Viina",
+		rarity: "Rare Special Item",
+		weight: 0.1,
+		image: "viinat/762-viina.jpg",
+		description: "",
+	},
+	{
+		name: "Puolustuslaitos",
+		rarity: "Rare Special Item",
+		weight: 1,
+		image: "viinat/puolustuslaitos.jpg",
+		description: "",
+	},
+	{
+		name: "Dry Vodka",
+		rarity: "Rare Special Item",
+		weight: 1,
+		image: "viinat/dry-vodka.jpg",
+		description: "",
+	},
+	{
+		name: "Saaremaa",
+		rarity: "Rare Special Item",
+		weight: 1,
+		image: "viinat/saaremaa.jpg",
+		description: "",
+	},
+	{
+		name: "Finlandia",
+		rarity: "Rare Special Item",
+		weight: 1,
+		image: "viinat/finlandia.jpg",
+		description: "",
+	},
+	{
+		name: "Smirnoff",
+		rarity: "Rare Special Item",
+		weight: 1,
+		image: "viinat/smirnoff.jpg",
+		description: "",
+	},
+	{
+		name: "Kyrö",
+		rarity: "Rare Special Item",
+		weight: 1,
+		image: "viinat/kyro.jpg",
 		description: "",
 	},
 ];
