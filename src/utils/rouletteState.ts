@@ -12,6 +12,7 @@ export interface RouletteState {
 export interface RouletteStates {
 	mapRoulette: RouletteState;
 	tacticsRoulette: RouletteState;
+	viinatRoulette: RouletteState;
 }
 
 const DEFAULT_STATE: RouletteState = {

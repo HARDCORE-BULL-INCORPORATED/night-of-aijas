@@ -4,6 +4,7 @@ import type { CaseItem } from "../components/roulette/types";
 import {
 	rouletteStateManager,
 	type RouletteState,
+	RouletteStates,
 } from "../utils/rouletteState";
 import {
 	decodeStateFromUrl,
@@ -12,7 +13,7 @@ import {
 } from "../utils/urlParams";
 
 export function useRouletteState(
-	rouletteType: "mapRoulette" | "tacticsRoulette",
+	rouletteType: keyof RouletteStates,
 	allMaps: CaseItem[],
 ) {
 	const [searchParams] = useSearchParams();
