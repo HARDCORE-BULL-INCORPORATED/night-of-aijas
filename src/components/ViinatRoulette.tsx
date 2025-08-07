@@ -6,51 +6,74 @@ import { useRouletteState } from "../hooks/useRouletteState";
 // Placeholder Finnish booze list
 export const boozeCase: CaseItem[] = [
   {
-    name: "Koskenkorva",
-    rarity: "Consumer",
-    weight: 1,
-    image: undefined,
-    description: "Classic Finnish vodka."
-  },
-  {
-    name: "Salmiakki",
-    rarity: "Industrial",
-    weight: 1,
-    image: undefined,
-    description: "Salty licorice liqueur."
-  },
-  {
-    name: "Minttu",
-    rarity: "Restricted",
-    weight: 1,
-    image: undefined,
-    description: "Peppermint schnapps."
-  },
-  {
-    name: "Jaloviina",
-    rarity: "Classified",
-    weight: 1,
-    image: undefined,
-    description: "Cut brandy."
-  },
-  {
-    name: "Leijona Viina",
-    rarity: "Covert",
-    weight: 1,
-    image: undefined,
-    description: "Strong spirit."
-  },
-  {
-    name: "Fisu",
+    name: "Koskenkorva Vodka 60% muovipullo",
     rarity: "Rare Special Item",
     weight: 1,
-    image: undefined,
-    description: "Fisherman's shot."
-  }
+    image: "/viinat/kossu-60.jpg",
+    description:
+      "https://www.alko.fi/tuotteet/946328/Koskenkorva-Vodka-60-muovipullo/",
+  },
+  {
+    name: "Tapio",
+    rarity: "Classified",
+    weight: 1,
+    image: "viinat/tapio-39.jpg",
+    description: "https://www.alko.fi/tuotteet/104527/",
+  },
+  {
+    name: "Sisuviina",
+    rarity: "Mil-spec",
+    weight: 1,
+    image: "viinat/sisuviina.jpg",
+    description: "",
+  },
+  {
+    name: "Suomi Viina",
+    rarity: "Mil-spec",
+    weight: 1,
+    image: "viinat/suomi-viina.jpg",
+    description: "",
+  },
+  {
+    name: "Saunalahden Viina",
+    rarity: "Consumer",
+    weight: 1,
+    image: "viinat/saunalahden-viina.jpg",
+    description: "",
+  },
+  {
+    name: "Koskenkorva",
+    rarity: "Restricted",
+    weight: 1,
+    image: "viinat/kossu.jpg",
+    description: "",
+  },
+  {
+    name: "Leijona",
+    rarity: "Restricted",
+    weight: 1,
+    image: "viinat/leijona.jpg",
+    description: "",
+  },
+  {
+    name: "Tasavalta",
+    rarity: "Mil-spec",
+    weight: 1,
+    image: "viinat/tasavalta.jpg",
+    description: "",
+  },
+  {
+    name: "Lithuanian Vodka Classic",
+    rarity: "Mil-spec",
+    weight: 1,
+    image: "viinat/tasavalta.jpg",
+    description: "",
+  },
 ];
 
 const ViinatRoulette: Component = () => {
-  const { activeMaps, wonItems, addWonItem, clearWonItems, setActiveMaps } = useRouletteState("viinatRoulette", boozeCase);
+  const { activeMaps, wonItems, addWonItem, clearWonItems, setActiveMaps } =
+    useRouletteState("viinatRoulette", boozeCase);
 
   const handleItemWon = (item: CaseItem): void => {
     addWonItem(item);
