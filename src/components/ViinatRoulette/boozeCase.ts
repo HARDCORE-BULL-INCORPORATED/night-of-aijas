@@ -1,40 +1,56 @@
 import type { CaseItem } from "../roulette/types";
 
-export const boozeCase: CaseItem[] = [
+// Type definitions for each rarity tier
+type ConsumerItem = CaseItem & { rarity: "Consumer" };
+type IndustrialItem = CaseItem & { rarity: "Industrial" };
+type MilSpecItem = CaseItem & { rarity: "Mil-spec" };
+
+type RestrictedItem = CaseItem & { rarity: "Restricted" };
+type ClassifiedItem = CaseItem & { rarity: "Classified" };
+type CovertItem = CaseItem & { rarity: "Covert" };
+type ContrabandItem = CaseItem & { rarity: "Contraband" };
+type RareSpecialItem = CaseItem & { rarity: "Rare Special Item" };
+
+const consumerGradeItems: ConsumerItem[] = [
 	{
-		name: "Koskenkorva Vodka 60%",
-		rarity: "Rare Special Item",
+		name: "Smirnoff",
+		rarity: "Consumer",
 		weight: 1,
-		image: "/viinat/kossu-60.jpg",
-		description:
-			"https://www.alko.fi/tuotteet/946328/Koskenkorva-Vodka-60-muovipullo/",
+		image: "viinat/smirnoff.jpg",
+		description: "",
+	},
+];
+
+const industrialGradeItems: IndustrialItem[] = [
+	{
+		name: "Kyrö",
+		rarity: "Industrial",
+		weight: 1,
+		image: "viinat/kyro.jpg",
+		description: "",
 	},
 	{
+		name: "Finlandia",
+		rarity: "Industrial",
+		weight: 1,
+		image: "viinat/finlandia.jpg",
+		description: "",
+	},
+];
+
+const milSpecItems: MilSpecItem[] = [
+	{
 		name: "Koskenkorva 38%",
-		rarity: "Restricted",
+		rarity: "Mil-spec",
 		weight: 1,
 		image: "viinat/koskenkorva-38.jpg",
 		description: "",
 	},
 	{
-		name: "Koskenkorva 40%",
-		rarity: "Covert",
-		weight: 1,
-		image: "viinat/koskenkorva-40.jpg",
-		description: "",
-	},
-	{
-		name: "Tapio",
-		rarity: "Classified",
-		weight: 1,
-		image: "viinat/tapio-39.jpg",
-		description: "https://www.alko.fi/tuotteet/104527/",
-	},
-	{
-		name: "Sisuviina",
+		name: "Leijona",
 		rarity: "Mil-spec",
 		weight: 1,
-		image: "viinat/sisuviina.jpg",
+		image: "viinat/leijona.jpg",
 		description: "",
 	},
 	{
@@ -46,87 +62,99 @@ export const boozeCase: CaseItem[] = [
 	},
 	{
 		name: "Saunalahden Viina",
-		rarity: "Consumer",
+		rarity: "Mil-spec",
 		weight: 1,
 		image: "viinat/saunalahden-viina.jpg",
 		description: "",
 	},
+];
 
-	{
-		name: "Leijona",
-		rarity: "Restricted",
-		weight: 1,
-		image: "viinat/leijona.jpg",
-		description: "",
-	},
-	{
-		name: "Tasavalta",
-		rarity: "Mil-spec",
-		weight: 1,
-		image: "viinat/tasavalta.jpg",
-		description: "",
-	},
-	{
-		name: "Lithuanian Vodka Classic",
-		rarity: "Contraband",
-		weight: 1,
-		image: "viinat/lithuanian-vodka-classic.jpg",
-		description: "",
-	},
-	{
-		name: "Törni Viina",
-		rarity: "Restricted",
-		weight: 1,
-		image: "viinat/torni-viina.jpg",
-		description: "",
-	},
-	{
-		name: "762 Viina",
-		rarity: "Rare Special Item",
-		weight: 0.1,
-		image: "viinat/762-viina.jpg",
-		description: "",
-	},
+const restrictedItems: RestrictedItem[] = [
 	{
 		name: "Puolustuslaitos",
-		rarity: "Rare Special Item",
+		rarity: "Restricted",
 		weight: 1,
 		image: "viinat/puolustuslaitos.jpg",
 		description: "",
 	},
 	{
+		name: "Koskenkorva 40%",
+		rarity: "Restricted",
+		weight: 1,
+		image: "viinat/koskenkorva-40.jpg",
+		description: "",
+	},
+];
+
+const classifiedItems: ClassifiedItem[] = [
+	{
+		name: "Sisuviina",
+		rarity: "Classified",
+		weight: 1,
+		image: "viinat/sisuviina.jpg",
+		description: "",
+	},
+	{
+		name: "Saaremaa",
+		rarity: "Classified",
+		weight: 1,
+		image: "viinat/saaremaa.jpg",
+		description: "",
+	},
+
+	{
+		name: "Tapio",
+		rarity: "Classified",
+		weight: 1,
+		image: "viinat/tapio-39.jpg",
+		description: "",
+	},
+];
+
+const covertItems: CovertItem[] = [
+	{
 		name: "Dry Vodka",
-		rarity: "Rare Special Item",
+		rarity: "Covert",
 		weight: 1,
 		image: "viinat/dry-vodka.jpg",
 		description: "",
 	},
 	{
-		name: "Saaremaa",
-		rarity: "Rare Special Item",
+		name: "Sisuviina",
+		rarity: "Covert",
 		weight: 1,
-		image: "viinat/saaremaa.jpg",
+		image: "viinat/sisuviina.jpg",
 		description: "",
 	},
+];
+
+const rareSpecialItems: RareSpecialItem[] = [
 	{
-		name: "Finlandia",
+		name: "Koskenkorva Vodka 60%",
 		rarity: "Rare Special Item",
 		weight: 1,
-		image: "viinat/finlandia.jpg",
+		image: "/viinat/kossu-60.jpg",
 		description: "",
 	},
+];
+
+const contrabandItems: ContrabandItem[] = [
 	{
-		name: "Smirnoff",
-		rarity: "Rare Special Item",
-		weight: 1,
-		image: "viinat/smirnoff.jpg",
-		description: "",
+		name: "762 Viina",
+		rarity: "Contraband",
+		weight: 0.08,
+		image: "viinat/762-viina.jpg",
+		description: "Onnittelut :D",
 	},
-	{
-		name: "Kyrö",
-		rarity: "Rare Special Item",
-		weight: 1,
-		image: "viinat/kyro.jpg",
-		description: "",
-	},
+];
+
+export const boozeCase: CaseItem[] = [
+	...consumerGradeItems,
+	...industrialGradeItems,
+	...milSpecItems,
+	...restrictedItems,
+	...classifiedItems,
+	...covertItems,
+	...rareSpecialItems,
+	...contrabandItems,
 ];
