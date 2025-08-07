@@ -164,6 +164,7 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
 					class={styles.modalContent}
 					aria-modal="true"
 					aria-labelledby="weightModalTitle"
+					{...({ closedby: undefined } as unknown as Record<string, unknown>)}
 				>
 					<div class={styles.modalHeader}>
 						<h2 id="weightModalTitle" class={styles.modalTitle}>

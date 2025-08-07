@@ -48,6 +48,7 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 					class={styles.modalContent}
 					aria-modal="true"
 					aria-labelledby="modalTitle"
+					{...({ closedby: undefined } as unknown as Record<string, unknown>)}
 				>
 					<div class={styles.modalHeader}>
 						<h2 id="modalTitle" class={styles.modalTitle}>
