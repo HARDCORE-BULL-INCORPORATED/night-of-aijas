@@ -7,6 +7,7 @@ import "./App.css";
 import MapRoulette from "./components/MapRoulette/MapRoulette";
 import TacticsRoulettePage from "./components/TacticsRoulettePage/TacticsRoulettePage";
 import PIEPINATOR from "./components/PIEPINATOR/PIEPINATOR";
+import Viinat from "./components/Viinat";
 
 const Layout: ParentComponent = (props) => {
 	return (
@@ -27,7 +28,8 @@ function App() {
 			<Route path="/tactics" component={TacticsRoulettePage} />
 			<Route path="/tactics/:map/:side" component={TacticsRoulettePage} />
 			<Route path="/roulette" component={MapRoulette} />
-			<Route path="/PIEP-I-NATOR" component={PIEPINATOR} />
+			{/* <Route path="/PIEP-I-NATOR" component={PIEPINATOR} /> */}
+			<Route path="/viinat" component={Viinat} />
 			<Route
 				path="*"
 				component={() => (

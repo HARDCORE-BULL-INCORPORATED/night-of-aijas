@@ -34,9 +34,14 @@ const Navigation: Component = () => {
 						<h2>MAPS</h2>
 					</A>
 				</li>
-				<li class={isActive("/PIEP-I-NATOR") ? "active" : ""}>
+				{/* <li class={isActive("/PIEP-I-NATOR") ? "active" : ""}>
 					<A href="/PIEP-I-NATOR">
 						<h2>PIEP-I-NATOR</h2>
+					</A>
+				</li> */}
+				<li class={isActive("/viinat") ? "active" : ""}>
+					<A href="/viinat">
+						<h2>Viinat</h2>
 					</A>
 				</li>
 			</ul>
