@@ -64,9 +64,23 @@ export const boozeCase: CaseItem[] = [
   },
   {
     name: "Lithuanian Vodka Classic",
-    rarity: "Mil-spec",
+    rarity: "Contraband",
     weight: 1,
-    image: "viinat/tasavalta.jpg",
+    image: "viinat/lithuanian-vodka-classic.jpg",
+    description: "",
+  },
+  {
+    name: "Kaatoryyppy",
+    rarity: "Restricted",
+    weight: 1,
+    image: "viinat/kaatoryyppy.jpg",
+    description: "",
+  },
+  {
+    name: "Törni Viina",
+    rarity: "Restricted",
+    weight: 1,
+    image: "viinat/torni-viina.jpg",
     description: "",
   },
 ];

@@ -17,6 +17,7 @@ export const RARITY_COLORS = {
 	"Classified": "#d32ce6",
 	"Covert": "#eb4b4b",
 	"Rare Special Item": "#e4ae39",
+	"Contraband": "#f19b1d",
 } as const;
 
 export interface RoulettePresetItemConfig<T extends string> {
