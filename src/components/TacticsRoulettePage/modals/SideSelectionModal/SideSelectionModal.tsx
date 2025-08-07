@@ -42,7 +42,8 @@ const SideSelectionModal: Component<SideSelectionModalProps> = (props) => {
 					open={props.isOpen}
 					aria-modal="true"
 					aria-labelledby="sideModalTitle"
-					{...({ closedby: undefined } as unknown as Record<string, unknown>)}
+					// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+					{...({ closedby: "none" } as any)}
 				>
 					<div class={styles.modalHeader}>
 						<h2 id="sideModalTitle" class={styles.modalTitle}>

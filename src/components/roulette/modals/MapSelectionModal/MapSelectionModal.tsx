@@ -81,7 +81,8 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 					class={styles.modalContent}
 					aria-modal="true"
 					aria-labelledby="modalTitle"
-					{...({ closedby: undefined } as unknown as Record<string, unknown>)}
+					// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+					{...({ closedby: "none" } as any)}
 				>
 					<div class={styles.modalHeader}>
 						<h2 id="modalTitle" class={styles.modalTitle}>

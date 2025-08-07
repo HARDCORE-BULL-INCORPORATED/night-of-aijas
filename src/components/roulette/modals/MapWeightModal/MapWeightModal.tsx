@@ -164,7 +164,8 @@ const MapWeightModal: Component<MapWeightModalProps> = (props) => {
 					class={styles.modalContent}
 					aria-modal="true"
 					aria-labelledby="weightModalTitle"
-					{...({ closedby: undefined } as unknown as Record<string, unknown>)}
+					// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+					{...({ closedby: "none" } as any)}
 				>
 					<div class={styles.modalHeader}>
 						<h2 id="weightModalTitle" class={styles.modalTitle}>
