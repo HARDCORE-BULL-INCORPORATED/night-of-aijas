@@ -1,10 +1,8 @@
 import type { CaseItem } from "../roulette/types";
 
-// Type definitions for each rarity tier
 type ConsumerItem = CaseItem & { rarity: "Consumer" };
 type IndustrialItem = CaseItem & { rarity: "Industrial" };
 type MilSpecItem = CaseItem & { rarity: "Mil-spec" };
-
 type RestrictedItem = CaseItem & { rarity: "Restricted" };
 type ClassifiedItem = CaseItem & { rarity: "Classified" };
 type CovertItem = CaseItem & { rarity: "Covert" };
@@ -123,7 +121,7 @@ const covertItems: CovertItem[] = [
 
 const rareSpecialItems: RareSpecialItem[] = [
 	{
-		name: "Koskenkorva Vodka 60%",
+		name: "Koskenkorva 60%",
 		rarity: "Rare Special Item",
 		weight: 0.5,
 		image: "/viinat/kossu-60.jpg",

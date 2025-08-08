@@ -13,8 +13,6 @@ interface TacticSelectionModalProps {
 }
 
 const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
-	// selectedNames state and related handlers (handleCheckboxChange, handleSelectAll, handleDeselectAll, createEffect) are removed.
-
 	const handleMapButtonClick = (mapName: string) => {
 		props.onSave([mapName]); // Save the single selected map
 		props.onClose(); // Close the modal
@@ -26,8 +24,17 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 		}
 	};
 
-	const firstRowMaps = () => props.allMaps.slice(0, 7);
-	const secondRowMaps = () => props.allMaps.slice(7, 14);
+	// Dynamic row generation - creates rows of 7 items each
+	const mapRows = () => {
+		const rows: CaseItem[][] = [];
+		const itemsPerRow = 7;
+		
+		for (let i = 0; i < props.allMaps.length; i += itemsPerRow) {
+			rows.push(props.allMaps.slice(i, i + itemsPerRow));
+		}
+		
+		return rows;
+	};
 
 	return (
 		<Show when={props.isOpen}>
@@ -66,48 +73,30 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 					</div>
 
 					<div class={styles.itemRowsContainer}>
-						<ul class={styles.itemListRow}>
-							<For each={firstRowMaps()}>
-								{(map) => (
-									<li class={styles.itemListItem}>
-										<button
-											type="button"
-											class={styles.mapButton}
-											onClick={() => handleMapButtonClick(map.name)}
-										>
-											<img
-												src={map.image}
-												alt={map.name}
-												class={styles.itemItemImage}
-											/>
-											<span class={styles.itemItemName}>{map.name}</span>
-										</button>
-									</li>
-								)}
-							</For>
-						</ul>
-						<Show when={secondRowMaps().length > 0}>
-							<ul class={styles.itemListRow}>
-								<For each={secondRowMaps()}>
-									{(map) => (
-										<li class={styles.itemListItem}>
-											<button
-												type="button"
-												class={styles.mapButton}
-												onClick={() => handleMapButtonClick(map.name)}
-											>
-												<img
-													src={map.image}
-													alt={map.name}
-													class={styles.itemItemImage}
-												/>
-												<span class={styles.itemItemName}>{map.name}</span>
-											</button>
-										</li>
-									)}
-								</For>
-							</ul>
-						</Show>
+						<For each={mapRows()}>
+							{(row) => (
+								<ul class={styles.itemListRow}>
+									<For each={row}>
+										{(map) => (
+											<li class={styles.itemListItem}>
+												<button
+													type="button"
+													class={styles.mapButton}
+													onClick={() => handleMapButtonClick(map.name)}
+												>
+													<img
+														src={map.image}
+														alt={map.name}
+														class={styles.itemItemImage}
+													/>
+													<span class={styles.itemItemName}>{map.name}</span>
+												</button>
+											</li>
+										)}
+									</For>
+								</ul>
+							)}
+						</For>
 					</div>
 
 					<div class={styles.modalActions}>
@@ -119,9 +108,8 @@ const TacticSelectionModal: Component<TacticSelectionModalProps> = (props) => {
 								props.onClose();
 							}}
 						>
-							Show All Tactics
+							All Tactics
 						</button>
-						{/* "Deselect All", "Select All", and "Save Changes" buttons are removed */}
 						<button
 							type="button"
 							class={`${styles.actionButton} ${styles.cancelButton}`}

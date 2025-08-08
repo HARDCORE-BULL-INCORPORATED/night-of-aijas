@@ -89,6 +89,18 @@ export const mapCase = [
 		rarity: "Classified",
 		weight: 1,
 	},
-] as const satisfies CaseItem[];
+	{
+		name: "Cobblestone",
+		image: "/maps/de_cobblestone.png",
+		rarity: "Mil-spec",
+		weight: 1,
+	},
+	{
+		name: "Cache",
+		image: "/maps/de_cache.png",
+		rarity: "Industrial",
+		weight: 1,
+	},
+] as const satisfies readonly CaseItem[];
 
 export type MapName = (typeof mapCase)[number]["name"];

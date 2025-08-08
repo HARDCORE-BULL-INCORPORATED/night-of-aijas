@@ -58,8 +58,17 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 		props.onSelectionChange?.([]);
 	};
 
-	const firstRowMaps = () => props.allMaps.slice(0, 7);
-	const secondRowMaps = () => props.allMaps.slice(7, 14);
+	// Dynamic row generation - creates rows of 7 items each
+	const mapRows = () => {
+		const rows: CaseItem[][] = [];
+		const itemsPerRow = 7;
+		
+		for (let i = 0; i < props.allMaps.length; i += itemsPerRow) {
+			rows.push(props.allMaps.slice(i, i + itemsPerRow));
+		}
+		
+		return rows;
+	};
 
 	return (
 		<Show when={props.isOpen}>
@@ -113,62 +122,37 @@ const MapSelectionModal: Component<MapSelectionModalProps> = (props) => {
 					</p>
 
 					<div class={styles.mapRowsContainer}>
-						<ul class={styles.mapListRow}>
-							<For each={firstRowMaps()}>
-								{(map) => (
-									<li class={styles.mapItem}>
-										<label>
-											<input
-												type="checkbox"
-												checked={selectedNames().includes(map.name)} // Changed to map.name
-												onChange={
-													(e) =>
-														handleCheckboxChange(
-															map.name,
-															e.currentTarget.checked,
-														) // Changed to map.name
-												}
-											/>
-											<img
-												src={map.image}
-												alt={map.name}
-												class={styles.mapItemImage}
-											/>
-											<span class={styles.mapItemName}>{map.name}</span>
-										</label>
-									</li>
-								)}
-							</For>
-						</ul>
-						<Show when={secondRowMaps().length > 0}>
-							<ul class={styles.mapListRow}>
-								<For each={secondRowMaps()}>
-									{(map) => (
-										<li class={styles.mapItem}>
-											<label>
-												<input
-													type="checkbox"
-													checked={selectedNames().includes(map.name)} // Changed to map.name
-													onChange={
-														(e) =>
-															handleCheckboxChange(
-																map.name,
-																e.currentTarget.checked,
-															) // Changed to map.name
-													}
-												/>
-												<img
-													src={map.image}
-													alt={map.name}
-													class={styles.mapItemImage}
-												/>
-												<span class={styles.mapItemName}>{map.name}</span>
-											</label>
-										</li>
-									)}
-								</For>
-							</ul>
-						</Show>
+						<For each={mapRows()}>
+							{(row) => (
+								<ul class={styles.mapListRow}>
+									<For each={row}>
+										{(map) => (
+											<li class={styles.mapItem}>
+												<label>
+													<input
+														type="checkbox"
+														checked={selectedNames().includes(map.name)} // Changed to map.name
+														onChange={
+															(e) =>
+																handleCheckboxChange(
+																	map.name,
+																	e.currentTarget.checked,
+																) // Changed to map.name
+														}
+													/>
+													<img
+														src={map.image}
+														alt={map.name}
+														class={styles.mapItemImage}
+													/>
+													<span class={styles.mapItemName}>{map.name}</span>
+												</label>
+											</li>
+										)}
+									</For>
+								</ul>
+							)}
+						</For>
 					</div>
 
 					<div class={styles.modalActions}>
