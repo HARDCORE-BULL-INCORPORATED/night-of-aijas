@@ -77,6 +77,13 @@ const restrictedItems: RestrictedItem[] = [
 		image: "viinat/koskenkorva-40.jpg",
 		description: "",
 	},
+	{
+		name: "Jallu",
+		rarity: "Restricted",
+		weight: 1,
+		image: "viinat/jallu.jpg",
+		description: "",
+	},
 ];
 
 const classifiedItems: ClassifiedItem[] = [
