@@ -81,7 +81,7 @@ const restrictedItems: RestrictedItem[] = [
 		name: "Jallu",
 		rarity: "Restricted",
 		weight: 1,
-		image: "viinat/jallu.jpg",
+		image: "viinat/jaloviina.jpg",
 		description: "",
 	},
 ];
